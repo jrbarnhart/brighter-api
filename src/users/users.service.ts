@@ -7,7 +7,7 @@ export class UsersService {
     password: process.env.ADMIN_PASSWORD,
   };
 
-  return() {
+  find() {
     return this.onlyUser;
   }
 }
