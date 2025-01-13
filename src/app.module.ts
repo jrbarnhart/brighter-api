@@ -6,9 +6,15 @@ import { logger } from './middleware/logger.middleware';
 import { CatsController } from './cats/cats.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [CatsModule, AuthModule, UsersModule],
+  imports: [
+    CatsModule,
+    AuthModule,
+    UsersModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
