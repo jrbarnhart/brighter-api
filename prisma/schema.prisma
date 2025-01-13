@@ -12,3 +12,16 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Region {
+  id    Int    @id @default(autoincrement())
+  name  String
+  rooms Room[]
+}
+
+model Room {
+  id       Int    @id @default(autoincrement())
+  name     String
+  region   Region @relation(fields: [regionId], references: [id])
+  regionId Int
+}
