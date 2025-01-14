@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { RegionsService } from './regions.service';
 import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
-import { createRegionSchema, CretaeRegionDto } from './dto/create-region.dto';
+import { createRegionSchema, CreateRegionDto } from './dto/create-region.dto';
 
 @Controller('regions')
 export class RegionsController {
@@ -18,7 +18,7 @@ export class RegionsController {
 
   @Post()
   @UsePipes(new ZodValidationPipe(createRegionSchema))
-  create(@Body() createRegionDto: CretaeRegionDto) {
+  create(@Body() createRegionDto: CreateRegionDto) {
     return this.regionsService.create(createRegionDto);
   }
 

@@ -5,4 +5,4 @@ export const createRegionSchema = z.object({
   roomIds: z.array(z.number().int().positive()),
 });
 
-export type CretaeRegionDto = z.infer<typeof createRegionSchema>;
+export type CreateRegionDto = z.infer<typeof createRegionSchema>;
