@@ -1,13 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Prisma, Region } from '@prisma/client';
+import { CretaeRegionDto } from './dto/create-region.dto';
 
 @Injectable()
 export class RegionsService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: Prisma.RegionCreateInput): Promise<Region> {
-    return this.prisma.region.create({ data });
+  create(data: CretaeRegionDto): Promise<Region> {
+    return this.prisma.region.create({
+      data: {
+        name: data.name,
+        rooms: { connect: data.roomIds.map((roomId) => ({ id: roomId })) },
+      },
+    });
   }
 
   findAll() {
