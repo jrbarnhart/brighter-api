@@ -4,9 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { Prisma, Region } from '@prisma/client';
+import { Region } from '@prisma/client';
 import { CreateRegionDto } from './dto/create-region.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { UpdateRegionDto } from './dto/update-region.dto';
 
 @Injectable()
 export class RegionsService {
@@ -17,7 +18,6 @@ export class RegionsService {
       return await this.prisma.region.create({
         data: {
           name: data.name,
-          rooms: { connect: data.roomIds.map((roomId) => ({ id: roomId })) },
         },
       });
     } catch (error) {
@@ -48,11 +48,51 @@ export class RegionsService {
     return foundRegion;
   }
 
-  update(id: number, data: Prisma.RegionUpdateInput): Promise<Region> {
-    return this.prisma.region.update({ where: { id }, data });
+  async update(id: number, updateRegionDto: UpdateRegionDto): Promise<Region> {
+    try {
+      return await this.prisma.region.update({
+        where: { id },
+        data: {
+          name: updateRegionDto.name,
+        },
+      });
+    } catch (error) {
+      // Handle specific Prisma error for unique constraints
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new BadRequestException('Validation failed', error.message);
+      }
+
+      // For any other error that we didn't explicitly handle
+      throw new BadRequestException('An unknown error occured');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} region`;
+  async remove(id: number) {
+    try {
+      const regionToDelete = await this.prisma.region.findUnique({
+        where: { id },
+        include: { rooms: true },
+      });
+
+      if (!regionToDelete) {
+        throw new NotFoundException('Record not found');
+      }
+
+      if (regionToDelete.rooms.length > 0) {
+        throw new BadRequestException(
+          'Regions that have rooms may not be deleted',
+        );
+      }
+
+      return this.prisma.region.delete({ where: { id } });
+    } catch (error) {
+      // Handle specific Prisma error for unique constraints
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new BadRequestException('Validation failed', error.message);
+      }
+
+      // For any other error that we didn't explicitly handle
+      throw new BadRequestException('An unknown error occured');
+    }
   }
 }

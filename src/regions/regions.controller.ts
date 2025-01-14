@@ -8,11 +8,13 @@ import {
   Delete,
   UsePipes,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { RegionsService } from './regions.service';
 import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { createRegionSchema, CreateRegionDto } from './dto/create-region.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { UpdateRegionDto, updateRegionSchema } from './dto/update-region.dto';
 
 @Controller('regions')
 export class RegionsController {
@@ -31,14 +33,19 @@ export class RegionsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.regionsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.regionsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
-  update(@Param('id') id: string, @Body() data: unknown) {
-    // return this.regionsService.update(data);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateRegionSchema))
+    updateRegionDto: UpdateRegionDto,
+  ) {
+    console.log(updateRegionDto);
+    return this.regionsService.update(id, updateRegionDto);
   }
 
   @Delete(':id')
