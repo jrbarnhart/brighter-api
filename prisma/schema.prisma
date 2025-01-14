@@ -15,7 +15,7 @@ datasource db {
 
 model Region {
   id    Int    @id @default(autoincrement())
-  name  String
+  name  String @unique
   rooms Room[]
 }
 
