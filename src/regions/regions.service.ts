@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRegionDto } from './dto/create-region.dto';
-import { UpdateRegionDto } from './dto/update-region.dto';
+import { PrismaService } from 'src/prisma.service';
+import { Prisma, Region } from '@prisma/client';
 
 @Injectable()
 export class RegionsService {
-  create(createRegionDto: CreateRegionDto) {
-    return 'This action adds a new region';
+  constructor(private prisma: PrismaService) {}
+
+  create(data: Prisma.RegionCreateInput): Promise<Region> {
+    return this.prisma.region.create({ data });
   }
 
   findAll() {
@@ -16,8 +18,8 @@ export class RegionsService {
     return `This action returns a #${id} region`;
   }
 
-  update(id: number, updateRegionDto: UpdateRegionDto) {
-    return `This action updates a #${id} region`;
+  update(id: number, data: Prisma.RegionUpdateInput): Promise<Region> {
+    return this.prisma.region.update({ where: { id }, data });
   }
 
   remove(id: number) {
