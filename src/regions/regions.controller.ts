@@ -36,11 +36,13 @@ export class RegionsController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   update(@Param('id') id: string, @Body() data: unknown) {
     // return this.regionsService.update(data);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   remove(@Param('id') id: string) {
     return this.regionsService.remove(+id);
   }

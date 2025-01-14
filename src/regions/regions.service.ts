@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Prisma, Region } from '@prisma/client';
 import { CreateRegionDto } from './dto/create-region.dto';
@@ -27,12 +31,21 @@ export class RegionsService {
     }
   }
 
-  findAll() {
-    return `This action returns all regions`;
+  findAll(): Promise<Region[]> {
+    return this.prisma.region.findMany({ include: { rooms: true } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} region`;
+  async findOne(id: number): Promise<Region> {
+    const foundRegion = await this.prisma.region.findUnique({
+      where: { id },
+      include: { rooms: true },
+    });
+
+    if (foundRegion === null) {
+      throw new NotFoundException();
+    }
+
+    return foundRegion;
   }
 
   update(id: number, data: Prisma.RegionUpdateInput): Promise<Region> {
