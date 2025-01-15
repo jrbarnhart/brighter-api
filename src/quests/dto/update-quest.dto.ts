@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateQuestDto } from './create-quest.dto';
+import { z } from 'zod';
 
-export class UpdateQuestDto extends PartialType(CreateQuestDto) {}
+export const updateQuestSchema = z.object({
+  name: z.string().optional(),
+});
+
+export type UpdateQuestDto = z.infer<typeof updateQuestSchema>;

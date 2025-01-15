@@ -263,7 +263,6 @@ model Quest {
 
 model QuestStep {
   id          Int    @id @default(autoincrement())
-  name        String
   index       Int
   description String
   quest       Quest  @relation(fields: [questId], references: [id])
