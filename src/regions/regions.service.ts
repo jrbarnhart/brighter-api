@@ -43,6 +43,15 @@ export class RegionsService {
   }
 
   async update(id: number, updateRegionDto: UpdateRegionDto): Promise<Region> {
+    const regionToUpdate = await this.prisma.region.findUnique({
+      where: { id },
+      include: { rooms: true },
+    });
+
+    if (!regionToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
     try {
       return await this.prisma.region.update({
         where: { id },
@@ -56,23 +65,23 @@ export class RegionsService {
   }
 
   async remove(id: number): Promise<Region> {
+    const regionToDelete = await this.prisma.region.findUnique({
+      where: { id },
+      include: { rooms: true },
+    });
+
+    if (!regionToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    if (regionToDelete.rooms.length > 0) {
+      throw new BadRequestException(
+        'Regions that have rooms may not be deleted',
+      );
+    }
+
     try {
-      const regionToDelete = await this.prisma.region.findUnique({
-        where: { id },
-        include: { rooms: true },
-      });
-
-      if (!regionToDelete) {
-        throw new NotFoundException('Record not found');
-      }
-
-      if (regionToDelete.rooms.length > 0) {
-        throw new BadRequestException(
-          'Regions that have rooms may not be deleted',
-        );
-      }
-
-      return this.prisma.region.delete({ where: { id } });
+      return await this.prisma.region.delete({ where: { id } });
     } catch (error) {
       throw prismaError(error);
     }
