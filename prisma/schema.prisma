@@ -14,14 +14,338 @@ datasource db {
 }
 
 model Region {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  rooms Room[]
+  id              Int              @id @default(autoincrement())
+  name            String           @unique
+  rooms           Room[]
+  combatSkills    CombatSkill[]
+  gatheringSkills GatheringSkill[]
+  craftingSkills  CraftingSkill[]
+  weapons         Weapon[]
+  armors          Armor[]
 }
 
 model Room {
-  id       Int    @id @default(autoincrement())
+  id            Int            @id @default(autoincrement())
+  name          String
+  region        Region         @relation(fields: [regionId], references: [id])
+  regionId      Int
+  craftingSpots CraftingSpot[]
+  monsters      Monster[]
+  npcs          NPC[]
+  resources     Resource[]
+  questSteps    QuestStep[]
+  portal        Portal?
+  banks         Bank[]
+  obelisk       Obelisk?
+}
+
+model CombatSkill {
+  id                Int                      @id @default(autoincrement())
+  name              String
+  region            Region                   @relation(fields: [regionId], references: [id])
+  regionId          Int
+  skillRequirements CombatSkillRequirement[]
+  monsters          Monster[]
+}
+
+model CombatSkillRequirement {
+  id             Int             @id @default(autoincrement())
+  name           String
+  skill          CombatSkill     @relation(fields: [skillId], references: [id])
+  skillId        Int
+  monsterVariant MonsterVariant?
+  unlockLevel    Int
+}
+
+model Monster {
+  id                Int              @id @default(autoincrement())
+  name              String
+  skill             CombatSkill      @relation(fields: [skillId], references: [id])
+  skillId           Int
+  rooms             Room[]
+  passive           Boolean
+  attackElement     Element
+  immuneElement     Element
+  vulnerableElement Element
+  variants          MonsterVariant[]
+}
+
+model MonsterVariant {
+  id            Int                    @id @default(autoincrement())
+  name          String
+  monster       Monster                @relation(fields: [monsterId], references: [id])
+  monsterId     Int
+  requirement   CombatSkillRequirement @relation(fields: [requirementId], references: [id])
+  requirementId Int                    @unique
+  dropTable     DropTable?
+}
+
+model DropTable {
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  monsterVariant     MonsterVariant      @relation(fields: [monsterVariantId], references: [id])
+  monsterVariantId   Int                 @unique
+  resourceVariants   ResourceVariant[]
+  weaponVariants     WeaponVariant[]
+  armorVariants      ArmorVariant[]
+  consumableVariants ConsumableVariant[]
+  currency           Int
+}
+
+model GatheringSkill {
+  id           Int                         @id @default(autoincrement())
+  name         String
+  region       Region                      @relation(fields: [regionId], references: [id])
+  regionId     Int
+  requirements GatheringSkillRequirement[]
+  resources    Resource[]
+}
+
+model GatheringSkillRequirement {
+  id              Int              @id @default(autoincrement())
+  name            String
+  skill           GatheringSkill   @relation(fields: [skillId], references: [id])
+  skillId         Int
+  resourceVariant ResourceVariant?
+  unlockLevel     Int
+}
+
+model Resource {
+  id       Int               @id @default(autoincrement())
   name     String
-  region   Region @relation(fields: [regionId], references: [id])
-  regionId Int
+  skill    GatheringSkill    @relation(fields: [skillId], references: [id])
+  skillId  Int
+  rooms    Room[]
+  passive  Boolean
+  variants ResourceVariant[]
+}
+
+model ResourceVariant {
+  id            Int                       @id @default(autoincrement())
+  name          String
+  requirement   GatheringSkillRequirement @relation(fields: [requirementId], references: [id])
+  requirementId Int                       @unique
+  inRecipes     CraftingRecipe[]
+  resource      Resource                  @relation(fields: [resourceId], references: [id])
+  resourceId    Int                       @unique
+  vendors       Vendor[]
+  dropTables    DropTable[]
+}
+
+model CraftingSkill {
+  id            Int                        @id @default(autoincrement())
+  name          String
+  region        Region                     @relation(fields: [regionId], references: [id])
+  regionId      Int
+  requirements  CraftingSkillRequirement[]
+  craftingSpots CraftingSpot[]
+}
+
+model CraftingSkillRequirement {
+  id          Int             @id @default(autoincrement())
+  name        String
+  skill       CraftingSkill   @relation(fields: [skillId], references: [id])
+  skillId     Int
+  recipe      CraftingRecipe?
+  unlockLevel Int
+}
+
+model CraftingRecipe {
+  id            Int                      @id @default(autoincrement())
+  name          String
+  requirement   CraftingSkillRequirement @relation(fields: [requirementId], references: [id])
+  requirementId Int                      @unique
+
+  inputResourceVariants ResourceVariant[]
+  inputItems            MiscItem[]
+
+  outputConsumableVariant ConsumableVariant?
+  outputWeaponVariant     WeaponVariant?
+  outputArmorVariant      ArmorVariant?
+}
+
+model CraftingSpot {
+  id      Int           @id @default(autoincrement())
+  name    String
+  skill   CraftingSkill @relation(fields: [skillId], references: [id])
+  skillId Int
+  room    Room          @relation(fields: [roomId], references: [id])
+  roomId  Int
+}
+
+model Weapon {
+  id          Int             @id @default(autoincrement())
+  name        String
+  region      Region          @relation(fields: [regionId], references: [id])
+  regionId    Int             @unique
+  faction     Faction
+  isRanged    Boolean
+  isTwoHanded Boolean
+  element     Element
+  speedMs     Int
+  variants    WeaponVariant[]
+}
+
+model WeaponVariant {
+  id         Int            @id @default(autoincrement())
+  name       String
+  weapon     Weapon         @relation(fields: [weaponId], references: [id])
+  weaponId   Int
+  recipe     CraftingRecipe @relation(fields: [recipeId], references: [id])
+  recipeId   Int            @unique
+  vendors    Vendor[]
+  dropTables DropTable[]
+}
+
+model Armor {
+  id       Int            @id @default(autoincrement())
+  name     String
+  region   Region         @relation(fields: [regionId], references: [id])
+  regionId Int            @unique
+  faction  Faction
+  slot     GearSlot
+  variants ArmorVariant[]
+}
+
+model ArmorVariant {
+  id         Int            @id @default(autoincrement())
+  name       String
+  armor      Armor          @relation(fields: [armorId], references: [id])
+  armorId    Int            @unique
+  recipe     CraftingRecipe @relation(fields: [recipeId], references: [id])
+  recipeId   Int            @unique
+  vendors    Vendor[]
+  dropTables DropTable[]
+}
+
+model Consumable {
+  id       Int                 @id @default(autoincrement())
+  name     String
+  variants ConsumableVariant[]
+}
+
+model ConsumableVariant {
+  id           Int            @id @default(autoincrement())
+  name         String
+  consumable   Consumable     @relation(fields: [consumableId], references: [id])
+  consumableId Int            @unique
+  recipe       CraftingRecipe @relation(fields: [recipeId], references: [id])
+  recipeId     Int            @unique
+  vendors      Vendor[]
+  dropTables   DropTable[]
+}
+
+model MiscItem {
+  id        Int              @id @default(autoincrement())
+  name      String
+  vendors   Vendor[]
+  inRecipes CraftingRecipe[]
+}
+
+model NPC {
+  id         Int         @id @default(autoincrement())
+  name       String
+  vendor     Vendor?
+  questSteps QuestStep[]
+  rooms      Room[]
+}
+
+model Vendor {
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  npc                NPC                 @relation(fields: [npcId], references: [id])
+  npcId              Int                 @unique
+  resourceVariants   ResourceVariant[]
+  consumableVariants ConsumableVariant[]
+  weaponVaraints     WeaponVariant[]
+  armorVariants      ArmorVariant[]
+  miscItems          MiscItem[]
+}
+
+model Quest {
+  id    Int         @id @default(autoincrement())
+  name  String
+  steps QuestStep[]
+}
+
+model QuestStep {
+  id          Int    @id @default(autoincrement())
+  name        String
+  index       Int
+  description String
+  quest       Quest  @relation(fields: [questId], references: [id])
+  questId     Int    @unique
+  room        Room   @relation(fields: [roomId], references: [id])
+  roomId      Int    @unique
+  npc         NPC    @relation(fields: [npcId], references: [id])
+  npcId       Int    @unique
+}
+
+model Portal {
+  id     Int    @id @default(autoincrement())
+  name   String
+  room   Room   @relation(fields: [roomId], references: [id])
+  roomId Int    @unique
+}
+
+model Bank {
+  id     Int      @id @default(autoincrement())
+  name   String
+  room   Room     @relation(fields: [roomId], references: [id])
+  roomId Int      @unique
+  type   BankType
+}
+
+model Obelisk {
+  id     Int    @id @default(autoincrement())
+  name   String
+  room   Room   @relation(fields: [roomId], references: [id])
+  roomId Int    @unique
+}
+
+enum Element {
+  ARBORAE
+  CRYONAE
+  INFERNAE
+  NECROMAE
+  TEMPESTAE
+  IMPACT
+  NONE
+}
+
+enum Faction {
+  CRYOKNIGHT
+  GUARDIAN
+  HAMMERMAGE
+  NONE
+}
+
+enum GearSlot {
+  HEAD
+  NECK
+  TORSO
+  BACK
+  HANDS
+  SHIELD
+  LEGS
+  FEET
+}
+
+enum BankType {
+  BONES
+  BUILDING
+  CAPES
+  EXPLOSIVES
+  BAIT
+  HIDES
+  INGREDIENTS
+  LEATHERS
+  LUMBER
+  MONUMENT
+  ORE
+  REAGENTS
+  POTIONS
+  QUARTERMASTER
+  STONE
+  TIMBER
 }
