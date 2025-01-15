@@ -6,8 +6,8 @@ import {
 import { PrismaService } from 'src/prisma.service';
 import { Region } from '@prisma/client';
 import { CreateRegionDto } from './dto/create-region.dto';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { UpdateRegionDto } from './dto/update-region.dto';
+import prismaError from 'src/validation/prismaError';
 
 @Injectable()
 export class RegionsService {
@@ -21,13 +21,7 @@ export class RegionsService {
         },
       });
     } catch (error) {
-      // Handle specific Prisma error for unique constraints
-      if (error instanceof PrismaClientKnownRequestError) {
-        throw new BadRequestException('Validation failed');
-      }
-
-      // For any other error that we didn't explicitly handle
-      throw new BadRequestException('An unknown error occured');
+      throw prismaError(error);
     }
   }
 
@@ -57,17 +51,11 @@ export class RegionsService {
         },
       });
     } catch (error) {
-      // Handle specific Prisma error for unique constraints
-      if (error instanceof PrismaClientKnownRequestError) {
-        throw new BadRequestException('Validation failed', error.message);
-      }
-
-      // For any other error that we didn't explicitly handle
-      throw new BadRequestException('An unknown error occured');
+      throw prismaError(error);
     }
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<Region> {
     try {
       const regionToDelete = await this.prisma.region.findUnique({
         where: { id },
@@ -86,13 +74,7 @@ export class RegionsService {
 
       return this.prisma.region.delete({ where: { id } });
     } catch (error) {
-      // Handle specific Prisma error for unique constraints
-      if (error instanceof PrismaClientKnownRequestError) {
-        throw new BadRequestException('Validation failed', error.message);
-      }
-
-      // For any other error that we didn't explicitly handle
-      throw new BadRequestException('An unknown error occured');
+      throw prismaError(error);
     }
   }
 }
