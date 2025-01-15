@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateNpcDto } from './create-npc.dto';
+import { z } from 'zod';
 
-export class UpdateNpcDto extends PartialType(CreateNpcDto) {}
+export const updateNpcSchema = z.object({
+  name: z.string().optional(),
+});
+
+export type UpdateNpcDto = z.infer<typeof updateNpcSchema>;
