@@ -16,6 +16,8 @@ import { CreateArmorDto } from './dto/armor/create-armor.dto';
 import { UpdateArmorDto } from './dto/armor/update-armor.dto';
 import { CreateArmorVariantDto } from './dto/armor/create-armor-variant.dto';
 import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
+import { CreateMiscItemDto } from './dto/miscItem/create-misc-item.dto';
+import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
 
 @Injectable()
 export class ItemsService {
@@ -199,4 +201,23 @@ export class ItemsService {
   }
 
   // Misc Items
+  createMiscItem(createMiscItemDto: CreateMiscItemDto) {
+    return 'This action adds a new misc item';
+  }
+
+  findAllMiscItem() {
+    return `This action returns all misc items`;
+  }
+
+  findOneMiscItem(id: number) {
+    return `This action returns a #${id} misc item`;
+  }
+
+  updateMiscItem(id: number, updateMiscItemDto: UpdateMiscItemDto) {
+    return `This action updates a #${id} misc item`;
+  }
+
+  removeMiscItem(id: number) {
+    return `This action removes a #${id} misc item`;
+  }
 }

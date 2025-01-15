@@ -26,6 +26,8 @@ import { CreateArmorDto } from './dto/armor/create-armor.dto';
 import { UpdateArmorDto } from './dto/armor/update-armor.dto';
 import { CreateArmorVariantDto } from './dto/armor/create-armor-variant.dto';
 import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
+import { CreateMiscItemDto } from './dto/miscItem/create-misc-item.dto';
+import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -287,5 +289,41 @@ export class ItemsController {
     return this.itemsService.updateArmor(+id, updateArmorDto);
   }
 
+  @Delete('armor/:id')
+  @UseGuards(AuthGuard)
+  removeArmor(@Param('id') id: string) {
+    return this.itemsService.removeArmor(+id);
+  }
+
   // Misc Items
+  @Post('misc')
+  @UseGuards(AuthGuard)
+  createMiscItem(@Body() createMiscItemDto: CreateMiscItemDto) {
+    return this.itemsService.createMiscItem(createMiscItemDto);
+  }
+
+  @Get('misc')
+  findAllMiscItems() {
+    return this.itemsService.findAllMiscItem();
+  }
+
+  @Get('misc/:id')
+  findOneMiscItem(@Param('id') id: string) {
+    return this.itemsService.findOneMiscItem(+id);
+  }
+
+  @Patch('misc/:id')
+  @UseGuards(AuthGuard)
+  updateMiscItem(
+    @Param('id') id: string,
+    @Body() updateMiscItemDto: UpdateMiscItemDto,
+  ) {
+    return this.itemsService.updateMiscItem(+id, updateMiscItemDto);
+  }
+
+  @Delete('misc/:id')
+  @UseGuards(AuthGuard)
+  removeMiscItem(@Param('id') id: string) {
+    return this.itemsService.removeMiscItem(+id);
+  }
 }
