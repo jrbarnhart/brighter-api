@@ -8,7 +8,6 @@ import { RegionsModule } from './regions/regions.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { SkillsModule } from './skills/skills.module';
 import { MonstersModule } from './monsters/monsters.module';
-import { ResourcesModule } from './resources/resources.module';
 import { ItemsModule } from './items/items.module';
 import { NpcsModule } from './npcs/npcs.module';
 import { QuestsModule } from './quests/quests.module';
@@ -21,9 +20,8 @@ import { QuestsModule } from './quests/quests.module';
     RegionsModule,
     RoomsModule,
     SkillsModule,
-    MonstersModule,
-    ResourcesModule,
     ItemsModule,
+    MonstersModule,
     NpcsModule,
     QuestsModule,
   ],
