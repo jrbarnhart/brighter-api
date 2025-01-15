@@ -32,9 +32,9 @@ model Room {
   npcs          NPC[]
   resources     Resource[]
   questSteps    QuestStep[]
-  portal        Portal?
   banks         Bank[]
-  obelisk       Obelisk?
+  portal        Boolean        @default(false)
+  obelisk       Boolean        @default(false)
 }
 
 model CombatSkill {
@@ -273,26 +273,12 @@ model QuestStep {
   npcId       Int?   @unique
 }
 
-model Portal {
-  id     Int    @id @default(autoincrement())
-  name   String
-  room   Room   @relation(fields: [roomId], references: [id])
-  roomId Int    @unique
-}
-
 model Bank {
   id     Int      @id @default(autoincrement())
   name   String
   room   Room     @relation(fields: [roomId], references: [id])
   roomId Int      @unique
   type   BankType
-}
-
-model Obelisk {
-  id     Int    @id @default(autoincrement())
-  name   String
-  room   Room   @relation(fields: [roomId], references: [id])
-  roomId Int    @unique
 }
 
 enum Element {

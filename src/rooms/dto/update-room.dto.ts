@@ -1,4 +1,16 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateRoomDto } from './create-room.dto';
+import { z } from 'zod';
 
-export class UpdateRoomDto extends PartialType(CreateRoomDto) {}
+export const updateRoomSchema = z.object({
+  name: z.string().optional(),
+  regionId: z.number().int().positive().optional(),
+  craftingSpotIds: z.array(z.number().int().positive()).optional(),
+  monsterIds: z.array(z.number().int().positive()).optional(),
+  npcIds: z.array(z.number().int().positive()).optional(),
+  resourceIds: z.array(z.number().int().positive()).optional(),
+  questStepIds: z.array(z.number().int().positive()).optional(),
+  bankIds: z.array(z.number().int().positive()).optional(),
+  portalId: z.boolean().optional(),
+  obeliskId: z.boolean().optional(),
+});
+
+export type UpdateRoomDto = z.infer<typeof updateRoomSchema>;
