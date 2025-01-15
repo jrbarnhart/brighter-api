@@ -13,6 +13,10 @@ import { CreateResourceDto } from './dto/resource/create-resource.dto';
 import { UpdateResourceDto } from './dto/resource/update-resource.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateResourceVariantDto } from './dto/resource/create-resource-variant.dto';
+import { CreateConsumableVariantDto } from './dto/consumable/create-consumable-variant.dto';
+import { UpdateConsumableDto } from './dto/consumable/update-consumable.dto';
+import { CreateConsumableDto } from './dto/consumable/create-consumable.dto';
+import { UpdateConsumableVariantDto } from './dto/consumable/update-consumable-variant.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -85,8 +89,75 @@ export class ItemsController {
   }
 
   // Consumable Variants
+  @Post('consumables/variants')
+  @UseGuards(AuthGuard)
+  createConsumableVariant(
+    @Body() createConsumableVariantDto: CreateConsumableVariantDto,
+  ) {
+    return this.itemsService.createConsumableVariant(
+      createConsumableVariantDto,
+    );
+  }
+
+  @Get('consumables/variants')
+  findAllConsumableVariants() {
+    return this.itemsService.findAllConsumableVariants();
+  }
+
+  @Get('consumables/variants/:id')
+  findOneConsumableVariant(@Param('id') id: string) {
+    return this.itemsService.findOneConsumableVariant(+id);
+  }
+
+  @Patch('consumables/variants/:id')
+  @UseGuards(AuthGuard)
+  updateConsumableVariant(
+    @Param('id') id: string,
+    @Body() updateConsumableVariantDto: UpdateConsumableVariantDto,
+  ) {
+    return this.itemsService.updateConsumableVariant(
+      +id,
+      updateConsumableVariantDto,
+    );
+  }
+
+  @Delete('consumables/variants/:id')
+  @UseGuards(AuthGuard)
+  removeConsumableVariant(@Param('id') id: string) {
+    return this.itemsService.removeConsumableVariant(+id);
+  }
 
   // Consumables
+  @Post('consumables')
+  @UseGuards(AuthGuard)
+  createConsumable(@Body() createConsumableDto: CreateConsumableDto) {
+    return this.itemsService.createConsumable(createConsumableDto);
+  }
+
+  @Get('consumables')
+  findAllConsumables() {
+    return this.itemsService.findAllConsumables();
+  }
+
+  @Get('consumables/:id')
+  findOneConsumable(@Param('id') id: string) {
+    return this.itemsService.findOneConsumable(+id);
+  }
+
+  @Patch('consumables/:id')
+  @UseGuards(AuthGuard)
+  updateConsumable(
+    @Param('id') id: string,
+    @Body() updateConsumableDto: UpdateConsumableDto,
+  ) {
+    return this.itemsService.updateConsumable(+id, updateConsumableDto);
+  }
+
+  @Delete('consumables/:id')
+  @UseGuards(AuthGuard)
+  removeConsumable(@Param('id') id: string) {
+    return this.itemsService.removeConsumable(+id);
+  }
 
   // Weapon Variants
 
