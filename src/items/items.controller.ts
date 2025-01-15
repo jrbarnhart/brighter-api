@@ -6,40 +6,54 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('items')
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
-  @Post('resource')
+  // Resources
+  @Post('resources')
+  @UseGuards(AuthGuard)
   create(@Body() createItemDto: CreateResourceDto) {
-    return this.itemsService.create(createItemDto);
+    return this.itemsService.createResource(createItemDto);
   }
 
-  @Get()
+  @Get('resources')
   findAll() {
-    return this.itemsService.findAll();
+    return this.itemsService.findAllResources();
   }
 
-  @Get(':id')
+  @Get('resources/:id')
   findOne(@Param('id') id: string) {
-    return this.itemsService.findOne(+id);
+    return this.itemsService.findOneResource(+id);
   }
 
-  @Patch('resource:id')
+  @Patch('resources/:id')
+  @UseGuards(AuthGuard)
   update(
     @Param('id') id: string,
     @Body() updateResourceDto: UpdateResourceDto,
   ) {
-    return this.itemsService.update(+id, updateResourceDto);
+    return this.itemsService.updateResource(+id, updateResourceDto);
   }
 
-  @Delete(':id')
+  @Delete('resources/:id')
+  @UseGuards(AuthGuard)
   remove(@Param('id') id: string) {
-    return this.itemsService.remove(+id);
+    return this.itemsService.removeResource(+id);
   }
+
+  // Consumables
+
+  // Weapons
+
+  // Armor
+
+  // Misc Items
 }

@@ -4,23 +4,32 @@ import { UpdateResourceDto } from './dto/update-resource.dto';
 
 @Injectable()
 export class ItemsService {
-  create(createResourceDto: CreateResourceDto) {
+  // Resources
+  createResource(createResourceDto: CreateResourceDto) {
     return 'This action adds a new item';
   }
 
-  findAll() {
+  findAllResources() {
     return `This action returns all items`;
   }
 
-  findOne(id: number) {
+  findOneResource(id: number) {
     return `This action returns a #${id} item`;
   }
 
-  update(id: number, updateResourceDto: UpdateResourceDto) {
+  updateResource(id: number, updateResourceDto: UpdateResourceDto) {
     return `This action updates a #${id} item`;
   }
 
-  remove(id: number) {
+  removeResource(id: number) {
     return `This action removes a #${id} item`;
   }
+
+  // Consumables
+
+  // Weapons
+
+  // Armor
+
+  // Misc Items
 }
