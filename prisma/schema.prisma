@@ -20,8 +20,6 @@ model Region {
   combatSkills    CombatSkill[]
   gatheringSkills GatheringSkill[]
   craftingSkills  CraftingSkill[]
-  weapons         Weapon[]
-  armors          Armor[]
 }
 
 model Room {
@@ -176,8 +174,6 @@ model CraftingSpot {
 model Weapon {
   id          Int             @id @default(autoincrement())
   name        String
-  region      Region          @relation(fields: [regionId], references: [id])
-  regionId    Int             @unique
   faction     Faction
   isRanged    Boolean
   isTwoHanded Boolean
@@ -199,8 +195,6 @@ model WeaponVariant {
 model Armor {
   id       Int            @id @default(autoincrement())
   name     String
-  region   Region         @relation(fields: [regionId], references: [id])
-  regionId Int            @unique
   faction  Faction
   slot     GearSlot
   variants ArmorVariant[]

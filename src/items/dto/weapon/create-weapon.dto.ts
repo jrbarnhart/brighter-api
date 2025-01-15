@@ -3,7 +3,6 @@ import { z } from 'zod';
 
 export const createWeaponSchema = z.object({
   name: z.string(),
-  regionId: z.number().int().positive(),
   faction: zFACTION,
   isRanged: z.boolean(),
   isTwoHanded: z.boolean(),
