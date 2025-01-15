@@ -8,15 +8,20 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { ItemsService } from './items.service';
 import { CreateResourceDto } from './dto/resource/create-resource.dto';
 import { UpdateResourceDto } from './dto/resource/update-resource.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateResourceVariantDto } from './dto/resource/create-resource-variant.dto';
-import { CreateConsumableVariantDto } from './dto/consumable/create-consumable-variant.dto';
-import { UpdateConsumableDto } from './dto/consumable/update-consumable.dto';
+import { UpdateResourceVariantDto } from './dto/resource/update-resource-variant.dto';
 import { CreateConsumableDto } from './dto/consumable/create-consumable.dto';
+import { UpdateConsumableDto } from './dto/consumable/update-consumable.dto';
+import { CreateConsumableVariantDto } from './dto/consumable/create-consumable-variant.dto';
 import { UpdateConsumableVariantDto } from './dto/consumable/update-consumable-variant.dto';
+import { CreateWeaponDto } from './dto/weapon/create-weapon.dto';
+import { UpdateWeaponDto } from './dto/weapon/update-weapon.dto';
+import { CreateWeaponVariantDto } from './dto/weapon/create-weapon-variant.dto';
+import { UpdateWeaponVariantDto } from './dto/weapon/update-weapon-variant.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -45,7 +50,7 @@ export class ItemsController {
   @UseGuards(AuthGuard)
   updateResourceVariant(
     @Param('id') id: string,
-    @Body() updateResourceDto: UpdateResourceDto,
+    @Body() updateResourceDto: UpdateResourceVariantDto,
   ) {
     return this.itemsService.updateResourceVariant(+id, updateResourceDto);
   }
@@ -160,8 +165,68 @@ export class ItemsController {
   }
 
   // Weapon Variants
+  @Post('weapons/variants')
+  @UseGuards(AuthGuard)
+  createWeaponVariant(@Body() createWeaponVariantDto: CreateWeaponVariantDto) {
+    return this.itemsService.createWeaponVariant(createWeaponVariantDto);
+  }
+
+  @Get('weapons/variants')
+  findAllWeaponVariants() {
+    return this.itemsService.findAllWeaponVariants();
+  }
+
+  @Get('weapons/variants/:id')
+  findOneWeaponVariant(@Param('id') id: string) {
+    return this.itemsService.findOneWeaponVariant(+id);
+  }
+
+  @Patch('weapons/variants/:id')
+  @UseGuards(AuthGuard)
+  updateWeaponVariant(
+    @Param('id') id: string,
+    @Body() updateWeaponVariantDto: UpdateWeaponVariantDto,
+  ) {
+    return this.itemsService.updateWeaponVariant(+id, updateWeaponVariantDto);
+  }
+
+  @Delete('weapons/variants/:id')
+  @UseGuards(AuthGuard)
+  removeWeaponVariant(@Param('id') id: string) {
+    return this.itemsService.removeWeaponVariant(+id);
+  }
 
   // Weapons
+  @Post('weapons')
+  @UseGuards(AuthGuard)
+  createWeapon(@Body() createWeaponDto: CreateWeaponDto) {
+    return this.itemsService.createWeapon(createWeaponDto);
+  }
+
+  @Get('weapons')
+  findAllWeapons() {
+    return this.itemsService.findAllWeapons();
+  }
+
+  @Get('weapons/:id')
+  findOneWeapon(@Param('id') id: string) {
+    return this.itemsService.findOneWeapon(+id);
+  }
+
+  @Patch('weapons/:id')
+  @UseGuards(AuthGuard)
+  updateWeapon(
+    @Param('id') id: string,
+    @Body() updateWeaponDto: UpdateWeaponDto,
+  ) {
+    return this.itemsService.updateWeapon(+id, updateWeaponDto);
+  }
+
+  @Delete('weapons/:id')
+  @UseGuards(AuthGuard)
+  removeWeapon(@Param('id') id: string) {
+    return this.itemsService.removeWeapon(+id);
+  }
 
   // Armor Variants
 
