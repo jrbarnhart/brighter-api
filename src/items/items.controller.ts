@@ -9,8 +9,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
-import { CreateResourceDto } from './dto/create-resource.dto';
-import { UpdateResourceDto } from './dto/update-resource.dto';
+import { CreateResourceDto } from './dto/resource/create-resource.dto';
+import { UpdateResourceDto } from './dto/resource/update-resource.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('items')
