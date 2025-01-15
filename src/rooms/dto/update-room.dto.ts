@@ -9,8 +9,8 @@ export const updateRoomSchema = z.object({
   resourceIds: z.array(z.number().int().positive()).optional(),
   questStepIds: z.array(z.number().int().positive()).optional(),
   bankIds: z.array(z.number().int().positive()).optional(),
-  portalId: z.boolean().optional(),
-  obeliskId: z.boolean().optional(),
+  portal: z.boolean().optional(),
+  obelisk: z.boolean().optional(),
 });
 
 export type UpdateRoomDto = z.infer<typeof updateRoomSchema>;
