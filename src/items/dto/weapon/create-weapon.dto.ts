@@ -1,7 +1,7 @@
 import { zELEMENT, zFACTION } from 'src/zod/enums';
 import { z } from 'zod';
 
-export const updateWeaponSchema = z.object({
+export const createWeaponSchema = z.object({
   name: z.string(),
   regionId: z.number().int().positive(),
   faction: zFACTION,
@@ -10,4 +10,4 @@ export const updateWeaponSchema = z.object({
   element: zELEMENT,
 });
 
-export type UpdateWeaponDto = z.infer<typeof updateWeaponSchema>;
+export type CreateWeaponDto = z.infer<typeof createWeaponSchema>;
