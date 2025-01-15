@@ -71,12 +71,12 @@ model Monster {
 }
 
 model MonsterVariant {
-  id            Int                    @id @default(autoincrement())
+  id            Int                     @id @default(autoincrement())
   name          String
-  monster       Monster                @relation(fields: [monsterId], references: [id])
+  monster       Monster                 @relation(fields: [monsterId], references: [id])
   monsterId     Int
-  requirement   CombatSkillRequirement @relation(fields: [requirementId], references: [id])
-  requirementId Int                    @unique
+  requirement   CombatSkillRequirement? @relation(fields: [requirementId], references: [id])
+  requirementId Int?                    @unique
   dropTable     DropTable?
 }
 
@@ -121,13 +121,13 @@ model Resource {
 }
 
 model ResourceVariant {
-  id            Int                       @id @default(autoincrement())
+  id            Int                        @id @default(autoincrement())
   name          String
-  requirement   GatheringSkillRequirement @relation(fields: [requirementId], references: [id])
-  requirementId Int                       @unique
+  resource      Resource                   @relation(fields: [resourceId], references: [id])
+  resourceId    Int                        @unique
+  requirement   GatheringSkillRequirement? @relation(fields: [requirementId], references: [id])
+  requirementId Int?                       @unique
   inRecipes     CraftingRecipe[]
-  resource      Resource                  @relation(fields: [resourceId], references: [id])
-  resourceId    Int                       @unique
   vendors       Vendor[]
   dropTables    DropTable[]
 }
@@ -169,8 +169,8 @@ model CraftingSpot {
   name    String
   skill   CraftingSkill @relation(fields: [skillId], references: [id])
   skillId Int
-  room    Room          @relation(fields: [roomId], references: [id])
-  roomId  Int
+  room    Room?         @relation(fields: [roomId], references: [id])
+  roomId  Int?
 }
 
 model Weapon {
@@ -182,17 +182,16 @@ model Weapon {
   isRanged    Boolean
   isTwoHanded Boolean
   element     Element
-  speedMs     Int
   variants    WeaponVariant[]
 }
 
 model WeaponVariant {
-  id         Int            @id @default(autoincrement())
+  id         Int             @id @default(autoincrement())
   name       String
-  weapon     Weapon         @relation(fields: [weaponId], references: [id])
+  weapon     Weapon          @relation(fields: [weaponId], references: [id])
   weaponId   Int
-  recipe     CraftingRecipe @relation(fields: [recipeId], references: [id])
-  recipeId   Int            @unique
+  recipe     CraftingRecipe? @relation(fields: [recipeId], references: [id])
+  recipeId   Int?            @unique
   vendors    Vendor[]
   dropTables DropTable[]
 }
@@ -208,12 +207,12 @@ model Armor {
 }
 
 model ArmorVariant {
-  id         Int            @id @default(autoincrement())
+  id         Int             @id @default(autoincrement())
   name       String
-  armor      Armor          @relation(fields: [armorId], references: [id])
-  armorId    Int            @unique
-  recipe     CraftingRecipe @relation(fields: [recipeId], references: [id])
-  recipeId   Int            @unique
+  armor      Armor           @relation(fields: [armorId], references: [id])
+  armorId    Int             @unique
+  recipe     CraftingRecipe? @relation(fields: [recipeId], references: [id])
+  recipeId   Int?            @unique
   vendors    Vendor[]
   dropTables DropTable[]
 }
@@ -225,12 +224,12 @@ model Consumable {
 }
 
 model ConsumableVariant {
-  id           Int            @id @default(autoincrement())
+  id           Int             @id @default(autoincrement())
   name         String
-  consumable   Consumable     @relation(fields: [consumableId], references: [id])
-  consumableId Int            @unique
-  recipe       CraftingRecipe @relation(fields: [recipeId], references: [id])
-  recipeId     Int            @unique
+  consumable   Consumable      @relation(fields: [consumableId], references: [id])
+  consumableId Int             @unique
+  recipe       CraftingRecipe? @relation(fields: [recipeId], references: [id])
+  recipeId     Int?            @unique
   vendors      Vendor[]
   dropTables   DropTable[]
 }
@@ -275,10 +274,10 @@ model QuestStep {
   description String
   quest       Quest  @relation(fields: [questId], references: [id])
   questId     Int    @unique
-  room        Room   @relation(fields: [roomId], references: [id])
-  roomId      Int    @unique
-  npc         NPC    @relation(fields: [npcId], references: [id])
-  npcId       Int    @unique
+  room        Room?  @relation(fields: [roomId], references: [id])
+  roomId      Int?   @unique
+  npc         NPC?   @relation(fields: [npcId], references: [id])
+  npcId       Int?   @unique
 }
 
 model Portal {
