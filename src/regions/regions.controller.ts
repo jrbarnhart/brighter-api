@@ -44,7 +44,6 @@ export class RegionsController {
     @Body(new ZodValidationPipe(updateRegionSchema))
     updateRegionDto: UpdateRegionDto,
   ) {
-    console.log(updateRegionDto);
     return this.regionsService.update(id, updateRegionDto);
   }
 
