@@ -1,26 +1,54 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { CreateMonsterDto } from './dto/create-monster.dto';
 import { UpdateMonsterDto } from './dto/update-monster.dto';
+import { CreateMonsterVariantDto } from './dto/create-monster-variant.dto';
+import { UpdateMonsterVariantDto } from './dto/update-monster-variant.dto';
 
 @Injectable()
 export class MonstersService {
-  create(createMonsterDto: CreateMonsterDto) {
+  // Monsters
+  createMonster(createMonsterDto: CreateMonsterDto) {
     return 'This action adds a new monster';
   }
 
-  findAll() {
+  findAllMonsters() {
     return `This action returns all monsters`;
   }
 
-  findOne(id: number) {
+  findOneMonster(id: number) {
     return `This action returns a #${id} monster`;
   }
 
-  update(id: number, updateMonsterDto: UpdateMonsterDto) {
+  updateMonster(id: number, updateMonsterDto: UpdateMonsterDto) {
     return `This action updates a #${id} monster`;
   }
 
-  remove(id: number) {
+  removeMonster(id: number) {
     return `This action removes a #${id} monster`;
+  }
+
+  // Monster Variants
+  createMonsterVariant(createMonsterVariantDto: CreateMonsterVariantDto) {
+    return 'This action adds a new monster variant';
+  }
+
+  findAllMonsterVariants() {
+    return `This action returns all monster variants`;
+  }
+
+  findOneMonsterVariant(id: number) {
+    return `This action returns a #${id} monster variant`;
+  }
+
+  updateMonsterVariant(
+    id: number,
+    updateMonsterVariantDto: UpdateMonsterVariantDto,
+  ) {
+    return `This action updates a #${id} monster variant`;
+  }
+
+  removeMonsterVariant(id: number) {
+    return `This action removes a #${id} monster variant`;
   }
 }
