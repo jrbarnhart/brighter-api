@@ -48,7 +48,7 @@ model CombatSkill {
 
 model CombatSkillRequirement {
   id             Int             @id @default(autoincrement())
-  name           String
+  description    String?
   skill          CombatSkill     @relation(fields: [skillId], references: [id])
   skillId        Int
   monsterVariant MonsterVariant?
@@ -101,7 +101,7 @@ model GatheringSkill {
 
 model GatheringSkillRequirement {
   id              Int              @id @default(autoincrement())
-  name            String
+  description     String?
   skill           GatheringSkill   @relation(fields: [skillId], references: [id])
   skillId         Int
   resourceVariant ResourceVariant?
@@ -141,7 +141,7 @@ model CraftingSkill {
 
 model CraftingSkillRequirement {
   id          Int             @id @default(autoincrement())
-  name        String
+  description String?
   skill       CraftingSkill   @relation(fields: [skillId], references: [id])
   skillId     Int
   recipe      CraftingRecipe?
