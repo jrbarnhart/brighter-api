@@ -22,6 +22,10 @@ import { CreateWeaponDto } from './dto/weapon/create-weapon.dto';
 import { UpdateWeaponDto } from './dto/weapon/update-weapon.dto';
 import { CreateWeaponVariantDto } from './dto/weapon/create-weapon-variant.dto';
 import { UpdateWeaponVariantDto } from './dto/weapon/update-weapon-variant.dto';
+import { CreateArmorDto } from './dto/armor/create-armor.dto';
+import { UpdateArmorDto } from './dto/armor/update-armor.dto';
+import { CreateArmorVariantDto } from './dto/armor/create-armor-variant.dto';
+import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -229,8 +233,59 @@ export class ItemsController {
   }
 
   // Armor Variants
+  @Post('armor/variants')
+  @UseGuards(AuthGuard)
+  createArmorVariant(@Body() createArmorVariantDto: CreateArmorVariantDto) {
+    return this.itemsService.createArmorVariant(createArmorVariantDto);
+  }
+
+  @Get('armor/variants')
+  findAllArmorVariants() {
+    return this.itemsService.findAllArmorVariants();
+  }
+
+  @Get('armor/variants/:id')
+  findOneArmorVariant(@Param('id') id: string) {
+    return this.itemsService.findOneArmorVariant(+id);
+  }
+
+  @Patch('armor/variants/:id')
+  @UseGuards(AuthGuard)
+  updateArmorVariant(
+    @Param('id') id: string,
+    @Body() updateArmorVariantDto: UpdateArmorVariantDto,
+  ) {
+    return this.itemsService.updateArmorVariant(+id, updateArmorVariantDto);
+  }
+
+  @Delete('armor/variants/:id')
+  @UseGuards(AuthGuard)
+  removeArmorVariant(@Param('id') id: string) {
+    return this.itemsService.removeArmorVariant(+id);
+  }
 
   // Armor
+  @Post('armor')
+  @UseGuards(AuthGuard)
+  createArmor(@Body() createArmorDto: CreateArmorDto) {
+    return this.itemsService.createArmor(createArmorDto);
+  }
+
+  @Get('armor')
+  findAllArmors() {
+    return this.itemsService.findAllArmor();
+  }
+
+  @Get('armor/:id')
+  findOneArmor(@Param('id') id: string) {
+    return this.itemsService.findOneArmor(+id);
+  }
+
+  @Patch('armor/:id')
+  @UseGuards(AuthGuard)
+  updateArmor(@Param('id') id: string, @Body() updateArmorDto: UpdateArmorDto) {
+    return this.itemsService.updateArmor(+id, updateArmorDto);
+  }
 
   // Misc Items
 }

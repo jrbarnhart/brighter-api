@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { CreateResourceDto } from './dto/resource/create-resource.dto';
 import { UpdateResourceDto } from './dto/resource/update-resource.dto';
@@ -11,6 +12,10 @@ import { CreateWeaponDto } from './dto/weapon/create-weapon.dto';
 import { UpdateWeaponDto } from './dto/weapon/update-weapon.dto';
 import { CreateWeaponVariantDto } from './dto/weapon/create-weapon-variant.dto';
 import { UpdateWeaponVariantDto } from './dto/weapon/update-weapon-variant.dto';
+import { CreateArmorDto } from './dto/armor/create-armor.dto';
+import { UpdateArmorDto } from './dto/armor/update-armor.dto';
+import { CreateArmorVariantDto } from './dto/armor/create-armor-variant.dto';
+import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
 
 @Injectable()
 export class ItemsService {
@@ -152,8 +157,46 @@ export class ItemsService {
   }
 
   // Armor Variants
+  createArmorVariant(createArmorVariantDto: CreateArmorVariantDto) {
+    return 'This action adds a new armor variant';
+  }
+
+  findAllArmorVariants() {
+    return `This action returns all armor variants`;
+  }
+
+  findOneArmorVariant(id: number) {
+    return `This action returns a #${id} armor variant`;
+  }
+
+  updateArmorVariant(id: number, updateArmorVariantDto: UpdateArmorVariantDto) {
+    return `This action updates a #${id} armor variant`;
+  }
+
+  removeArmorVariant(id: number) {
+    return `This action removes a #${id} armor variant`;
+  }
 
   // Armor
+  createArmor(createArmorDto: CreateArmorDto) {
+    return 'This action adds a new armor';
+  }
+
+  findAllArmor() {
+    return `This action returns all armors`;
+  }
+
+  findOneArmor(id: number) {
+    return `This action returns a #${id} armor`;
+  }
+
+  updateArmor(id: number, updateArmorDto: UpdateArmorDto) {
+    return `This action updates a #${id} armor`;
+  }
+
+  removeArmor(id: number) {
+    return `This action removes a #${id} armor`;
+  }
 
   // Misc Items
 }
