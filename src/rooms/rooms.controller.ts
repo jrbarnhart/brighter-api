@@ -43,12 +43,12 @@ export class RoomsController {
     @Param('id', ParseIntPipe) id: number,
     @Body(new ZodValidationPipe(updateRoomSchema)) updateRoomDto: UpdateRoomDto,
   ) {
-    return this.roomsService.update(+id, updateRoomDto);
+    return this.roomsService.update(id, updateRoomDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard)
   remove(@Param('id', ParseIntPipe) id: number) {
-    return this.roomsService.remove(+id);
+    return this.roomsService.remove(id);
   }
 }
