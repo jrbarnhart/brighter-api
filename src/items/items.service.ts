@@ -19,7 +19,12 @@ import { CreateMiscItemDto } from './dto/miscItem/create-misc-item.dto';
 import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
 import { PrismaService } from 'src/prisma.service';
 import prismaError from 'src/validation/prismaError';
-import { ConsumableVariant, Resource, ResourceVariant } from '@prisma/client';
+import {
+  Consumable,
+  ConsumableVariant,
+  Resource,
+  ResourceVariant,
+} from '@prisma/client';
 
 @Injectable()
 export class ItemsService {
@@ -271,24 +276,77 @@ export class ItemsService {
   }
 
   // Consumables
-  createConsumable(createConsumableDto: CreateConsumableDto) {
-    return 'This action adds a new consumable';
+  async createConsumable(
+    createConsumableDto: CreateConsumableDto,
+  ): Promise<Consumable> {
+    try {
+      return await this.prisma.consumable.create({
+        data: createConsumableDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  findAllConsumables() {
-    return `This action returns all consumables`;
+  findAllConsumables(): Promise<Consumable[]> {
+    return this.prisma.consumable.findMany({
+      include: {
+        variants: true,
+      },
+    });
   }
 
-  findOneConsumable(id: number) {
-    return `This action returns a #${id} consumable`;
+  async findOneConsumable(id: number): Promise<Consumable> {
+    const foundConsumable = await this.prisma.consumable.findUnique({
+      where: { id },
+      include: {
+        variants: true,
+      },
+    });
+
+    if (foundConsumable === null) {
+      throw new NotFoundException();
+    }
+
+    return foundConsumable;
   }
 
-  updateConsumable(id: number, updateConsumableDto: UpdateConsumableDto) {
-    return `This action updates a #${id} consumable`;
+  async updateConsumable(
+    id: number,
+    updateConsumableDto: UpdateConsumableDto,
+  ): Promise<Consumable> {
+    const consumableToUpdate = await this.prisma.consumable.findUnique({
+      where: { id },
+    });
+
+    if (!consumableToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.consumable.update({
+        where: { id },
+        data: updateConsumableDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeConsumable(id: number) {
-    return `This action removes a #${id} consumable`;
+  async removeConsumable(id: number): Promise<Consumable> {
+    const consumableToDelete = await this.prisma.consumable.findUnique({
+      where: { id },
+    });
+
+    if (!consumableToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.consumable.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   // Weapon Variants
