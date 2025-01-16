@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { UpdateRegionDto } from './dto/update-region.dto';
+import { CreateRegionDto } from './dto/create-region.dto';
 
 describe('RegionsController', () => {
   let controller: RegionsController;
@@ -66,7 +67,7 @@ describe('RegionsController', () => {
       expect(await controller.findOne(region.id)).toBe(region);
     });
 
-    it('should throw NotFoundException if region does not exist', async () => {
+    it('should propagate NotFoundException if region does not exist', async () => {
       regionsServiceMock.findOne.mockRejectedValue(new NotFoundException());
 
       await expect(controller.findOne(999)).rejects.toThrow(NotFoundException);
@@ -75,11 +76,21 @@ describe('RegionsController', () => {
 
   describe('create', () => {
     it('should add a new region', async () => {
-      const region: Region = { id: 1, name: 'New Region' };
+      const regionDto: CreateRegionDto = { name: 'New Region' };
+      const region: Region = { id: 1, ...regionDto };
 
       regionsServiceMock.create.mockResolvedValue(region);
 
-      expect(await controller.create(region)).toBe(region);
+      expect(await controller.create(regionDto)).toBe(region);
+    });
+
+    it('should propagate a BadRequestException when region name already exists', async () => {
+      const regionDto: CreateRegionDto = { name: 'New Region' };
+      regionsServiceMock.create.mockRejectedValue(new BadRequestException());
+
+      await expect(controller.create(regionDto)).rejects.toThrow(
+        BadRequestException,
+      );
     });
   });
 
@@ -95,7 +106,7 @@ describe('RegionsController', () => {
       );
     });
 
-    it('should throw a NotFoundException if the region does not exist', async () => {
+    it('should propagate a NotFoundException if the region does not exist', async () => {
       const updateRegionDto: UpdateRegionDto = { name: 'Updated Region' };
       regionsServiceMock.update.mockRejectedValue(new NotFoundException());
 
@@ -114,13 +125,13 @@ describe('RegionsController', () => {
       expect(await controller.remove(region.id)).toBe(region);
     });
 
-    it('should throw a NotFoundException if the region does not exist', async () => {
+    it('should propagate NotFoundException if the region does not exist', async () => {
       regionsServiceMock.remove.mockRejectedValue(new NotFoundException());
 
       await expect(controller.remove(999)).rejects.toThrow(NotFoundException);
     });
 
-    it('should throw a BadRequestException if the region has rooms', async () => {
+    it('should propagate a BadRequestException if the region has rooms', async () => {
       regionsServiceMock.remove.mockRejectedValue(new BadRequestException());
 
       await expect(controller.remove(999)).rejects.toThrow(BadRequestException);
