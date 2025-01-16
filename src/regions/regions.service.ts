@@ -13,12 +13,10 @@ import prismaError from 'src/validation/prismaError';
 export class RegionsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateRegionDto): Promise<Region> {
+  async create(createRegionDto: CreateRegionDto): Promise<Region> {
     try {
       return await this.prisma.region.create({
-        data: {
-          name: data.name,
-        },
+        data: createRegionDto,
       });
     } catch (error) {
       throw prismaError(error);
@@ -45,7 +43,6 @@ export class RegionsService {
   async update(id: number, updateRegionDto: UpdateRegionDto): Promise<Region> {
     const regionToUpdate = await this.prisma.region.findUnique({
       where: { id },
-      include: { rooms: true }, // Remove this as it is not needed for not found check
     });
 
     if (!regionToUpdate) {
@@ -55,9 +52,7 @@ export class RegionsService {
     try {
       return await this.prisma.region.update({
         where: { id },
-        data: {
-          name: updateRegionDto.name,
-        },
+        data: updateRegionDto,
       });
     } catch (error) {
       throw prismaError(error);
