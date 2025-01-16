@@ -45,7 +45,7 @@ export class RegionsService {
   async update(id: number, updateRegionDto: UpdateRegionDto): Promise<Region> {
     const regionToUpdate = await this.prisma.region.findUnique({
       where: { id },
-      include: { rooms: true },
+      include: { rooms: true }, // Remove this as it is not needed for not found check
     });
 
     if (!regionToUpdate) {
