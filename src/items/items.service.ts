@@ -507,29 +507,83 @@ export class ItemsService {
   }
 
   // Armor Variants
-  createArmorVariant(
+  async createArmorVariant(
     createArmorVariantDto: CreateArmorVariantDto,
   ): Promise<ArmorVariant> {
-    return 'This action adds a new armor variant';
+    try {
+      return await this.prisma.armorVariant.create({
+        data: createArmorVariantDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   findAllArmorVariants(): Promise<ArmorVariant[]> {
-    return `This action returns all armor variants`;
+    return this.prisma.armorVariant.findMany({
+      include: {
+        armor: true,
+        dropTables: true,
+        recipe: true,
+        vendors: true,
+      },
+    });
   }
 
-  findOneArmorVariant(id: number): Promise<ArmorVariant> {
-    return `This action returns a #${id} armor variant`;
+  async findOneArmorVariant(id: number): Promise<ArmorVariant> {
+    const foundArmorVariant = await this.prisma.armorVariant.findUnique({
+      where: { id },
+      include: {
+        armor: true,
+        dropTables: true,
+        recipe: true,
+        vendors: true,
+      },
+    });
+
+    if (foundArmorVariant === null) {
+      throw new NotFoundException();
+    }
+
+    return foundArmorVariant;
   }
 
-  updateArmorVariant(
+  async updateArmorVariant(
     id: number,
     updateArmorVariantDto: UpdateArmorVariantDto,
   ): Promise<ArmorVariant> {
-    return `This action updates a #${id} armor variant`;
+    const armorVariantToUpdate = await this.prisma.armorVariant.findUnique({
+      where: { id },
+    });
+
+    if (!armorVariantToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.armorVariant.update({
+        where: { id },
+        data: updateArmorVariantDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeArmorVariant(id: number): Promise<ArmorVariant> {
-    return `This action removes a #${id} armor variant`;
+  async removeArmorVariant(id: number): Promise<ArmorVariant> {
+    const armorVariantToDelete = await this.prisma.armorVariant.findUnique({
+      where: { id },
+    });
+
+    if (!armorVariantToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.armorVariant.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   // Armor
