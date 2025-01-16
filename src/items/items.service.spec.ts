@@ -5,6 +5,7 @@ import {
   ArmorVariant,
   Consumable,
   ConsumableVariant,
+  MiscItem,
   Prisma,
   PrismaClient,
   Resource,
@@ -31,6 +32,8 @@ import { CreateArmorVariantDto } from './dto/armor/create-armor-variant.dto';
 import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
 import { CreateArmorDto } from './dto/armor/create-armor.dto';
 import { UpdateArmorDto } from './dto/armor/update-armor.dto';
+import { CreateMiscItemDto } from './dto/miscItem/create-misc-item.dto';
+import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
 
 describe('ItemsService', () => {
   let service: ItemsService;
@@ -1886,5 +1889,199 @@ describe('ItemsService', () => {
     });
   });
 
-  describe('Misc Items', () => {});
+  describe('Misc Items', () => {
+    describe('getAllMiscItems', () => {
+      it('should return all miscItems array', async () => {
+        const allMiscItems: MiscItem[] = [
+          { id: 1, name: 'MiscItem One' },
+          { id: 2, name: 'MiscItem Two' },
+        ];
+        const findManyArgsMock: Prisma.MiscItemFindManyArgs = {
+          include: {
+            inRecipes: true,
+            vendors: true,
+          },
+        };
+
+        prismaMock.miscItem.findMany.mockResolvedValue(allMiscItems);
+
+        const result = await service.findAllMiscItem();
+        expect(result).toEqual(allMiscItems);
+        expect(prismaMock.miscItem.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.findMany).toHaveBeenCalledWith(
+          findManyArgsMock,
+        );
+      });
+
+      it('should return empty array if there are no miscItems', async () => {
+        const findManyArgsMock: Prisma.MiscItemFindManyArgs = {
+          include: {
+            inRecipes: true,
+            vendors: true,
+          },
+        };
+
+        prismaMock.miscItem.findMany.mockResolvedValue([]);
+
+        const result = await service.findAllMiscItem();
+        expect(result).toEqual([]);
+        expect(prismaMock.miscItem.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.findMany).toHaveBeenCalledWith(
+          findManyArgsMock,
+        );
+      });
+    });
+
+    describe('getMiscItemById', () => {
+      it('should return the miscItem if it exists', async () => {
+        const existingMiscItem: MiscItem = {
+          id: 1,
+          name: 'MiscItem One',
+        };
+        const findUniqueArgsMock: Prisma.MiscItemFindUniqueArgs = {
+          where: { id: existingMiscItem.id },
+          include: {
+            inRecipes: true,
+            vendors: true,
+          },
+        };
+
+        prismaMock.miscItem.findUnique.mockResolvedValue(existingMiscItem);
+
+        const result = await service.findOneMiscItem(existingMiscItem.id);
+        expect(result).toEqual(existingMiscItem);
+        expect(prismaMock.miscItem.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.findUnique).toHaveBeenCalledWith(
+          findUniqueArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException if miscItem does not exist', async () => {
+        const findUniqueArgsMock: Prisma.MiscItemFindUniqueArgs = {
+          where: { id: 999 },
+          include: {
+            inRecipes: true,
+            vendors: true,
+          },
+        };
+
+        prismaMock.miscItem.findUnique.mockResolvedValue(null);
+
+        await expect(service.findOneMiscItem(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.miscItem.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.findUnique).toHaveBeenCalledWith(
+          findUniqueArgsMock,
+        );
+      });
+    });
+
+    describe('create', () => {
+      it('should create a new miscItem', async () => {
+        const createDto: CreateMiscItemDto = {
+          name: 'MiscItem One',
+        };
+        const createdMiscItem: MiscItem = {
+          id: 1,
+          name: 'MiscItem One',
+        };
+        const createArgsMock: Prisma.MiscItemCreateArgs = { data: createDto };
+
+        prismaMock.miscItem.create.mockResolvedValue(createdMiscItem);
+
+        const result = await service.createMiscItem(createDto);
+        expect(result).toEqual(createdMiscItem);
+        expect(prismaMock.miscItem.create).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.create).toHaveBeenCalledWith(createArgsMock);
+      });
+
+      it('should throw BadRequestException on duplicate name', async () => {
+        const createDto: CreateMiscItemDto = {
+          name: 'MiscItem One',
+        };
+
+        prismaMock.miscItem.create.mockRejectedValue({
+          code: 'P2002',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(service.createMiscItem(createDto)).rejects.toThrow(
+          BadRequestException,
+        );
+        expect(prismaMock.miscItem.create).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('update', () => {
+      it('should update an existing miscItem', async () => {
+        const existingMiscItem: MiscItem = {
+          id: 1,
+          name: 'MiscItem One',
+        };
+        const updateDto: UpdateMiscItemDto = { name: 'Updated MiscItem' };
+        const updatedMiscItem: MiscItem = {
+          id: 1,
+          name: 'Updated MiscItem',
+        };
+        const updateArgsMock: Prisma.MiscItemUpdateArgs = {
+          where: { id: existingMiscItem.id },
+          data: updateDto,
+        };
+
+        prismaMock.miscItem.findUnique.mockResolvedValue(existingMiscItem);
+        prismaMock.miscItem.update.mockResolvedValue(updatedMiscItem);
+
+        const result = await service.updateMiscItem(1, updateDto);
+        expect(result).toEqual(updatedMiscItem);
+        expect(prismaMock.miscItem.update).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.update).toHaveBeenCalledWith(updateArgsMock);
+      });
+
+      it('should throw NotFoundException when updating non-existent miscItem', async () => {
+        const updateDto = { name: 'Updated MiscItem' };
+
+        prismaMock.miscItem.update.mockRejectedValue({
+          code: 'P2025',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(service.updateMiscItem(999, updateDto)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.miscItem.update).toHaveBeenCalledTimes(0);
+      });
+    });
+
+    describe('remove', () => {
+      it('should delete a miscItem without miscItems', async () => {
+        const miscItemToDelete: MiscItem = {
+          id: 1,
+          name: 'MiscItem One',
+        };
+        const deleteArgsMock: Prisma.MiscItemDeleteArgs = {
+          where: { id: miscItemToDelete.id },
+        };
+
+        prismaMock.miscItem.findUnique.mockResolvedValue(miscItemToDelete);
+        prismaMock.miscItem.delete.mockResolvedValue(miscItemToDelete);
+
+        const result = await service.removeMiscItem(1);
+        expect(result).toEqual(miscItemToDelete);
+        expect(prismaMock.miscItem.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.delete).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.delete).toHaveBeenCalledWith(deleteArgsMock);
+      });
+
+      it('should throw NotFoundException when deleting non-existent miscItem', async () => {
+        prismaMock.miscItem.findUnique.mockResolvedValue(null);
+
+        await expect(service.removeMiscItem(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.miscItem.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.miscItem.delete).not.toHaveBeenCalled();
+      });
+    });
+  });
 });
