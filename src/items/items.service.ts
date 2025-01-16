@@ -659,26 +659,78 @@ export class ItemsService {
   }
 
   // Misc Items
-  createMiscItem(createMiscItemDto: CreateMiscItemDto): Promise<MiscItem> {
-    return 'This action adds a new misc item';
+  async createMiscItem(
+    createMiscItemDto: CreateMiscItemDto,
+  ): Promise<MiscItem> {
+    try {
+      return await this.prisma.miscItem.create({
+        data: createMiscItemDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   findAllMiscItem(): Promise<MiscItem[]> {
-    return `This action returns all misc items`;
+    return this.prisma.miscItem.findMany({
+      include: {
+        inRecipes: true,
+        vendors: true,
+      },
+    });
   }
 
-  findOneMiscItem(id: number): Promise<MiscItem> {
-    return `This action returns a #${id} misc item`;
+  async findOneMiscItem(id: number): Promise<MiscItem> {
+    const foundMiscItem = await this.prisma.miscItem.findUnique({
+      where: { id },
+      include: {
+        inRecipes: true,
+        vendors: true,
+      },
+    });
+
+    if (foundMiscItem === null) {
+      throw new NotFoundException();
+    }
+
+    return foundMiscItem;
   }
 
-  updateMiscItem(
+  async updateMiscItem(
     id: number,
     updateMiscItemDto: UpdateMiscItemDto,
   ): Promise<MiscItem> {
-    return `This action updates a #${id} misc item`;
+    const miscItemToUpdate = await this.prisma.miscItem.findUnique({
+      where: { id },
+    });
+
+    if (!miscItemToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.miscItem.update({
+        where: { id },
+        data: updateMiscItemDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeMiscItem(id: number): Promise<MiscItem> {
-    return `This action removes a #${id} misc item`;
+  async removeMiscItem(id: number): Promise<MiscItem> {
+    const miscItemToDelete = await this.prisma.miscItem.findUnique({
+      where: { id },
+    });
+
+    if (!miscItemToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.miscItem.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 }
