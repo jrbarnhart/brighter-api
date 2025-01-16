@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ItemsService } from './items.service';
 import {
+  Armor,
   ArmorVariant,
   Consumable,
   ConsumableVariant,
@@ -28,6 +29,8 @@ import { CreateWeaponDto } from './dto/weapon/create-weapon.dto';
 import { UpdateWeaponDto } from './dto/weapon/update-weapon.dto';
 import { CreateArmorVariantDto } from './dto/armor/create-armor-variant.dto';
 import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
+import { CreateArmorDto } from './dto/armor/create-armor.dto';
+import { UpdateArmorDto } from './dto/armor/update-armor.dto';
 
 describe('ItemsService', () => {
   let service: ItemsService;
@@ -1677,7 +1680,211 @@ describe('ItemsService', () => {
     });
   });
 
-  describe('Armor', () => {});
+  describe('Armor', () => {
+    describe('getAllArmors', () => {
+      it('should return all armors array', async () => {
+        const allArmors: Armor[] = [
+          { id: 1, name: 'Armor One', faction: 'CRYOKNIGHT', slot: 'SHIELD' },
+          { id: 2, name: 'Armor Two', faction: 'HAMMERMAGE', slot: 'TORSO' },
+        ];
+        const findManyArgsMock: Prisma.ArmorFindManyArgs = {
+          include: {
+            variants: true,
+          },
+        };
+
+        prismaMock.armor.findMany.mockResolvedValue(allArmors);
+
+        const result = await service.findAllArmor();
+        expect(result).toEqual(allArmors);
+        expect(prismaMock.armor.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.findMany).toHaveBeenCalledWith(
+          findManyArgsMock,
+        );
+      });
+
+      it('should return empty array if there are no armors', async () => {
+        const findManyArgsMock: Prisma.ArmorFindManyArgs = {
+          include: {
+            variants: true,
+          },
+        };
+
+        prismaMock.armor.findMany.mockResolvedValue([]);
+
+        const result = await service.findAllArmor();
+        expect(result).toEqual([]);
+        expect(prismaMock.armor.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.findMany).toHaveBeenCalledWith(
+          findManyArgsMock,
+        );
+      });
+    });
+
+    describe('getArmorById', () => {
+      it('should return the armor if it exists', async () => {
+        const existingArmor: Armor = {
+          id: 1,
+          name: 'Armor One',
+          faction: 'CRYOKNIGHT',
+          slot: 'SHIELD',
+        };
+        const findUniqueArgsMock: Prisma.ArmorFindUniqueArgs = {
+          where: { id: existingArmor.id },
+          include: {
+            variants: true,
+          },
+        };
+
+        prismaMock.armor.findUnique.mockResolvedValue(existingArmor);
+
+        const result = await service.findOneArmor(existingArmor.id);
+        expect(result).toEqual(existingArmor);
+        expect(prismaMock.armor.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.findUnique).toHaveBeenCalledWith(
+          findUniqueArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException if armor does not exist', async () => {
+        const findUniqueArgsMock: Prisma.ArmorFindUniqueArgs = {
+          where: { id: 999 },
+          include: {
+            variants: true,
+          },
+        };
+
+        prismaMock.armor.findUnique.mockResolvedValue(null);
+
+        await expect(service.findOneArmor(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.armor.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.findUnique).toHaveBeenCalledWith(
+          findUniqueArgsMock,
+        );
+      });
+    });
+
+    describe('create', () => {
+      it('should create a new armor', async () => {
+        const createDto: CreateArmorDto = {
+          name: 'Armor One',
+          faction: 'CRYOKNIGHT',
+          slot: 'SHIELD',
+        };
+        const createdArmor: Armor = {
+          id: 1,
+          name: 'Armor One',
+          faction: 'CRYOKNIGHT',
+          slot: 'SHIELD',
+        };
+        const createArgsMock: Prisma.ArmorCreateArgs = { data: createDto };
+
+        prismaMock.armor.create.mockResolvedValue(createdArmor);
+
+        const result = await service.createArmor(createDto);
+        expect(result).toEqual(createdArmor);
+        expect(prismaMock.armor.create).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.create).toHaveBeenCalledWith(createArgsMock);
+      });
+
+      it('should throw BadRequestException on duplicate name', async () => {
+        const createDto: CreateArmorDto = {
+          name: 'Armor One',
+          faction: 'CRYOKNIGHT',
+          slot: 'SHIELD',
+        };
+
+        prismaMock.armor.create.mockRejectedValue({
+          code: 'P2002',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(service.createArmor(createDto)).rejects.toThrow(
+          BadRequestException,
+        );
+        expect(prismaMock.armor.create).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('update', () => {
+      it('should update an existing armor', async () => {
+        const existingArmor: Armor = {
+          id: 1,
+          name: 'Armor One',
+          faction: 'CRYOKNIGHT',
+          slot: 'SHIELD',
+        };
+        const updateDto: UpdateArmorDto = { name: 'Updated Armor' };
+        const updatedArmor: Armor = {
+          id: 1,
+          name: 'Updated Armor',
+          faction: 'CRYOKNIGHT',
+          slot: 'SHIELD',
+        };
+        const updateArgsMock: Prisma.ArmorUpdateArgs = {
+          where: { id: existingArmor.id },
+          data: updateDto,
+        };
+
+        prismaMock.armor.findUnique.mockResolvedValue(existingArmor);
+        prismaMock.armor.update.mockResolvedValue(updatedArmor);
+
+        const result = await service.updateArmor(1, updateDto);
+        expect(result).toEqual(updatedArmor);
+        expect(prismaMock.armor.update).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.update).toHaveBeenCalledWith(updateArgsMock);
+      });
+
+      it('should throw NotFoundException when updating non-existent armor', async () => {
+        const updateDto = { name: 'Updated Armor' };
+
+        prismaMock.armor.update.mockRejectedValue({
+          code: 'P2025',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(service.updateArmor(999, updateDto)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.armor.update).toHaveBeenCalledTimes(0);
+      });
+    });
+
+    describe('remove', () => {
+      it('should delete a armor without armors', async () => {
+        const armorToDelete: Armor = {
+          id: 1,
+          name: 'Armor One',
+          faction: 'CRYOKNIGHT',
+          slot: 'SHIELD',
+        };
+        const deleteArgsMock: Prisma.ArmorDeleteArgs = {
+          where: { id: armorToDelete.id },
+        };
+
+        prismaMock.armor.findUnique.mockResolvedValue(armorToDelete);
+        prismaMock.armor.delete.mockResolvedValue(armorToDelete);
+
+        const result = await service.removeArmor(1);
+        expect(result).toEqual(armorToDelete);
+        expect(prismaMock.armor.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.delete).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.delete).toHaveBeenCalledWith(deleteArgsMock);
+      });
+
+      it('should throw NotFoundException when deleting non-existent armor', async () => {
+        prismaMock.armor.findUnique.mockResolvedValue(null);
+
+        await expect(service.removeArmor(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.armor.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.armor.delete).not.toHaveBeenCalled();
+      });
+    });
+  });
 
   describe('Misc Items', () => {});
 });
