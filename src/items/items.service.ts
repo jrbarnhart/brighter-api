@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { CreateResourceDto } from './dto/resource/create-resource.dto';
 import { UpdateResourceDto } from './dto/resource/update-resource.dto';
@@ -18,16 +17,27 @@ import { CreateArmorVariantDto } from './dto/armor/create-armor-variant.dto';
 import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
 import { CreateMiscItemDto } from './dto/miscItem/create-misc-item.dto';
 import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ItemsService {
+  constructor(private prisma: PrismaService) {}
+
   // Resource Variants
   createResourceVariant(createResourceVariantDto: CreateResourceVariantDto) {
     return 'This action adds a new resource variant';
   }
 
   findAllResourceVariants() {
-    return `This action returns all resource variants`;
+    return this.prisma.resourceVariant.findMany({
+      include: {
+        resource: true,
+        dropTables: true,
+        inRecipes: true,
+        requirement: true,
+        vendors: true,
+      },
+    });
   }
 
   findOneResourceVariant(id: number) {
