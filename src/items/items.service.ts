@@ -19,6 +19,7 @@ import { CreateMiscItemDto } from './dto/miscItem/create-misc-item.dto';
 import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
 import { PrismaService } from 'src/prisma.service';
 import prismaError from 'src/validation/prismaError';
+import { ConsumableVariant, Resource, ResourceVariant } from '@prisma/client';
 
 @Injectable()
 export class ItemsService {
@@ -27,7 +28,7 @@ export class ItemsService {
   // Resource Variants
   async createResourceVariant(
     createResourceVariantDto: CreateResourceVariantDto,
-  ) {
+  ): Promise<ResourceVariant> {
     try {
       return await this.prisma.resourceVariant.create({
         data: createResourceVariantDto,
@@ -37,7 +38,7 @@ export class ItemsService {
     }
   }
 
-  findAllResourceVariants() {
+  findAllResourceVariants(): Promise<ResourceVariant[]> {
     return this.prisma.resourceVariant.findMany({
       include: {
         resource: true,
@@ -49,7 +50,7 @@ export class ItemsService {
     });
   }
 
-  async findOneResourceVariant(id: number) {
+  async findOneResourceVariant(id: number): Promise<ResourceVariant> {
     const foundResourceVariant = await this.prisma.resourceVariant.findUnique({
       where: { id },
       include: {
@@ -71,7 +72,7 @@ export class ItemsService {
   async updateResourceVariant(
     id: number,
     updateResourceVariantDto: UpdateResourceVariantDto,
-  ) {
+  ): Promise<ResourceVariant> {
     const resourceVariantToUpdate =
       await this.prisma.resourceVariant.findUnique({
         where: { id },
@@ -91,7 +92,7 @@ export class ItemsService {
     }
   }
 
-  async removeResourceVariant(id: number) {
+  async removeResourceVariant(id: number): Promise<ResourceVariant> {
     const resourceVariantToDelete =
       await this.prisma.resourceVariant.findUnique({
         where: { id },
@@ -109,7 +110,9 @@ export class ItemsService {
   }
 
   // Resources
-  async createResource(createResourceDto: CreateResourceDto) {
+  async createResource(
+    createResourceDto: CreateResourceDto,
+  ): Promise<Resource> {
     try {
       return await this.prisma.resource.create({
         data: createResourceDto,
@@ -119,7 +122,7 @@ export class ItemsService {
     }
   }
 
-  findAllResources() {
+  findAllResources(): Promise<Resource[]> {
     return this.prisma.resource.findMany({
       include: {
         skill: true,
@@ -129,7 +132,7 @@ export class ItemsService {
     });
   }
 
-  async findOneResource(id: number) {
+  async findOneResource(id: number): Promise<Resource> {
     const foundResource = await this.prisma.resource.findUnique({
       where: { id },
       include: {
@@ -146,7 +149,10 @@ export class ItemsService {
     return foundResource;
   }
 
-  async updateResource(id: number, updateResourceDto: UpdateResourceDto) {
+  async updateResource(
+    id: number,
+    updateResourceDto: UpdateResourceDto,
+  ): Promise<Resource> {
     const resourceToUpdate = await this.prisma.resource.findUnique({
       where: { id },
     });
@@ -165,7 +171,7 @@ export class ItemsService {
     }
   }
 
-  async removeResource(id: number) {
+  async removeResource(id: number): Promise<Resource> {
     const resourceToDelete = await this.prisma.resource.findUnique({
       where: { id },
     });
@@ -184,7 +190,7 @@ export class ItemsService {
   // Consumable Variants
   async createConsumableVariant(
     createConsumableVariantDto: CreateConsumableVariantDto,
-  ) {
+  ): Promise<ConsumableVariant> {
     try {
       return await this.prisma.consumableVariant.create({
         data: createConsumableVariantDto,
@@ -194,7 +200,7 @@ export class ItemsService {
     }
   }
 
-  findAllConsumableVariants() {
+  findAllConsumableVariants(): Promise<ConsumableVariant[]> {
     return this.prisma.consumableVariant.findMany({
       include: {
         consumable: true,
@@ -205,7 +211,7 @@ export class ItemsService {
     });
   }
 
-  async findOneConsumableVariant(id: number) {
+  async findOneConsumableVariant(id: number): Promise<ConsumableVariant> {
     const foundConsumableVariant =
       await this.prisma.consumableVariant.findUnique({
         where: { id },
@@ -227,7 +233,7 @@ export class ItemsService {
   async updateConsumableVariant(
     id: number,
     updateConsumableVariantDto: UpdateConsumableVariantDto,
-  ) {
+  ): Promise<ConsumableVariant> {
     const consumableVariantToUpdate =
       await this.prisma.consumableVariant.findUnique({
         where: { id },
@@ -247,7 +253,7 @@ export class ItemsService {
     }
   }
 
-  async removeConsumableVariant(id: number) {
+  async removeConsumableVariant(id: number): Promise<ConsumableVariant> {
     const consumableVariantToDelete =
       await this.prisma.consumableVariant.findUnique({
         where: { id },
