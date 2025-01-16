@@ -3,7 +3,8 @@ import { ItemsService } from './items.service';
 import { Prisma, PrismaClient, ResourceVariant } from '@prisma/client';
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
 import { PrismaService } from 'src/prisma.service';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { CreateResourceVariantDto } from './dto/resource/create-resource-variant.dto';
 
 describe('ItemsService', () => {
   let service: ItemsService;
@@ -136,6 +137,52 @@ describe('ItemsService', () => {
             findUniqueArgsMock,
           );
         });
+      });
+    });
+
+    describe('createResourceVariant', () => {
+      it('should create a new resourceVariant', async () => {
+        const createDto: CreateResourceVariantDto = {
+          name: 'ResourceVariant One',
+          resourceId: 10,
+        };
+        const createdResourceVariant: ResourceVariant = {
+          id: 1,
+          name: 'ResourceVariant One',
+          resourceId: 10,
+          requirementId: null,
+        };
+        const createArgsMock: Prisma.ResourceVariantCreateArgs = {
+          data: createDto,
+        };
+
+        prismaMock.resourceVariant.create.mockResolvedValue(
+          createdResourceVariant,
+        );
+
+        const result = await service.createResourceVariant(createDto);
+        expect(result).toEqual(createdResourceVariant);
+        expect(prismaMock.resourceVariant.create).toHaveBeenCalledTimes(1);
+        expect(prismaMock.resourceVariant.create).toHaveBeenCalledWith(
+          createArgsMock,
+        );
+      });
+
+      it('should throw BadRequestException on duplicate name', async () => {
+        const createDto: CreateResourceVariantDto = {
+          name: 'ResourceVariant One',
+          resourceId: 10,
+        };
+
+        prismaMock.resourceVariant.create.mockRejectedValue({
+          code: 'P2002',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(service.createResourceVariant(createDto)).rejects.toThrow(
+          BadRequestException,
+        );
+        expect(prismaMock.resourceVariant.create).toHaveBeenCalledTimes(1);
       });
     });
   });
