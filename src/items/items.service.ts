@@ -122,9 +122,9 @@ export class ItemsService {
   findAllResources() {
     return this.prisma.resource.findMany({
       include: {
-        resources: true,
         skill: true,
         variants: true,
+        rooms: true,
       },
     });
   }
@@ -133,9 +133,9 @@ export class ItemsService {
     const foundResource = await this.prisma.resource.findUnique({
       where: { id },
       include: {
-        resources: true,
         skill: true,
         variants: true,
+        rooms: true,
       },
     });
 
