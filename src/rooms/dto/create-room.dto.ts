@@ -9,8 +9,8 @@ export const createRoomSchema = z.object({
   resourceIds: z.array(z.number().int().positive()).optional(),
   questStepIds: z.array(z.number().int().positive()).optional(),
   bankIds: z.array(z.number().int().positive()).optional(),
-  portal: z.boolean().optional(),
-  obelisk: z.boolean().optional(),
+  portal: z.boolean(),
+  obelisk: z.boolean(),
 });
 
 export type CreateRoomDto = z.infer<typeof createRoomSchema>;
