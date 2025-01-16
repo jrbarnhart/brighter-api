@@ -20,10 +20,15 @@ import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
 import { PrismaService } from 'src/prisma.service';
 import prismaError from 'src/validation/prismaError';
 import {
+  Armor,
+  ArmorVariant,
   Consumable,
   ConsumableVariant,
+  MiscItem,
   Resource,
   ResourceVariant,
+  Weapon,
+  WeaponVariant,
 } from '@prisma/client';
 
 @Injectable()
@@ -350,110 +355,174 @@ export class ItemsService {
   }
 
   // Weapon Variants
-  createWeaponVariant(createWeaponVariantDto: CreateWeaponVariantDto) {
-    return 'This action adds a new weapon variant';
+  async createWeaponVariant(
+    createWeaponVariantDto: CreateWeaponVariantDto,
+  ): Promise<WeaponVariant> {
+    try {
+      return await this.prisma.weaponVariant.create({
+        data: createWeaponVariantDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  findAllWeaponVariants() {
-    return `This action returns all weapon variants`;
+  findAllWeaponVariants(): Promise<WeaponVariant[]> {
+    return this.prisma.weaponVariant.findMany({
+      include: {
+        dropTables: true,
+        recipe: true,
+        vendors: true,
+        weapon: true,
+      },
+    });
   }
 
-  findOneWeaponVariant(id: number) {
-    return `This action returns a #${id} weapon variant`;
+  async findOneWeaponVariant(id: number): Promise<WeaponVariant> {
+    const foundWeaponVariant = await this.prisma.weaponVariant.findUnique({
+      where: { id },
+      include: {
+        dropTables: true,
+        recipe: true,
+        vendors: true,
+        weapon: true,
+      },
+    });
+
+    if (foundWeaponVariant === null) {
+      throw new NotFoundException();
+    }
+
+    return foundWeaponVariant;
   }
 
-  updateWeaponVariant(
+  async updateWeaponVariant(
     id: number,
     updateWeaponVariantDto: UpdateWeaponVariantDto,
-  ) {
-    return `This action updates a #${id} weapon variant`;
+  ): Promise<WeaponVariant> {
+    const weaponVariantToUpdate = await this.prisma.weaponVariant.findUnique({
+      where: { id },
+    });
+
+    if (!weaponVariantToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.weaponVariant.update({
+        where: { id },
+        data: updateWeaponVariantDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeWeaponVariant(id: number) {
-    return `This action removes a #${id} weapon variant`;
+  async removeWeaponVariant(id: number): Promise<WeaponVariant> {
+    const weaponVariantToDelete = await this.prisma.weaponVariant.findUnique({
+      where: { id },
+    });
+
+    if (!weaponVariantToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.weaponVariant.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   // Weapons
-  createWeapon(createWeaponDto: CreateWeaponDto) {
+  createWeapon(createWeaponDto: CreateWeaponDto): Promise<Weapon> {
     return 'This action adds a new weapon';
   }
 
-  findAllWeapons() {
+  findAllWeapons(): Promise<Weapon[]> {
     return `This action returns all weapons`;
   }
 
-  findOneWeapon(id: number) {
+  findOneWeapon(id: number): Promise<Weapon> {
     return `This action returns a #${id} weapon`;
   }
 
-  updateWeapon(id: number, updateWeaponDto: UpdateWeaponDto) {
+  updateWeapon(id: number, updateWeaponDto: UpdateWeaponDto): Promise<Weapon> {
     return `This action updates a #${id} weapon`;
   }
 
-  removeWeapon(id: number) {
+  removeWeapon(id: number): Promise<Weapon> {
     return `This action removes a #${id} weapon`;
   }
 
   // Armor Variants
-  createArmorVariant(createArmorVariantDto: CreateArmorVariantDto) {
+  createArmorVariant(
+    createArmorVariantDto: CreateArmorVariantDto,
+  ): Promise<ArmorVariant> {
     return 'This action adds a new armor variant';
   }
 
-  findAllArmorVariants() {
+  findAllArmorVariants(): Promise<ArmorVariant[]> {
     return `This action returns all armor variants`;
   }
 
-  findOneArmorVariant(id: number) {
+  findOneArmorVariant(id: number): Promise<ArmorVariant> {
     return `This action returns a #${id} armor variant`;
   }
 
-  updateArmorVariant(id: number, updateArmorVariantDto: UpdateArmorVariantDto) {
+  updateArmorVariant(
+    id: number,
+    updateArmorVariantDto: UpdateArmorVariantDto,
+  ): Promise<ArmorVariant> {
     return `This action updates a #${id} armor variant`;
   }
 
-  removeArmorVariant(id: number) {
+  removeArmorVariant(id: number): Promise<ArmorVariant> {
     return `This action removes a #${id} armor variant`;
   }
 
   // Armor
-  createArmor(createArmorDto: CreateArmorDto) {
+  createArmor(createArmorDto: CreateArmorDto): Promise<Armor> {
     return 'This action adds a new armor';
   }
 
-  findAllArmor() {
+  findAllArmor(): Promise<Armor[]> {
     return `This action returns all armors`;
   }
 
-  findOneArmor(id: number) {
+  findOneArmor(id: number): Promise<Armor> {
     return `This action returns a #${id} armor`;
   }
 
-  updateArmor(id: number, updateArmorDto: UpdateArmorDto) {
+  updateArmor(id: number, updateArmorDto: UpdateArmorDto): Promise<Armor> {
     return `This action updates a #${id} armor`;
   }
 
-  removeArmor(id: number) {
+  removeArmor(id: number): Promise<Armor> {
     return `This action removes a #${id} armor`;
   }
 
   // Misc Items
-  createMiscItem(createMiscItemDto: CreateMiscItemDto) {
+  createMiscItem(createMiscItemDto: CreateMiscItemDto): Promise<MiscItem> {
     return 'This action adds a new misc item';
   }
 
-  findAllMiscItem() {
+  findAllMiscItem(): Promise<MiscItem[]> {
     return `This action returns all misc items`;
   }
 
-  findOneMiscItem(id: number) {
+  findOneMiscItem(id: number): Promise<MiscItem> {
     return `This action returns a #${id} misc item`;
   }
 
-  updateMiscItem(id: number, updateMiscItemDto: UpdateMiscItemDto) {
+  updateMiscItem(
+    id: number,
+    updateMiscItemDto: UpdateMiscItemDto,
+  ): Promise<MiscItem> {
     return `This action updates a #${id} misc item`;
   }
 
-  removeMiscItem(id: number) {
+  removeMiscItem(id: number): Promise<MiscItem> {
     return `This action removes a #${id} misc item`;
   }
 }
