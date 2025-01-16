@@ -435,24 +435,75 @@ export class ItemsService {
   }
 
   // Weapons
-  createWeapon(createWeaponDto: CreateWeaponDto): Promise<Weapon> {
-    return 'This action adds a new weapon';
+  async createWeapon(createWeaponDto: CreateWeaponDto): Promise<Weapon> {
+    try {
+      return await this.prisma.weapon.create({
+        data: createWeaponDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   findAllWeapons(): Promise<Weapon[]> {
-    return `This action returns all weapons`;
+    return this.prisma.weapon.findMany({
+      include: {
+        variants: true,
+      },
+    });
   }
 
-  findOneWeapon(id: number): Promise<Weapon> {
-    return `This action returns a #${id} weapon`;
+  async findOneWeapon(id: number): Promise<Weapon> {
+    const foundWeapon = await this.prisma.weapon.findUnique({
+      where: { id },
+      include: {
+        variants: true,
+      },
+    });
+
+    if (foundWeapon === null) {
+      throw new NotFoundException();
+    }
+
+    return foundWeapon;
   }
 
-  updateWeapon(id: number, updateWeaponDto: UpdateWeaponDto): Promise<Weapon> {
-    return `This action updates a #${id} weapon`;
+  async updateWeapon(
+    id: number,
+    updateWeaponDto: UpdateWeaponDto,
+  ): Promise<Weapon> {
+    const weaponToUpdate = await this.prisma.weapon.findUnique({
+      where: { id },
+    });
+
+    if (!weaponToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.weapon.update({
+        where: { id },
+        data: updateWeaponDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeWeapon(id: number): Promise<Weapon> {
-    return `This action removes a #${id} weapon`;
+  async removeWeapon(id: number): Promise<Weapon> {
+    const weaponToDelete = await this.prisma.weapon.findUnique({
+      where: { id },
+    });
+
+    if (!weaponToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.weapon.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   // Armor Variants
