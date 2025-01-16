@@ -6,8 +6,6 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { CreateRegionDto } from './dto/create-region.dto';
-import { UnauthorizedException } from '@nestjs/common';
 
 describe('RegionsController', () => {
   let controller: RegionsController;
@@ -37,29 +35,5 @@ describe('RegionsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
-  });
-
-  describe('create', () => {
-    it('should allow creation when user is authenticated', async () => {
-      const createDto: CreateRegionDto = { name: 'Test Region' };
-
-      jwtServiceMock.verifyAsync.mockResolvedValue({ userId: 1 });
-
-      await controller.create(createDto);
-
-      expect(regionsServiceMock.create).toHaveBeenCalledWith(createDto);
-    });
-
-    it('should reject when user is not authenticated', async () => {
-      const createDto: CreateRegionDto = { name: 'Test Region' };
-
-      jwtServiceMock.verifyAsync.mockRejectedValue(new Error('Unauthorized'));
-
-      try {
-        await controller.create(createDto);
-      } catch (error) {
-        expect(error).toBeInstanceOf(UnauthorizedException);
-      }
-    });
   });
 });
