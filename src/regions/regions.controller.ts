@@ -49,7 +49,7 @@ export class RegionsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  remove(@Param('id') id: string) {
-    return this.regionsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.regionsService.remove(id);
   }
 }
