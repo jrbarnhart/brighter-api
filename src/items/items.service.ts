@@ -68,15 +68,44 @@ export class ItemsService {
     return foundResourceVariant;
   }
 
-  updateResourceVariant(
+  async updateResourceVariant(
     id: number,
     updateResourceVariantDto: UpdateResourceVariantDto,
   ) {
-    return `This action updates a #${id} resource variant`;
+    const resourceVariantToUpdate =
+      await this.prisma.resourceVariant.findUnique({
+        where: { id },
+      });
+
+    if (!resourceVariantToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.resourceVariant.update({
+        where: { id },
+        data: updateResourceVariantDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeResourceVariant(id: number) {
-    return `This action removes a #${id} resource variant`;
+  async removeResourceVariant(id: number) {
+    const resourceVariantToDelete =
+      await this.prisma.resourceVariant.findUnique({
+        where: { id },
+      });
+
+    if (!resourceVariantToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.resourceVariant.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   // Resources
