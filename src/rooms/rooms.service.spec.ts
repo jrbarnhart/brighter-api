@@ -34,7 +34,6 @@ describe('RoomsService', () => {
         { id: 1, name: 'Room One', obelisk: true, portal: false, regionId: 10 },
         { id: 2, name: 'Room Two', obelisk: false, portal: true, regionId: 10 },
       ];
-
       const findManyArgsMock: Prisma.RoomFindManyArgs = {
         include: {
           banks: true,
@@ -56,8 +55,6 @@ describe('RoomsService', () => {
     });
 
     it('should return empty array if there are no rooms', async () => {
-      prismaMock.room.findMany.mockResolvedValue([]);
-
       const findManyArgsMock: Prisma.RoomFindManyArgs = {
         include: {
           banks: true,
@@ -69,6 +66,8 @@ describe('RoomsService', () => {
           resources: true,
         },
       };
+
+      prismaMock.room.findMany.mockResolvedValue([]);
 
       const result = await service.findAll();
       expect(result).toEqual([]);
@@ -86,8 +85,6 @@ describe('RoomsService', () => {
         portal: false,
         regionId: 10,
       };
-
-      prismaMock.room.findUnique.mockResolvedValue(existingRoom);
       const findUniqueArgsMock: Prisma.RoomFindUniqueArgs = {
         where: { id: existingRoom.id },
         include: {
@@ -101,6 +98,8 @@ describe('RoomsService', () => {
         },
       };
 
+      prismaMock.room.findUnique.mockResolvedValue(existingRoom);
+
       const result = await service.findOne(existingRoom.id);
       expect(result).toEqual(existingRoom);
       expect(prismaMock.room.findUnique).toHaveBeenCalledTimes(1);
@@ -110,7 +109,6 @@ describe('RoomsService', () => {
     });
 
     it('should throw NotFoundException if room does not exist', async () => {
-      prismaMock.room.findUnique.mockResolvedValue(null);
       const findUniqueArgsMock: Prisma.RoomFindUniqueArgs = {
         where: { id: 999 },
         include: {
@@ -123,6 +121,8 @@ describe('RoomsService', () => {
           resources: true,
         },
       };
+
+      prismaMock.room.findUnique.mockResolvedValue(null);
 
       await expect(service.findOne(999)).rejects.toThrow(NotFoundException);
       expect(prismaMock.room.findUnique).toHaveBeenCalledTimes(1);
@@ -147,7 +147,6 @@ describe('RoomsService', () => {
         portal: false,
         regionId: 10,
       };
-
       const createArgsMock: Prisma.RoomCreateArgs = { data: createDto };
 
       prismaMock.room.create.mockResolvedValue(createdRoom);
@@ -165,6 +164,7 @@ describe('RoomsService', () => {
         portal: false,
         regionId: 10,
       };
+
       prismaMock.room.create.mockRejectedValue({
         code: 'P2002',
         clientVersion: '4.7.1',
@@ -194,7 +194,6 @@ describe('RoomsService', () => {
         portal: false,
         regionId: 10,
       };
-
       const updateArgsMock: Prisma.RoomUpdateArgs = {
         where: { id: existingRoom.id },
         data: updateDto,
@@ -211,6 +210,7 @@ describe('RoomsService', () => {
 
     it('should throw NotFoundException when updating non-existent room', async () => {
       const updateDto = { name: 'Updated Room' };
+
       prismaMock.room.update.mockRejectedValue({
         code: 'P2025',
         clientVersion: '4.7.1',
@@ -232,7 +232,6 @@ describe('RoomsService', () => {
         portal: false,
         regionId: 10,
       };
-
       const deleteArgsMock: Prisma.RoomDeleteArgs = {
         where: { id: roomToDelete.id },
       };
