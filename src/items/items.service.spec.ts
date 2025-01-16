@@ -7,6 +7,7 @@ import {
   PrismaClient,
   Resource,
   ResourceVariant,
+  WeaponVariant,
 } from '@prisma/client';
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
 import { PrismaService } from 'src/prisma.service';
@@ -19,6 +20,8 @@ import { CreateConsumableVariantDto } from './dto/consumable/create-consumable-v
 import { UpdateConsumableVariantDto } from './dto/consumable/update-consumable-variant.dto';
 import { CreateConsumableDto } from './dto/consumable/create-consumable.dto';
 import { UpdateConsumableDto } from './dto/consumable/update-consumable.dto';
+import { CreateWeaponVariantDto } from './dto/weapon/create-weapon-variant.dto';
+import { UpdateWeaponVariantDto } from './dto/weapon/update-weapon-variant.dto';
 
 describe('ItemsService', () => {
   let service: ItemsService;
@@ -964,7 +967,241 @@ describe('ItemsService', () => {
     });
   });
 
-  describe('Weapon Variants', () => {});
+  describe('Weapon Variants', () => {
+    describe('getAllWeaponVariants', () => {
+      it('should return all weaponVariants array', async () => {
+        const allWeaponVariants: WeaponVariant[] = [
+          { id: 1, name: 'WeaponVariant One', weaponId: 10, recipeId: null },
+          { id: 2, name: 'WeaponVariant Two', weaponId: 20, recipeId: null },
+        ];
+        const findManyArgsMock: Prisma.WeaponVariantFindManyArgs = {
+          include: {
+            dropTables: true,
+            recipe: true,
+            vendors: true,
+            weapon: true,
+          },
+        };
+
+        prismaMock.weaponVariant.findMany.mockResolvedValue(allWeaponVariants);
+
+        const result = await service.findAllWeaponVariants();
+        expect(result).toEqual(allWeaponVariants);
+        expect(prismaMock.weaponVariant.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.findMany).toHaveBeenCalledWith(
+          findManyArgsMock,
+        );
+      });
+
+      it('should return empty array if there are no weaponVariants', async () => {
+        const findManyArgsMock: Prisma.WeaponVariantFindManyArgs = {
+          include: {
+            dropTables: true,
+            recipe: true,
+            vendors: true,
+            weapon: true,
+          },
+        };
+
+        prismaMock.weaponVariant.findMany.mockResolvedValue([]);
+
+        const result = await service.findAllWeaponVariants();
+        expect(result).toEqual([]);
+        expect(prismaMock.weaponVariant.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.findMany).toHaveBeenCalledWith(
+          findManyArgsMock,
+        );
+      });
+    });
+
+    describe('getWeaponVariantById', () => {
+      it('should return the weaponVariant if it exists', async () => {
+        const existingWeaponVariant: WeaponVariant = {
+          id: 1,
+          name: 'WeaponVariant One',
+          weaponId: 10,
+          recipeId: null,
+        };
+        const findUniqueArgsMock: Prisma.WeaponVariantFindUniqueArgs = {
+          where: { id: existingWeaponVariant.id },
+          include: {
+            dropTables: true,
+            recipe: true,
+            vendors: true,
+            weapon: true,
+          },
+        };
+
+        prismaMock.weaponVariant.findUnique.mockResolvedValue(
+          existingWeaponVariant,
+        );
+
+        const result = await service.findOneWeaponVariant(
+          existingWeaponVariant.id,
+        );
+        expect(result).toEqual(existingWeaponVariant);
+        expect(prismaMock.weaponVariant.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.findUnique).toHaveBeenCalledWith(
+          findUniqueArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException if weaponVariant does not exist', async () => {
+        const findUniqueArgsMock: Prisma.WeaponVariantFindUniqueArgs = {
+          where: { id: 999 },
+          include: {
+            dropTables: true,
+            recipe: true,
+            vendors: true,
+            weapon: true,
+          },
+        };
+
+        prismaMock.weaponVariant.findUnique.mockResolvedValue(null);
+
+        await expect(service.findOneWeaponVariant(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.weaponVariant.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.findUnique).toHaveBeenCalledWith(
+          findUniqueArgsMock,
+        );
+      });
+    });
+
+    describe('create', () => {
+      it('should create a new weaponVariant', async () => {
+        const createDto: CreateWeaponVariantDto = {
+          name: 'WeaponVariant One',
+          weaponId: 10,
+        };
+        const createdWeaponVariant: WeaponVariant = {
+          id: 1,
+          name: 'WeaponVariant One',
+          weaponId: 10,
+          recipeId: null,
+        };
+        const createArgsMock: Prisma.WeaponVariantCreateArgs = {
+          data: createDto,
+        };
+
+        prismaMock.weaponVariant.create.mockResolvedValue(createdWeaponVariant);
+
+        const result = await service.createWeaponVariant(createDto);
+        expect(result).toEqual(createdWeaponVariant);
+        expect(prismaMock.weaponVariant.create).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.create).toHaveBeenCalledWith(
+          createArgsMock,
+        );
+      });
+
+      it('should throw BadRequestException on duplicate name', async () => {
+        const createDto: CreateWeaponVariantDto = {
+          name: 'WeaponVariant One',
+          weaponId: 10,
+        };
+
+        prismaMock.weaponVariant.create.mockRejectedValue({
+          code: 'P2002',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(service.createWeaponVariant(createDto)).rejects.toThrow(
+          BadRequestException,
+        );
+        expect(prismaMock.weaponVariant.create).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('update', () => {
+      it('should update an existing weaponVariant', async () => {
+        const existingWeaponVariant: WeaponVariant = {
+          id: 1,
+          name: 'WeaponVariant One',
+          weaponId: 10,
+          recipeId: null,
+        };
+        const updateDto: UpdateWeaponVariantDto = {
+          name: 'Updated WeaponVariant',
+        };
+        const updatedWeaponVariant: WeaponVariant = {
+          id: 1,
+          name: 'Updated WeaponVariant',
+          weaponId: 10,
+          recipeId: null,
+        };
+        const updateArgsMock: Prisma.WeaponVariantUpdateArgs = {
+          where: { id: existingWeaponVariant.id },
+          data: updateDto,
+        };
+
+        prismaMock.weaponVariant.findUnique.mockResolvedValue(
+          existingWeaponVariant,
+        );
+        prismaMock.weaponVariant.update.mockResolvedValue(updatedWeaponVariant);
+
+        const result = await service.updateWeaponVariant(1, updateDto);
+        expect(result).toEqual(updatedWeaponVariant);
+        expect(prismaMock.weaponVariant.update).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.update).toHaveBeenCalledWith(
+          updateArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException when updating non-existent weaponVariant', async () => {
+        const updateDto = { name: 'Updated WeaponVariant' };
+
+        prismaMock.weaponVariant.update.mockRejectedValue({
+          code: 'P2025',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(
+          service.updateWeaponVariant(999, updateDto),
+        ).rejects.toThrow(NotFoundException);
+        expect(prismaMock.weaponVariant.update).toHaveBeenCalledTimes(0);
+      });
+    });
+
+    describe('remove', () => {
+      it('should delete a weaponVariant without weaponVariants', async () => {
+        const weaponVariantToDelete: WeaponVariant = {
+          id: 1,
+          name: 'WeaponVariant One',
+          weaponId: 10,
+          recipeId: null,
+        };
+        const deleteArgsMock: Prisma.WeaponVariantDeleteArgs = {
+          where: { id: weaponVariantToDelete.id },
+        };
+
+        prismaMock.weaponVariant.findUnique.mockResolvedValue(
+          weaponVariantToDelete,
+        );
+        prismaMock.weaponVariant.delete.mockResolvedValue(
+          weaponVariantToDelete,
+        );
+
+        const result = await service.removeWeaponVariant(1);
+        expect(result).toEqual(weaponVariantToDelete);
+        expect(prismaMock.weaponVariant.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.delete).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.delete).toHaveBeenCalledWith(
+          deleteArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException when deleting non-existent weaponVariant', async () => {
+        prismaMock.weaponVariant.findUnique.mockResolvedValue(null);
+
+        await expect(service.removeWeaponVariant(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.weaponVariant.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.weaponVariant.delete).not.toHaveBeenCalled();
+      });
+    });
+  });
 
   describe('Weapons', () => {});
 
