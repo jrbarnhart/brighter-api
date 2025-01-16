@@ -18,14 +18,23 @@ import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
 import { CreateMiscItemDto } from './dto/miscItem/create-misc-item.dto';
 import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
 import { PrismaService } from 'src/prisma.service';
+import prismaError from 'src/validation/prismaError';
 
 @Injectable()
 export class ItemsService {
   constructor(private prisma: PrismaService) {}
 
   // Resource Variants
-  createResourceVariant(createResourceVariantDto: CreateResourceVariantDto) {
-    return 'This action adds a new resource variant';
+  async createResourceVariant(
+    createResourceVariantDto: CreateResourceVariantDto,
+  ) {
+    try {
+      return await this.prisma.resourceVariant.create({
+        data: createResourceVariantDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   findAllResourceVariants() {
