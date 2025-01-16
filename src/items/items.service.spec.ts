@@ -5,6 +5,7 @@ import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
 import { PrismaService } from 'src/prisma.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CreateResourceVariantDto } from './dto/resource/create-resource-variant.dto';
+import { UpdateResourceVariantDto } from './dto/resource/update-resource-variant.dto';
 
 describe('ItemsService', () => {
   let service: ItemsService;
@@ -183,6 +184,97 @@ describe('ItemsService', () => {
           BadRequestException,
         );
         expect(prismaMock.resourceVariant.create).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('update', () => {
+      it('should update an existing resourceVariant', async () => {
+        const existingResourceVariant: ResourceVariant = {
+          id: 1,
+          name: 'ResourceVariant One',
+          resourceId: 10,
+          requirementId: null,
+        };
+        const updateDto: UpdateResourceVariantDto = {
+          name: 'Updated ResourceVariant',
+        };
+        const updatedResourceVariant: ResourceVariant = {
+          id: 1,
+          name: 'Updated ResourceVariant',
+          resourceId: 10,
+          requirementId: null,
+        };
+        const updateArgsMock: Prisma.ResourceVariantUpdateArgs = {
+          where: { id: existingResourceVariant.id },
+          data: updateDto,
+        };
+
+        prismaMock.resourceVariant.findUnique.mockResolvedValue(
+          existingResourceVariant,
+        );
+        prismaMock.resourceVariant.update.mockResolvedValue(
+          updatedResourceVariant,
+        );
+
+        const result = await service.updateResourceVariant(1, updateDto);
+        expect(result).toEqual(updatedResourceVariant);
+        expect(prismaMock.resourceVariant.update).toHaveBeenCalledTimes(1);
+        expect(prismaMock.resourceVariant.update).toHaveBeenCalledWith(
+          updateArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException when updating non-existent resourceVariant', async () => {
+        const updateDto = { name: 'Updated ResourceVariant' };
+
+        prismaMock.resourceVariant.update.mockRejectedValue({
+          code: 'P2025',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(
+          service.updateResourceVariant(999, updateDto),
+        ).rejects.toThrow(NotFoundException);
+        expect(prismaMock.resourceVariant.update).toHaveBeenCalledTimes(0);
+      });
+    });
+
+    describe('remove', () => {
+      it('should delete a resourceVariant without resourceVariants', async () => {
+        const resourceVariantToDelete: ResourceVariant = {
+          id: 1,
+          name: 'ResourceVariant One',
+          resourceId: 10,
+          requirementId: null,
+        };
+        const deleteArgsMock: Prisma.ResourceVariantDeleteArgs = {
+          where: { id: resourceVariantToDelete.id },
+        };
+
+        prismaMock.resourceVariant.findUnique.mockResolvedValue(
+          resourceVariantToDelete,
+        );
+        prismaMock.resourceVariant.delete.mockResolvedValue(
+          resourceVariantToDelete,
+        );
+
+        const result = await service.removeResourceVariant(1);
+        expect(result).toEqual(resourceVariantToDelete);
+        expect(prismaMock.resourceVariant.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.resourceVariant.delete).toHaveBeenCalledTimes(1);
+        expect(prismaMock.resourceVariant.delete).toHaveBeenCalledWith(
+          deleteArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException when deleting non-existent resourceVariant', async () => {
+        prismaMock.resourceVariant.findUnique.mockResolvedValue(null);
+
+        await expect(service.removeResourceVariant(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.resourceVariant.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.resourceVariant.delete).not.toHaveBeenCalled();
       });
     });
   });
