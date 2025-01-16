@@ -182,29 +182,86 @@ export class ItemsService {
   }
 
   // Consumable Variants
-  createConsumableVariant(
+  async createConsumableVariant(
     createConsumableVariantDto: CreateConsumableVariantDto,
   ) {
-    return 'This action adds a new consumable variant';
+    try {
+      return await this.prisma.consumableVariant.create({
+        data: createConsumableVariantDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   findAllConsumableVariants() {
-    return `This action returns all consumable variants`;
+    return this.prisma.consumableVariant.findMany({
+      include: {
+        consumable: true,
+        dropTables: true,
+        recipe: true,
+        vendors: true,
+      },
+    });
   }
 
-  findOneConsumableVariant(id: number) {
-    return `This action returns a #${id} consumable variant`;
+  async findOneConsumableVariant(id: number) {
+    const foundConsumableVariant =
+      await this.prisma.consumableVariant.findUnique({
+        where: { id },
+        include: {
+          consumable: true,
+          dropTables: true,
+          recipe: true,
+          vendors: true,
+        },
+      });
+
+    if (foundConsumableVariant === null) {
+      throw new NotFoundException();
+    }
+
+    return foundConsumableVariant;
   }
 
-  updateConsumableVariant(
+  async updateConsumableVariant(
     id: number,
     updateConsumableVariantDto: UpdateConsumableVariantDto,
   ) {
-    return `This action updates a #${id} consumable variant`;
+    const consumableVariantToUpdate =
+      await this.prisma.consumableVariant.findUnique({
+        where: { id },
+      });
+
+    if (!consumableVariantToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.consumableVariant.update({
+        where: { id },
+        data: updateConsumableVariantDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeConsumableVariant(id: number) {
-    return `This action removes a #${id} consumable variant`;
+  async removeConsumableVariant(id: number) {
+    const consumableVariantToDelete =
+      await this.prisma.consumableVariant.findUnique({
+        where: { id },
+      });
+
+    if (!consumableVariantToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.consumableVariant.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   // Consumables
