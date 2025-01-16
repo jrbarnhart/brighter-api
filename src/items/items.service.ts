@@ -109,24 +109,76 @@ export class ItemsService {
   }
 
   // Resources
-  createResource(createResourceDto: CreateResourceDto) {
-    return 'This action adds a new resource';
+  async createResource(createResourceDto: CreateResourceDto) {
+    try {
+      return await this.prisma.resource.create({
+        data: createResourceDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   findAllResources() {
-    return `This action returns all resources`;
+    return this.prisma.resource.findMany({
+      include: {
+        resources: true,
+        skill: true,
+        variants: true,
+      },
+    });
   }
 
-  findOneResource(id: number) {
-    return `This action returns a #${id} resource`;
+  async findOneResource(id: number) {
+    const foundResource = await this.prisma.resource.findUnique({
+      where: { id },
+      include: {
+        resources: true,
+        skill: true,
+        variants: true,
+      },
+    });
+
+    if (foundResource === null) {
+      throw new NotFoundException();
+    }
+
+    return foundResource;
   }
 
-  updateResource(id: number, updateResourceDto: UpdateResourceDto) {
-    return `This action updates a #${id} resource`;
+  async updateResource(id: number, updateResourceDto: UpdateResourceDto) {
+    const resourceToUpdate = await this.prisma.resource.findUnique({
+      where: { id },
+    });
+
+    if (!resourceToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.resource.update({
+        where: { id },
+        data: updateResourceDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeResource(id: number) {
-    return `This action removes a #${id} resource`;
+  async removeResource(id: number) {
+    const resourceToDelete = await this.prisma.resource.findUnique({
+      where: { id },
+    });
+
+    if (!resourceToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.resource.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   // Consumable Variants
