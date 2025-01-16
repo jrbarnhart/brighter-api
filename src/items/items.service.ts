@@ -587,24 +587,75 @@ export class ItemsService {
   }
 
   // Armor
-  createArmor(createArmorDto: CreateArmorDto): Promise<Armor> {
-    return 'This action adds a new armor';
+  async createArmor(createArmorDto: CreateArmorDto): Promise<Armor> {
+    try {
+      return await this.prisma.armor.create({
+        data: createArmorDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   findAllArmor(): Promise<Armor[]> {
-    return `This action returns all armors`;
+    return this.prisma.armor.findMany({
+      include: {
+        variants: true,
+      },
+    });
   }
 
-  findOneArmor(id: number): Promise<Armor> {
-    return `This action returns a #${id} armor`;
+  async findOneArmor(id: number): Promise<Armor> {
+    const foundArmor = await this.prisma.armor.findUnique({
+      where: { id },
+      include: {
+        variants: true,
+      },
+    });
+
+    if (foundArmor === null) {
+      throw new NotFoundException();
+    }
+
+    return foundArmor;
   }
 
-  updateArmor(id: number, updateArmorDto: UpdateArmorDto): Promise<Armor> {
-    return `This action updates a #${id} armor`;
+  async updateArmor(
+    id: number,
+    updateArmorDto: UpdateArmorDto,
+  ): Promise<Armor> {
+    const armorToUpdate = await this.prisma.armor.findUnique({
+      where: { id },
+    });
+
+    if (!armorToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.armor.update({
+        where: { id },
+        data: updateArmorDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeArmor(id: number): Promise<Armor> {
-    return `This action removes a #${id} armor`;
+  async removeArmor(id: number): Promise<Armor> {
+    const armorToDelete = await this.prisma.armor.findUnique({
+      where: { id },
+    });
+
+    if (!armorToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.armor.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
   // Misc Items
