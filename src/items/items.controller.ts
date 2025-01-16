@@ -7,27 +7,84 @@ import {
   Param,
   Delete,
   UseGuards,
+  UsePipes,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ItemsService } from './items.service';
-import { CreateResourceDto } from './dto/resource/create-resource.dto';
-import { UpdateResourceDto } from './dto/resource/update-resource.dto';
-import { CreateResourceVariantDto } from './dto/resource/create-resource-variant.dto';
-import { UpdateResourceVariantDto } from './dto/resource/update-resource-variant.dto';
-import { CreateConsumableDto } from './dto/consumable/create-consumable.dto';
-import { UpdateConsumableDto } from './dto/consumable/update-consumable.dto';
-import { CreateConsumableVariantDto } from './dto/consumable/create-consumable-variant.dto';
-import { UpdateConsumableVariantDto } from './dto/consumable/update-consumable-variant.dto';
-import { CreateWeaponDto } from './dto/weapon/create-weapon.dto';
-import { UpdateWeaponDto } from './dto/weapon/update-weapon.dto';
-import { CreateWeaponVariantDto } from './dto/weapon/create-weapon-variant.dto';
-import { UpdateWeaponVariantDto } from './dto/weapon/update-weapon-variant.dto';
-import { CreateArmorDto } from './dto/armor/create-armor.dto';
-import { UpdateArmorDto } from './dto/armor/update-armor.dto';
-import { CreateArmorVariantDto } from './dto/armor/create-armor-variant.dto';
-import { UpdateArmorVariantDto } from './dto/armor/update-armor-variant.dto';
-import { CreateMiscItemDto } from './dto/miscItem/create-misc-item.dto';
-import { UpdateMiscItemDto } from './dto/miscItem/update-misc-item.dto';
+import {
+  CreateResourceDto,
+  createResourceSchema,
+} from './dto/resource/create-resource.dto';
+import {
+  UpdateResourceDto,
+  updateResourceSchema,
+} from './dto/resource/update-resource.dto';
+import {
+  CreateResourceVariantDto,
+  createResourceVariantSchema,
+} from './dto/resource/create-resource-variant.dto';
+import {
+  UpdateResourceVariantDto,
+  updateResourceVariantSchema,
+} from './dto/resource/update-resource-variant.dto';
+import {
+  CreateConsumableDto,
+  createConsumableSchema,
+} from './dto/consumable/create-consumable.dto';
+import {
+  UpdateConsumableDto,
+  updateConsumableSchema,
+} from './dto/consumable/update-consumable.dto';
+import {
+  CreateConsumableVariantDto,
+  createConsumableVariantSchema,
+} from './dto/consumable/create-consumable-variant.dto';
+import {
+  UpdateConsumableVariantDto,
+  updateConsumableVariantSchema,
+} from './dto/consumable/update-consumable-variant.dto';
+import {
+  CreateWeaponDto,
+  createWeaponSchema,
+} from './dto/weapon/create-weapon.dto';
+import {
+  UpdateWeaponDto,
+  updateWeaponSchema,
+} from './dto/weapon/update-weapon.dto';
+import {
+  CreateWeaponVariantDto,
+  createWeaponVariantSchema,
+} from './dto/weapon/create-weapon-variant.dto';
+import {
+  UpdateWeaponVariantDto,
+  updateWeaponVariantSchema,
+} from './dto/weapon/update-weapon-variant.dto';
+import {
+  CreateArmorDto,
+  createArmorSchema,
+} from './dto/armor/create-armor.dto';
+import {
+  UpdateArmorDto,
+  updateArmorSchema,
+} from './dto/armor/update-armor.dto';
+import {
+  CreateArmorVariantDto,
+  createArmorVariantSchema,
+} from './dto/armor/create-armor-variant.dto';
+import {
+  UpdateArmorVariantDto,
+  updateArmorVariantSchema,
+} from './dto/armor/update-armor-variant.dto';
+import {
+  CreateMiscItemDto,
+  createMiscItemSchema,
+} from './dto/miscItem/create-misc-item.dto';
+import {
+  UpdateMiscItemDto,
+  updateMiscItemSchema,
+} from './dto/miscItem/update-misc-item.dto';
+import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 
 @Controller('items')
 export class ItemsController {
@@ -36,6 +93,7 @@ export class ItemsController {
   // Resource Variants
   @Post('resources/variants')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createResourceVariantSchema))
   createResourceVariant(
     @Body() createResourceVariantDto: CreateResourceVariantDto,
   ) {
@@ -48,28 +106,30 @@ export class ItemsController {
   }
 
   @Get('resources/variants/:id')
-  findOneResourceVariant(@Param('id') id: string) {
-    return this.itemsService.findOneResourceVariant(+id);
+  findOneResourceVariant(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneResourceVariant(id);
   }
 
   @Patch('resources/variants/:id')
   @UseGuards(AuthGuard)
   updateResourceVariant(
-    @Param('id') id: string,
-    @Body() updateResourceDto: UpdateResourceVariantDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateResourceVariantSchema))
+    updateResourceDto: UpdateResourceVariantDto,
   ) {
-    return this.itemsService.updateResourceVariant(+id, updateResourceDto);
+    return this.itemsService.updateResourceVariant(id, updateResourceDto);
   }
 
   @Delete('resources/variants/:id')
   @UseGuards(AuthGuard)
-  removeResourceVariant(@Param('id') id: string) {
-    return this.itemsService.removeResourceVariant(+id);
+  removeResourceVariant(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeResourceVariant(id);
   }
 
   // Resources
   @Post('resources')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createResourceSchema))
   createResource(@Body() createResourceDto: CreateResourceDto) {
     return this.itemsService.createResource(createResourceDto);
   }
@@ -80,28 +140,30 @@ export class ItemsController {
   }
 
   @Get('resources/:id')
-  findOneResource(@Param('id') id: string) {
-    return this.itemsService.findOneResource(+id);
+  findOneResource(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneResource(id);
   }
 
   @Patch('resources/:id')
   @UseGuards(AuthGuard)
   updateResource(
-    @Param('id') id: string,
-    @Body() updateResourceDto: UpdateResourceDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateResourceSchema))
+    updateResourceDto: UpdateResourceDto,
   ) {
-    return this.itemsService.updateResource(+id, updateResourceDto);
+    return this.itemsService.updateResource(id, updateResourceDto);
   }
 
   @Delete('resources/:id')
   @UseGuards(AuthGuard)
-  removeResource(@Param('id') id: string) {
-    return this.itemsService.removeResource(+id);
+  removeResource(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeResource(id);
   }
 
   // Consumable Variants
   @Post('consumables/variants')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createConsumableVariantSchema))
   createConsumableVariant(
     @Body() createConsumableVariantDto: CreateConsumableVariantDto,
   ) {
@@ -116,15 +178,16 @@ export class ItemsController {
   }
 
   @Get('consumables/variants/:id')
-  findOneConsumableVariant(@Param('id') id: string) {
-    return this.itemsService.findOneConsumableVariant(+id);
+  findOneConsumableVariant(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneConsumableVariant(id);
   }
 
   @Patch('consumables/variants/:id')
   @UseGuards(AuthGuard)
   updateConsumableVariant(
-    @Param('id') id: string,
-    @Body() updateConsumableVariantDto: UpdateConsumableVariantDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateConsumableVariantSchema))
+    updateConsumableVariantDto: UpdateConsumableVariantDto,
   ) {
     return this.itemsService.updateConsumableVariant(
       +id,
@@ -134,13 +197,14 @@ export class ItemsController {
 
   @Delete('consumables/variants/:id')
   @UseGuards(AuthGuard)
-  removeConsumableVariant(@Param('id') id: string) {
-    return this.itemsService.removeConsumableVariant(+id);
+  removeConsumableVariant(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeConsumableVariant(id);
   }
 
   // Consumables
   @Post('consumables')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createConsumableSchema))
   createConsumable(@Body() createConsumableDto: CreateConsumableDto) {
     return this.itemsService.createConsumable(createConsumableDto);
   }
@@ -151,28 +215,30 @@ export class ItemsController {
   }
 
   @Get('consumables/:id')
-  findOneConsumable(@Param('id') id: string) {
-    return this.itemsService.findOneConsumable(+id);
+  findOneConsumable(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneConsumable(id);
   }
 
   @Patch('consumables/:id')
   @UseGuards(AuthGuard)
   updateConsumable(
-    @Param('id') id: string,
-    @Body() updateConsumableDto: UpdateConsumableDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateConsumableSchema))
+    updateConsumableDto: UpdateConsumableDto,
   ) {
-    return this.itemsService.updateConsumable(+id, updateConsumableDto);
+    return this.itemsService.updateConsumable(id, updateConsumableDto);
   }
 
   @Delete('consumables/:id')
   @UseGuards(AuthGuard)
-  removeConsumable(@Param('id') id: string) {
-    return this.itemsService.removeConsumable(+id);
+  removeConsumable(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeConsumable(id);
   }
 
   // Weapon Variants
   @Post('weapons/variants')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createWeaponVariantSchema))
   createWeaponVariant(@Body() createWeaponVariantDto: CreateWeaponVariantDto) {
     return this.itemsService.createWeaponVariant(createWeaponVariantDto);
   }
@@ -183,28 +249,30 @@ export class ItemsController {
   }
 
   @Get('weapons/variants/:id')
-  findOneWeaponVariant(@Param('id') id: string) {
-    return this.itemsService.findOneWeaponVariant(+id);
+  findOneWeaponVariant(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneWeaponVariant(id);
   }
 
   @Patch('weapons/variants/:id')
   @UseGuards(AuthGuard)
   updateWeaponVariant(
-    @Param('id') id: string,
-    @Body() updateWeaponVariantDto: UpdateWeaponVariantDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateWeaponVariantSchema))
+    updateWeaponVariantDto: UpdateWeaponVariantDto,
   ) {
-    return this.itemsService.updateWeaponVariant(+id, updateWeaponVariantDto);
+    return this.itemsService.updateWeaponVariant(id, updateWeaponVariantDto);
   }
 
   @Delete('weapons/variants/:id')
   @UseGuards(AuthGuard)
-  removeWeaponVariant(@Param('id') id: string) {
-    return this.itemsService.removeWeaponVariant(+id);
+  removeWeaponVariant(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeWeaponVariant(id);
   }
 
   // Weapons
   @Post('weapons')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createWeaponSchema))
   createWeapon(@Body() createWeaponDto: CreateWeaponDto) {
     return this.itemsService.createWeapon(createWeaponDto);
   }
@@ -215,28 +283,30 @@ export class ItemsController {
   }
 
   @Get('weapons/:id')
-  findOneWeapon(@Param('id') id: string) {
-    return this.itemsService.findOneWeapon(+id);
+  findOneWeapon(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneWeapon(id);
   }
 
   @Patch('weapons/:id')
   @UseGuards(AuthGuard)
   updateWeapon(
-    @Param('id') id: string,
-    @Body() updateWeaponDto: UpdateWeaponDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateWeaponSchema))
+    updateWeaponDto: UpdateWeaponDto,
   ) {
-    return this.itemsService.updateWeapon(+id, updateWeaponDto);
+    return this.itemsService.updateWeapon(id, updateWeaponDto);
   }
 
   @Delete('weapons/:id')
   @UseGuards(AuthGuard)
-  removeWeapon(@Param('id') id: string) {
-    return this.itemsService.removeWeapon(+id);
+  removeWeapon(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeWeapon(id);
   }
 
   // Armor Variants
   @Post('armor/variants')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createArmorVariantSchema))
   createArmorVariant(@Body() createArmorVariantDto: CreateArmorVariantDto) {
     return this.itemsService.createArmorVariant(createArmorVariantDto);
   }
@@ -247,28 +317,30 @@ export class ItemsController {
   }
 
   @Get('armor/variants/:id')
-  findOneArmorVariant(@Param('id') id: string) {
-    return this.itemsService.findOneArmorVariant(+id);
+  findOneArmorVariant(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneArmorVariant(id);
   }
 
   @Patch('armor/variants/:id')
   @UseGuards(AuthGuard)
   updateArmorVariant(
-    @Param('id') id: string,
-    @Body() updateArmorVariantDto: UpdateArmorVariantDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateArmorVariantSchema))
+    updateArmorVariantDto: UpdateArmorVariantDto,
   ) {
-    return this.itemsService.updateArmorVariant(+id, updateArmorVariantDto);
+    return this.itemsService.updateArmorVariant(id, updateArmorVariantDto);
   }
 
   @Delete('armor/variants/:id')
   @UseGuards(AuthGuard)
-  removeArmorVariant(@Param('id') id: string) {
-    return this.itemsService.removeArmorVariant(+id);
+  removeArmorVariant(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeArmorVariant(id);
   }
 
   // Armor
   @Post('armor')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createArmorSchema))
   createArmor(@Body() createArmorDto: CreateArmorDto) {
     return this.itemsService.createArmor(createArmorDto);
   }
@@ -279,25 +351,30 @@ export class ItemsController {
   }
 
   @Get('armor/:id')
-  findOneArmor(@Param('id') id: string) {
-    return this.itemsService.findOneArmor(+id);
+  findOneArmor(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneArmor(id);
   }
 
   @Patch('armor/:id')
   @UseGuards(AuthGuard)
-  updateArmor(@Param('id') id: string, @Body() updateArmorDto: UpdateArmorDto) {
-    return this.itemsService.updateArmor(+id, updateArmorDto);
+  updateArmor(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateArmorSchema))
+    updateArmorDto: UpdateArmorDto,
+  ) {
+    return this.itemsService.updateArmor(id, updateArmorDto);
   }
 
   @Delete('armor/:id')
   @UseGuards(AuthGuard)
-  removeArmor(@Param('id') id: string) {
-    return this.itemsService.removeArmor(+id);
+  removeArmor(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeArmor(id);
   }
 
   // Misc Items
   @Post('misc')
   @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createMiscItemSchema))
   createMiscItem(@Body() createMiscItemDto: CreateMiscItemDto) {
     return this.itemsService.createMiscItem(createMiscItemDto);
   }
@@ -308,22 +385,23 @@ export class ItemsController {
   }
 
   @Get('misc/:id')
-  findOneMiscItem(@Param('id') id: string) {
-    return this.itemsService.findOneMiscItem(+id);
+  findOneMiscItem(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.findOneMiscItem(id);
   }
 
   @Patch('misc/:id')
   @UseGuards(AuthGuard)
   updateMiscItem(
-    @Param('id') id: string,
-    @Body() updateMiscItemDto: UpdateMiscItemDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateMiscItemSchema))
+    updateMiscItemDto: UpdateMiscItemDto,
   ) {
-    return this.itemsService.updateMiscItem(+id, updateMiscItemDto);
+    return this.itemsService.updateMiscItem(id, updateMiscItemDto);
   }
 
   @Delete('misc/:id')
   @UseGuards(AuthGuard)
-  removeMiscItem(@Param('id') id: string) {
-    return this.itemsService.removeMiscItem(+id);
+  removeMiscItem(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.removeMiscItem(id);
   }
 }
