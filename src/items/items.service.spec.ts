@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ItemsService } from './items.service';
 import {
+  Consumable,
   ConsumableVariant,
   Prisma,
   PrismaClient,
@@ -16,6 +17,8 @@ import { CreateResourceDto } from './dto/resource/create-resource.dto';
 import { UpdateResourceDto } from './dto/resource/update-resource.dto';
 import { CreateConsumableVariantDto } from './dto/consumable/create-consumable-variant.dto';
 import { UpdateConsumableVariantDto } from './dto/consumable/update-consumable-variant.dto';
+import { CreateConsumableDto } from './dto/consumable/create-consumable.dto';
+import { UpdateConsumableDto } from './dto/consumable/update-consumable.dto';
 
 describe('ItemsService', () => {
   let service: ItemsService;
@@ -763,7 +766,203 @@ describe('ItemsService', () => {
     });
   });
 
-  describe('Consumables', () => {});
+  describe('Consumables', () => {
+    describe('getAllConsumables', () => {
+      it('should return all consumables array', async () => {
+        const allConsumables: Consumable[] = [
+          { id: 1, name: 'Consumable One' },
+          { id: 2, name: 'Consumable Two' },
+        ];
+        const findManyArgsMock: Prisma.ConsumableFindManyArgs = {
+          include: {
+            variants: true,
+          },
+        };
+
+        prismaMock.consumable.findMany.mockResolvedValue(allConsumables);
+
+        const result = await service.findAllConsumables();
+        expect(result).toEqual(allConsumables);
+        expect(prismaMock.consumable.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.findMany).toHaveBeenCalledWith(
+          findManyArgsMock,
+        );
+      });
+
+      it('should return empty array if there are no consumables', async () => {
+        const findManyArgsMock: Prisma.ConsumableFindManyArgs = {
+          include: {
+            variants: true,
+          },
+        };
+
+        prismaMock.consumable.findMany.mockResolvedValue([]);
+
+        const result = await service.findAllConsumables();
+        expect(result).toEqual([]);
+        expect(prismaMock.consumable.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.findMany).toHaveBeenCalledWith(
+          findManyArgsMock,
+        );
+      });
+    });
+
+    describe('getConsumableById', () => {
+      it('should return the consumable if it exists', async () => {
+        const existingConsumable: Consumable = {
+          id: 1,
+          name: 'Consumable One',
+        };
+        const findUniqueArgsMock: Prisma.ConsumableFindUniqueArgs = {
+          where: { id: existingConsumable.id },
+          include: {
+            variants: true,
+          },
+        };
+
+        prismaMock.consumable.findUnique.mockResolvedValue(existingConsumable);
+
+        const result = await service.findOneConsumable(existingConsumable.id);
+        expect(result).toEqual(existingConsumable);
+        expect(prismaMock.consumable.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.findUnique).toHaveBeenCalledWith(
+          findUniqueArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException if consumable does not exist', async () => {
+        const findUniqueArgsMock: Prisma.ConsumableFindUniqueArgs = {
+          where: { id: 999 },
+          include: {
+            variants: true,
+          },
+        };
+
+        prismaMock.consumable.findUnique.mockResolvedValue(null);
+
+        await expect(service.findOneConsumable(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.consumable.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.findUnique).toHaveBeenCalledWith(
+          findUniqueArgsMock,
+        );
+      });
+    });
+
+    describe('create', () => {
+      it('should create a new consumable', async () => {
+        const createDto: CreateConsumableDto = {
+          name: 'Consumable One',
+        };
+        const createdConsumable: Consumable = {
+          id: 1,
+          name: 'Consumable One',
+        };
+        const createArgsMock: Prisma.ConsumableCreateArgs = { data: createDto };
+
+        prismaMock.consumable.create.mockResolvedValue(createdConsumable);
+
+        const result = await service.createConsumable(createDto);
+        expect(result).toEqual(createdConsumable);
+        expect(prismaMock.consumable.create).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.create).toHaveBeenCalledWith(
+          createArgsMock,
+        );
+      });
+
+      it('should throw BadRequestException on duplicate name', async () => {
+        const createDto: CreateConsumableDto = {
+          name: 'Consumable One',
+        };
+
+        prismaMock.consumable.create.mockRejectedValue({
+          code: 'P2002',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(service.createConsumable(createDto)).rejects.toThrow(
+          BadRequestException,
+        );
+        expect(prismaMock.consumable.create).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('update', () => {
+      it('should update an existing consumable', async () => {
+        const existingConsumable: Consumable = {
+          id: 1,
+          name: 'Consumable One',
+        };
+        const updateDto: UpdateConsumableDto = { name: 'Updated Consumable' };
+        const updatedConsumable: Consumable = {
+          id: 1,
+          name: 'Updated Consumable',
+        };
+        const updateArgsMock: Prisma.ConsumableUpdateArgs = {
+          where: { id: existingConsumable.id },
+          data: updateDto,
+        };
+
+        prismaMock.consumable.findUnique.mockResolvedValue(existingConsumable);
+        prismaMock.consumable.update.mockResolvedValue(updatedConsumable);
+
+        const result = await service.updateConsumable(1, updateDto);
+        expect(result).toEqual(updatedConsumable);
+        expect(prismaMock.consumable.update).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.update).toHaveBeenCalledWith(
+          updateArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException when updating non-existent consumable', async () => {
+        const updateDto = { name: 'Updated Consumable' };
+
+        prismaMock.consumable.update.mockRejectedValue({
+          code: 'P2025',
+          clientVersion: '4.7.1',
+        });
+
+        await expect(service.updateConsumable(999, updateDto)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.consumable.update).toHaveBeenCalledTimes(0);
+      });
+    });
+
+    describe('remove', () => {
+      it('should delete a consumable without consumables', async () => {
+        const consumableToDelete: Consumable = {
+          id: 1,
+          name: 'Consumable One',
+        };
+        const deleteArgsMock: Prisma.ConsumableDeleteArgs = {
+          where: { id: consumableToDelete.id },
+        };
+
+        prismaMock.consumable.findUnique.mockResolvedValue(consumableToDelete);
+        prismaMock.consumable.delete.mockResolvedValue(consumableToDelete);
+
+        const result = await service.removeConsumable(1);
+        expect(result).toEqual(consumableToDelete);
+        expect(prismaMock.consumable.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.delete).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.delete).toHaveBeenCalledWith(
+          deleteArgsMock,
+        );
+      });
+
+      it('should throw NotFoundException when deleting non-existent consumable', async () => {
+        prismaMock.consumable.findUnique.mockResolvedValue(null);
+
+        await expect(service.removeConsumable(999)).rejects.toThrow(
+          NotFoundException,
+        );
+        expect(prismaMock.consumable.findUnique).toHaveBeenCalledTimes(1);
+        expect(prismaMock.consumable.delete).not.toHaveBeenCalled();
+      });
+    });
+  });
 
   describe('Weapon Variants', () => {});
 
