@@ -1,27 +1,91 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import { PrismaService } from 'src/prisma.service';
+import { Room } from '@prisma/client';
+import prismaError from 'src/validation/prismaError';
 
 @Injectable()
 export class RoomsService {
-  create(createRoomDto: CreateRoomDto) {
-    return 'This action adds a new room';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createRoomDto: CreateRoomDto): Promise<Room> {
+    try {
+      return await this.prisma.room.create({
+        data: createRoomDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  findAll() {
-    return `This action returns all rooms`;
+  findAll(): Promise<Room[]> {
+    return this.prisma.room.findMany({
+      include: {
+        banks: true,
+        craftingSpots: true,
+        monsters: true,
+        npcs: true,
+        questSteps: true,
+        region: true,
+        resources: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} room`;
+  async findOne(id: number): Promise<Room> {
+    const foundRoom = await this.prisma.room.findUnique({
+      where: { id },
+      include: {
+        banks: true,
+        craftingSpots: true,
+        monsters: true,
+        npcs: true,
+        questSteps: true,
+        region: true,
+        resources: true,
+      },
+    });
+
+    if (foundRoom === null) {
+      throw new NotFoundException();
+    }
+
+    return foundRoom;
   }
 
-  update(id: number, updateRoomDto: UpdateRoomDto) {
-    return `This action updates a #${id} room`;
+  async update(id: number, updateRoomDto: UpdateRoomDto): Promise<Room> {
+    const roomToUpdate = await this.prisma.room.findUnique({
+      where: { id },
+    });
+
+    if (!roomToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.room.update({
+        where: { id },
+        data: updateRoomDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} room`;
+  async remove(id: number): Promise<Room> {
+    const roomToDelete = await this.prisma.room.findUnique({
+      where: { id },
+    });
+
+    if (!roomToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.room.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 }
