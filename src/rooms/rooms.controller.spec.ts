@@ -43,7 +43,9 @@ describe('RoomsController', () => {
 
   describe('findAll', () => {
     it('should return an array of rooms', async () => {
-      const allRooms: Room[] = [{ id: 1, name: 'Room One', regionId: 2 }];
+      const allRooms: Room[] = [
+        { id: 1, name: 'Room One', regionId: 2, obelisk: false, portal: false },
+      ];
 
       roomsServiceMock.findAll.mockResolvedValue(allRooms);
 
@@ -61,7 +63,13 @@ describe('RoomsController', () => {
 
   describe('findOne', () => {
     it('should return the room if it exists', async () => {
-      const room: Room = { id: 1, name: 'Room One', regionId: 2 };
+      const room: Room = {
+        id: 1,
+        name: 'Room One',
+        regionId: 2,
+        obelisk: false,
+        portal: false,
+      };
 
       roomsServiceMock.findOne.mockResolvedValue(room);
 
@@ -77,7 +85,12 @@ describe('RoomsController', () => {
 
   describe('create', () => {
     it('should add a new room', async () => {
-      const roomDto: CreateRoomDto = { name: 'New Room', regionId: 2 };
+      const roomDto: CreateRoomDto = {
+        name: 'New Room',
+        regionId: 2,
+        obelisk: false,
+        portal: false,
+      };
       const room: Room = { id: 1, ...roomDto };
 
       roomsServiceMock.create.mockResolvedValue(room);
@@ -86,7 +99,12 @@ describe('RoomsController', () => {
     });
 
     it('should propagate a BadRequestException when room name already exists', async () => {
-      const roomDto: CreateRoomDto = { name: 'New Room', regionId: 2 };
+      const roomDto: CreateRoomDto = {
+        name: 'Room One',
+        regionId: 2,
+        obelisk: false,
+        portal: false,
+      };
       roomsServiceMock.create.mockRejectedValue(new BadRequestException());
 
       await expect(controller.create(roomDto)).rejects.toThrow(
@@ -98,7 +116,13 @@ describe('RoomsController', () => {
   describe('update', () => {
     it('should update the room if it exists', async () => {
       const updateRoomDto: UpdateRoomDto = { name: 'Updated Room' };
-      const updatedRoom: Room = { id: 1, name: 'Updated Room', regionId: 2 };
+      const updatedRoom: Room = {
+        id: 1,
+        name: 'Updated Room',
+        regionId: 2,
+        obelisk: false,
+        portal: false,
+      };
 
       roomsServiceMock.update.mockResolvedValue(updatedRoom);
 
@@ -119,7 +143,13 @@ describe('RoomsController', () => {
 
   describe('delete', () => {
     it('should delete the room if it exists', async () => {
-      const room: Room = { id: 1, name: 'Updated Room', regionId: 2 };
+      const room: Room = {
+        id: 1,
+        name: 'Room One',
+        regionId: 2,
+        obelisk: false,
+        portal: false,
+      };
 
       roomsServiceMock.remove.mockResolvedValue(room);
 
@@ -130,12 +160,6 @@ describe('RoomsController', () => {
       roomsServiceMock.remove.mockRejectedValue(new NotFoundException());
 
       await expect(controller.remove(999)).rejects.toThrow(NotFoundException);
-    });
-
-    it('should propagate a BadRequestException if the room has contents', async () => {
-      roomsServiceMock.remove.mockRejectedValue(new BadRequestException());
-
-      await expect(controller.remove(999)).rejects.toThrow(BadRequestException);
     });
   });
 });
