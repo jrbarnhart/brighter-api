@@ -132,7 +132,7 @@ describe('RoomsController', () => {
       await expect(controller.remove(999)).rejects.toThrow(NotFoundException);
     });
 
-    it('should propagate a BadRequestException if the room has rooms', async () => {
+    it('should propagate a BadRequestException if the room has contents', async () => {
       roomsServiceMock.remove.mockRejectedValue(new BadRequestException());
 
       await expect(controller.remove(999)).rejects.toThrow(BadRequestException);
