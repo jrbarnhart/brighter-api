@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateResourceDto } from './dto/resource/create-resource.dto';
 import { UpdateResourceDto } from './dto/resource/update-resource.dto';
 import { CreateResourceVariantDto } from './dto/resource/create-resource-variant.dto';
@@ -40,8 +40,23 @@ export class ItemsService {
     });
   }
 
-  findOneResourceVariant(id: number) {
-    return `This action returns a #${id} resource variant`;
+  async findOneResourceVariant(id: number) {
+    const foundResourceVariant = await this.prisma.resourceVariant.findUnique({
+      where: { id },
+      include: {
+        resource: true,
+        dropTables: true,
+        inRecipes: true,
+        requirement: true,
+        vendors: true,
+      },
+    });
+
+    if (foundResourceVariant === null) {
+      throw new NotFoundException();
+    }
+
+    return foundResourceVariant;
   }
 
   updateResourceVariant(
