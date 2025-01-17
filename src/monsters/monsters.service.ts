@@ -1,54 +1,86 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import prismaError from 'src/validation/prismaError';
+import { PrismaService } from 'src/prisma.service';
 import { CreateMonsterDto } from './dto/create-monster.dto';
 import { UpdateMonsterDto } from './dto/update-monster.dto';
-import { CreateMonsterVariantDto } from './dto/create-monster-variant.dto';
-import { UpdateMonsterVariantDto } from './dto/update-monster-variant.dto';
+import { Monster } from '@prisma/client';
 
 @Injectable()
 export class MonstersService {
-  // Monsters
-  createMonster(createMonsterDto: CreateMonsterDto) {
-    return 'This action adds a new monster';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createMonsterDto: CreateMonsterDto): Promise<Monster> {
+    try {
+      return await this.prisma.monster.create({
+        data: createMonsterDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  findAllMonsters() {
-    return `This action returns all monsters`;
+  findAll(): Promise<Monster[]> {
+    return this.prisma.monster.findMany({
+      include: {
+        rooms: true,
+        skill: true,
+        variants: true,
+      },
+    });
   }
 
-  findOneMonster(id: number) {
-    return `This action returns a #${id} monster`;
+  async findOne(id: number): Promise<Monster> {
+    const foundMonster = await this.prisma.monster.findUnique({
+      where: { id },
+      include: {
+        rooms: true,
+        skill: true,
+        variants: true,
+      },
+    });
+
+    if (foundMonster === null) {
+      throw new NotFoundException();
+    }
+
+    return foundMonster;
   }
 
-  updateMonster(id: number, updateMonsterDto: UpdateMonsterDto) {
-    return `This action updates a #${id} monster`;
-  }
-
-  removeMonster(id: number) {
-    return `This action removes a #${id} monster`;
-  }
-
-  // Monster Variants
-  createMonsterVariant(createMonsterVariantDto: CreateMonsterVariantDto) {
-    return 'This action adds a new monster variant';
-  }
-
-  findAllMonsterVariants() {
-    return `This action returns all monster variants`;
-  }
-
-  findOneMonsterVariant(id: number) {
-    return `This action returns a #${id} monster variant`;
-  }
-
-  updateMonsterVariant(
+  async update(
     id: number,
-    updateMonsterVariantDto: UpdateMonsterVariantDto,
-  ) {
-    return `This action updates a #${id} monster variant`;
+    updateMonsterDto: UpdateMonsterDto,
+  ): Promise<Monster> {
+    const monsterToUpdate = await this.prisma.monster.findUnique({
+      where: { id },
+    });
+
+    if (!monsterToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.monster.update({
+        where: { id },
+        data: updateMonsterDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeMonsterVariant(id: number) {
-    return `This action removes a #${id} monster variant`;
+  async remove(id: number): Promise<Monster> {
+    const monsterToDelete = await this.prisma.monster.findUnique({
+      where: { id },
+    });
+
+    if (!monsterToDelete) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.monster.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 }

@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
-import { MonstersService } from './monsters.service';
+import { MonsterVariantsController } from './variants/monsterVariants.controller';
 import { MonstersController } from './monsters.controller';
+import { MonstersService } from './monsters.service';
+import { MonsterVariantsService } from './variants/monsterVariants.service';
+import { PrismaService } from 'src/prisma.service';
 
 @Module({
-  controllers: [MonstersController],
-  providers: [MonstersService],
+  controllers: [MonsterVariantsController, MonstersController],
+  providers: [PrismaService, MonsterVariantsService, MonstersService],
 })
 export class MonstersModule {}

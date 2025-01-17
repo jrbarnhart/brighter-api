@@ -6,74 +6,56 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  UsePipes,
+  ParseIntPipe,
 } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { MonstersService } from './monsters.service';
-import { CreateMonsterDto } from './dto/create-monster.dto';
-import { UpdateMonsterDto } from './dto/update-monster.dto';
-import { CreateMonsterVariantDto } from './dto/create-monster-variant.dto';
-import { UpdateMonsterVariantDto } from './dto/update-monster-variant.dto';
+import {
+  CreateMonsterDto,
+  createMonsterSchema,
+} from './dto/create-monster.dto';
+import {
+  UpdateMonsterDto,
+  updateMonsterSchema,
+} from './dto/update-monster.dto';
 
 @Controller('monsters')
 export class MonstersController {
   constructor(private readonly monstersService: MonstersService) {}
 
-  // Monsters
   @Post()
+  @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createMonsterSchema))
   create(@Body() createMonsterDto: CreateMonsterDto) {
-    return this.monstersService.createMonster(createMonsterDto);
+    return this.monstersService.create(createMonsterDto);
   }
 
   @Get()
   findAll() {
-    return this.monstersService.findAllMonsters();
+    return this.monstersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.monstersService.findOneMonster(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.monstersService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMonsterDto: UpdateMonsterDto) {
-    return this.monstersService.updateMonster(+id, updateMonsterDto);
+  @UseGuards(AuthGuard)
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateMonsterSchema))
+    updateMonsterDto: UpdateMonsterDto,
+  ) {
+    return this.monstersService.update(id, updateMonsterDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.monstersService.removeMonster(+id);
-  }
-
-  // Monster Variants
-  @Post('variants')
-  createMonsterVariant(
-    @Body() createMonsterVariantDto: CreateMonsterVariantDto,
-  ) {
-    return this.monstersService.createMonsterVariant(createMonsterVariantDto);
-  }
-
-  @Get('variants')
-  findAllMonsterVariants() {
-    return this.monstersService.findAllMonsterVariants();
-  }
-
-  @Get('variants/:id')
-  findOneMonsterVariant(@Param('id') id: string) {
-    return this.monstersService.findOneMonsterVariant(+id);
-  }
-
-  @Patch('variants/:id')
-  updateMonsterVariant(
-    @Param('id') id: string,
-    @Body() updateMonsterVariantDto: UpdateMonsterVariantDto,
-  ) {
-    return this.monstersService.updateMonsterVariant(
-      +id,
-      updateMonsterVariantDto,
-    );
-  }
-
-  @Delete('variants/:id')
-  removeMonsterVariant(@Param('id') id: string) {
-    return this.monstersService.removeMonsterVariant(+id);
+  @UseGuards(AuthGuard)
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.monstersService.remove(id);
   }
 }
