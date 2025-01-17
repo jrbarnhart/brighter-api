@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const updateVendorSchema = z.object({
-  name: z.string().optional(),
   npcId: z.number().int().positive().optional(),
   resourceVariantIds: z.array(z.number().int().positive()).optional(),
   consumableVariantIds: z.array(z.number().int().positive()).optional(),

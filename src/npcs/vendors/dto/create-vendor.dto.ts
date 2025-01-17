@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const createVendorSchema = z.object({
-  name: z.string(),
   npcId: z.number().int().positive(),
   resourceVariantIds: z.array(z.number().int().positive()).optional(),
   consumableVariantIds: z.array(z.number().int().positive()).optional(),
