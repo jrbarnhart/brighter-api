@@ -16,11 +16,11 @@ import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import {
   CreateConsumableVariantDto,
   createConsumableVariantSchema,
-} from './dto/create-consumable-variant.dto';
+} from './dto/create-consumableVariant.dto';
 import {
   UpdateConsumableVariantDto,
   updateConsumableVariantSchema,
-} from './dto/update-consumable-variant.dto';
+} from './dto/update-consumableVariant.dto';
 
 @Controller('consumableVariants')
 export class ConsumableVariantsController {

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateConsumableVariantDto } from './dto/create-consumable-variant.dto';
+import { CreateConsumableVariantDto } from './dto/create-consumableVariant.dto';
 import { ConsumableVariant } from '@prisma/client';
 import prismaError from 'src/validation/prismaError';
-import { UpdateConsumableVariantDto } from './dto/update-consumable-variant.dto';
+import { UpdateConsumableVariantDto } from './dto/update-consumableVariant.dto';
 
 @Injectable()
 export class ConsumableVariantsService {
