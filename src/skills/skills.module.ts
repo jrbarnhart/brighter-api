@@ -8,6 +8,10 @@ import { CraftingSkillRequirementsController } from './craftingSkill/craftingSki
 import { CraftingSkillsController } from './craftingSkill/craftingSkills.controller';
 import { CraftingSkillsService } from './craftingSkill/craftingSkills.service';
 import { CraftingSkillRequirementsService } from './craftingSkill/craftingSkillRequirement/craftingSkillRequirements.service';
+import { CombatSkillRequirementsController } from './combatSkill/combatSkillRequirement/combatSkillRequirements.controller';
+import { CombatSkillsController } from './combatSkill/combatSkills.controller';
+import { CombatSkillRequirementsService } from './combatSkill/combatSkillRequirement/combatSkillRequirements.service';
+import { CombatSkillsService } from './combatSkill/combatSkills.service';
 
 @Module({
   controllers: [
@@ -15,6 +19,8 @@ import { CraftingSkillRequirementsService } from './craftingSkill/craftingSkillR
     GatheringSkillsController,
     CraftingSkillRequirementsController,
     CraftingSkillsController,
+    CombatSkillRequirementsController,
+    CombatSkillsController,
   ],
   providers: [
     PrismaService,
@@ -22,6 +28,8 @@ import { CraftingSkillRequirementsService } from './craftingSkill/craftingSkillR
     GatheringSkillsService,
     CraftingSkillRequirementsService,
     CraftingSkillsService,
+    CombatSkillRequirementsService,
+    CombatSkillsService,
   ],
 })
 export class SkillsModule {}
