@@ -1,11 +1,4 @@
 export const serviceTemplate = `
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Create__PASCAL__Dto } from './dto/create-__CAMEL__.dto';
-import { Update__PASCAL__Dto } from './dto/update-__CAMEL__.dto';
-import { PrismaService } from 'src/prisma.service';
-import { __PASCAL__ } from '@prisma/client';
-import prismaError from 'src/validation/prismaError';
-
 @Injectable()
 export class __PASCAL_PLURAL__Service {
   constructor(private prisma: PrismaService) {}
