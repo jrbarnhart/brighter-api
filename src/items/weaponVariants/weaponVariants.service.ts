@@ -1,4 +1,3 @@
-
 import { Injectable, NotFoundException } from '@nestjs/common';
 import prismaError from 'src/validation/prismaError';
 import { PrismaService } from 'src/prisma.service';
@@ -10,7 +9,9 @@ import { WeaponVariant } from '@prisma/client';
 export class WeaponVariantsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createWeaponVariantDto: CreateWeaponVariantDto): Promise<WeaponVariant> {
+  async create(
+    createWeaponVariantDto: CreateWeaponVariantDto,
+  ): Promise<WeaponVariant> {
     try {
       return await this.prisma.weaponVariant.create({
         data: createWeaponVariantDto,
@@ -23,7 +24,10 @@ export class WeaponVariantsService {
   findAll(): Promise<WeaponVariant[]> {
     return this.prisma.weaponVariant.findMany({
       include: {
-        // Add your includes here
+        dropTables: true,
+        recipe: true,
+        vendors: true,
+        weapon: true,
       },
     });
   }
@@ -32,7 +36,10 @@ export class WeaponVariantsService {
     const foundWeaponVariant = await this.prisma.weaponVariant.findUnique({
       where: { id },
       include: {
-        // Add your includes here
+        dropTables: true,
+        recipe: true,
+        vendors: true,
+        weapon: true,
       },
     });
 
@@ -43,7 +50,10 @@ export class WeaponVariantsService {
     return foundWeaponVariant;
   }
 
-  async update(id: number, updateWeaponVariantDto: UpdateWeaponVariantDto): Promise<WeaponVariant> {
+  async update(
+    id: number,
+    updateWeaponVariantDto: UpdateWeaponVariantDto,
+  ): Promise<WeaponVariant> {
     const weaponVariantToUpdate = await this.prisma.weaponVariant.findUnique({
       where: { id },
     });

@@ -22,7 +22,7 @@ export class WeaponsService {
   findAll(): Promise<Weapon[]> {
     return this.prisma.weapon.findMany({
       include: {
-        // Add your includes here
+        variants: true,
       },
     });
   }
@@ -31,7 +31,7 @@ export class WeaponsService {
     const foundWeapon = await this.prisma.weapon.findUnique({
       where: { id },
       include: {
-        // Add your includes here
+        variants: true,
       },
     });
 

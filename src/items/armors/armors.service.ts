@@ -1,4 +1,3 @@
-
 import { Injectable, NotFoundException } from '@nestjs/common';
 import prismaError from 'src/validation/prismaError';
 import { PrismaService } from 'src/prisma.service';
@@ -23,7 +22,7 @@ export class ArmorsService {
   findAll(): Promise<Armor[]> {
     return this.prisma.armor.findMany({
       include: {
-        // Add your includes here
+        variants: true,
       },
     });
   }
@@ -32,7 +31,7 @@ export class ArmorsService {
     const foundArmor = await this.prisma.armor.findUnique({
       where: { id },
       include: {
-        // Add your includes here
+        variants: true,
       },
     });
 
