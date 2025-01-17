@@ -10,6 +10,16 @@ import { ConsumableVariantsController } from './consumableVariants/consumableVar
 import { ConsumableVariantsService } from './consumableVariants/consumableVariants.service';
 import { ConsumablesController } from './consumables/consumables.controller';
 import { ConsumablesService } from './consumables/consumables.service';
+import { WeaponVariantsController } from './weaponVariants/weaponVariants.controller';
+import { WeaponsController } from './weapons/weapons.controller';
+import { ArmorVariantsController } from './armorVariants/armorVariants.controller';
+import { ArmorsController } from './armors/armors.controller';
+import { MiscItemsController } from './miscItems/miscItems.controller';
+import { WeaponVariantsService } from './weaponVariants/weaponVariants.service';
+import { WeaponsService } from './weapons/weapons.service';
+import { ArmorVariantsService } from './armorVariants/armorVariants.service';
+import { ArmorsService } from './armors/armors.service';
+import { MiscItemsService } from './miscItems/miscItems.service';
 
 @Module({
   controllers: [
@@ -18,6 +28,11 @@ import { ConsumablesService } from './consumables/consumables.service';
     ResourcesController,
     ConsumableVariantsController,
     ConsumablesController,
+    WeaponVariantsController,
+    WeaponsController,
+    ArmorVariantsController,
+    ArmorsController,
+    MiscItemsController,
   ],
   providers: [
     PrismaService,
@@ -26,6 +41,11 @@ import { ConsumablesService } from './consumables/consumables.service';
     ResourcesService,
     ConsumableVariantsService,
     ConsumablesService,
+    WeaponVariantsService,
+    WeaponsService,
+    ArmorVariantsService,
+    ArmorsService,
+    MiscItemsService,
   ],
 })
 export class ItemsModule {}
