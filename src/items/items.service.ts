@@ -6,7 +6,7 @@ export class ItemsService {
   constructor(private prisma: PrismaService) {}
 
   find() {
-    return new BadRequestException(
+    throw new BadRequestException(
       'Cannot directly query items. Valid use: items/monsters',
     );
   }
