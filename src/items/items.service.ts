@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateResourceDto } from './dto/resource/create-resource.dto';
-import { UpdateResourceDto } from './dto/resource/update-resource.dto';
-import { CreateResourceVariantDto } from './dto/resource/create-resource-variant.dto';
-import { UpdateResourceVariantDto } from './dto/resource/update-resource-variant.dto';
+import { CreateResourceDto } from './resources/dto/create-resource.dto';
+import { UpdateResourceDto } from './resources/dto/update-resource.dto';
+import { CreateResourceVariantDto } from './resourceVariants/dto/create-resource-variant.dto';
+import { UpdateResourceVariantDto } from './resourceVariants/dto/update-resource-variant.dto';
 import { CreateConsumableDto } from './dto/consumable/create-consumable.dto';
 import { UpdateConsumableDto } from './dto/consumable/update-consumable.dto';
 import { CreateConsumableVariantDto } from './dto/consumable/create-consumable-variant.dto';

@@ -9,25 +9,26 @@ import {
   UseGuards,
   UsePipes,
   ParseIntPipe,
+  BadRequestException,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ItemsService } from './items.service';
 import {
   CreateResourceDto,
   createResourceSchema,
-} from './dto/resource/create-resource.dto';
+} from './resources/dto/create-resource.dto';
 import {
   UpdateResourceDto,
   updateResourceSchema,
-} from './dto/resource/update-resource.dto';
+} from './resources/dto/update-resource.dto';
 import {
   CreateResourceVariantDto,
   createResourceVariantSchema,
-} from './dto/resource/create-resource-variant.dto';
+} from './resourceVariants/dto/create-resource-variant.dto';
 import {
   UpdateResourceVariantDto,
   updateResourceVariantSchema,
-} from './dto/resource/update-resource-variant.dto';
+} from './resourceVariants/dto/update-resource-variant.dto';
 import {
   CreateConsumableDto,
   createConsumableSchema,
@@ -90,74 +91,11 @@ import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
-  // Resource Variants
-  @Post('resources/variants')
-  @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createResourceVariantSchema))
-  createResourceVariant(
-    @Body() createResourceVariantDto: CreateResourceVariantDto,
-  ) {
-    return this.itemsService.createResourceVariant(createResourceVariantDto);
-  }
-
-  @Get('resources/variants')
-  findAllResourceVariants() {
-    return this.itemsService.findAllResourceVariants();
-  }
-
-  @Get('resources/variants/:id')
-  findOneResourceVariant(@Param('id', ParseIntPipe) id: number) {
-    return this.itemsService.findOneResourceVariant(id);
-  }
-
-  @Patch('resources/variants/:id')
-  @UseGuards(AuthGuard)
-  updateResourceVariant(
-    @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateResourceVariantSchema))
-    updateResourceDto: UpdateResourceVariantDto,
-  ) {
-    return this.itemsService.updateResourceVariant(id, updateResourceDto);
-  }
-
-  @Delete('resources/variants/:id')
-  @UseGuards(AuthGuard)
-  removeResourceVariant(@Param('id', ParseIntPipe) id: number) {
-    return this.itemsService.removeResourceVariant(id);
-  }
-
-  // Resources
-  @Post('resources')
-  @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createResourceSchema))
-  createResource(@Body() createResourceDto: CreateResourceDto) {
-    return this.itemsService.createResource(createResourceDto);
-  }
-
-  @Get('resources')
-  findAllResources() {
-    return this.itemsService.findAllResources();
-  }
-
-  @Get('resources/:id')
-  findOneResource(@Param('id', ParseIntPipe) id: number) {
-    return this.itemsService.findOneResource(id);
-  }
-
-  @Patch('resources/:id')
-  @UseGuards(AuthGuard)
-  updateResource(
-    @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateResourceSchema))
-    updateResourceDto: UpdateResourceDto,
-  ) {
-    return this.itemsService.updateResource(id, updateResourceDto);
-  }
-
-  @Delete('resources/:id')
-  @UseGuards(AuthGuard)
-  removeResource(@Param('id', ParseIntPipe) id: number) {
-    return this.itemsService.removeResource(id);
+  @Get()
+  find() {
+    return new BadRequestException(
+      'Cannot directly query items. Valid use: items/monsters',
+    );
   }
 
   // Consumable Variants
