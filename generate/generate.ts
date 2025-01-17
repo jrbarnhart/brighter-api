@@ -3,6 +3,7 @@ import { join } from 'path';
 import { generateResourceNames } from './utils/transformers';
 import { controllerTemplate } from './templates/controller.template';
 import { serviceTemplate } from './templates/service.template';
+import { serviceSpecTemplate } from './templates/service.spec.template';
 
 function createFileIfNotExists(filePath: string, content: string) {
   if (existsSync(filePath)) {
@@ -56,12 +57,26 @@ function generate() {
   const serviceContent = replaceTemplateTokens(serviceTemplate, resourceNames);
   const servicePath = join(genOutDir, `${resourceNames.plural}.service.ts`);
 
+  // Generate service spec
+  const serviceSpecContent = replaceTemplateTokens(
+    serviceSpecTemplate,
+    resourceNames,
+  );
+  const serviceSpecPath = join(
+    genOutDir,
+    `${resourceNames.plural}.service.spec.ts`,
+  );
+
   // Create files
   const controllerCreated = createFileIfNotExists(
     controllerPath,
     controllerContent,
   );
   const serviceCreated = createFileIfNotExists(servicePath, serviceContent);
+  const serviceSpecCreated = createFileIfNotExists(
+    serviceSpecPath,
+    serviceSpecContent,
+  );
 
   if (controllerCreated) {
     console.log(`Created controller: ${controllerPath}`);
@@ -69,6 +84,10 @@ function generate() {
 
   if (serviceCreated) {
     console.log(`Created service: ${servicePath}`);
+  }
+
+  if (serviceSpecCreated) {
+    console.log(`Created service spec: ${serviceSpecPath}`);
   }
 }
 
