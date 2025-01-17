@@ -128,7 +128,7 @@ describe('__PASCAL_PLURAL__Service', () => {
     });
 
     it('should throw NotFoundException when updating non-existent __CAMEL__', async () => {
-      const updateDto = { name: 'Updated __PASCAL__' };
+      const updateDto: Update__PASCAL__Dto  = { name: 'Updated __PASCAL__' };
 
       prismaMock.__CAMEL__.update.mockRejectedValue({
         code: 'P2025',
