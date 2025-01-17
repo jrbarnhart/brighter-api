@@ -1,51 +1,79 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import prismaError from 'src/validation/prismaError';
+import { PrismaService } from 'src/prisma.service';
 import { CreateQuestDto } from './dto/create-quest.dto';
 import { UpdateQuestDto } from './dto/update-quest.dto';
-import { CreateQuestStepDto } from './dto/create-quest-step.dto';
-import { UpdateQuestStepDto } from './dto/update-quest-step.dto';
+import { Quest } from '@prisma/client';
 
 @Injectable()
 export class QuestsService {
-  // Quests
-  createQuest(createQuestDto: CreateQuestDto) {
-    return 'This action adds a new quest';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createQuestDto: CreateQuestDto): Promise<Quest> {
+    try {
+      return await this.prisma.quest.create({
+        data: createQuestDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  findAllQuests() {
-    return `This action returns all quests`;
+  findAll(): Promise<Quest[]> {
+    return this.prisma.quest.findMany({
+      include: {
+        steps: true,
+      },
+    });
   }
 
-  findOneQuest(id: number) {
-    return `This action returns a #${id} quest`;
+  async findOne(id: number): Promise<Quest> {
+    const foundQuest = await this.prisma.quest.findUnique({
+      where: { id },
+      include: {
+        steps: true,
+      },
+    });
+
+    if (foundQuest === null) {
+      throw new NotFoundException();
+    }
+
+    return foundQuest;
   }
 
-  updateQuest(id: number, updateQuestDto: UpdateQuestDto) {
-    return `This action updates a #${id} quest`;
+  async update(id: number, updateQuestDto: UpdateQuestDto): Promise<Quest> {
+    const questToUpdate = await this.prisma.quest.findUnique({
+      where: { id },
+    });
+
+    if (!questToUpdate) {
+      throw new NotFoundException('Record not found');
+    }
+
+    try {
+      return await this.prisma.quest.update({
+        where: { id },
+        data: updateQuestDto,
+      });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 
-  removeQuest(id: number) {
-    return `This action removes a #${id} quest`;
-  }
+  async remove(id: number): Promise<Quest> {
+    const questToDelete = await this.prisma.quest.findUnique({
+      where: { id },
+    });
 
-  // Quest Steps
-  createQuestStep(createQuestStepDto: CreateQuestStepDto) {
-    return 'This action adds a new quest step';
-  }
+    if (!questToDelete) {
+      throw new NotFoundException('Record not found');
+    }
 
-  findAllQuestSteps() {
-    return `This action returns all quest steps`;
-  }
-
-  findOneQuestStep(id: number) {
-    return `This action returns a #${id} quest step`;
-  }
-
-  updateQuestStep(id: number, updateQuestStepDto: UpdateQuestStepDto) {
-    return `This action updates a #${id} quest step`;
-  }
-
-  removeQuestStep(id: number) {
-    return `This action removes a #${id} quest step`;
+    try {
+      return await this.prisma.quest.delete({ where: { id } });
+    } catch (error) {
+      throw prismaError(error);
+    }
   }
 }

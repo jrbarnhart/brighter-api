@@ -1,3 +1,4 @@
+
 import {
   Controller,
   Get,
@@ -6,69 +7,49 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  UsePipes,
+  ParseIntPipe,
 } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { QuestsService } from './quests.service';
-import { CreateQuestDto } from './dto/create-quest.dto';
-import { UpdateQuestDto } from './dto/update-quest.dto';
-import { CreateQuestStepDto } from './dto/create-quest-step.dto';
-import { UpdateQuestStepDto } from './dto/update-quest-step.dto';
+import { CreateQuestDto, createQuestSchema } from './dto/create-quest.dto';
+import { UpdateQuestDto, updateQuestSchema } from './dto/update-quest.dto';
 
 @Controller('quests')
 export class QuestsController {
   constructor(private readonly questsService: QuestsService) {}
 
-  // Quests
   @Post()
-  createQuest(@Body() createQuestDto: CreateQuestDto) {
-    return this.questsService.createQuest(createQuestDto);
+  @UseGuards(AuthGuard)
+  @UsePipes(new ZodValidationPipe(createQuestSchema))
+  create(@Body() createQuestDto: CreateQuestDto) {
+    return this.questsService.create(createQuestDto);
   }
 
   @Get()
-  findAllQuests() {
-    return this.questsService.findAllQuests();
+  findAll() {
+    return this.questsService.findAll();
   }
 
   @Get(':id')
-  findOneQuest(@Param('id') id: string) {
-    return this.questsService.findOneQuest(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.questsService.findOne(id);
   }
 
   @Patch(':id')
-  updateQuest(@Param('id') id: string, @Body() updateQuestDto: UpdateQuestDto) {
-    return this.questsService.updateQuest(+id, updateQuestDto);
-  }
-
-  @Delete(':id')
-  removeQuest(@Param('id') id: string) {
-    return this.questsService.removeQuest(+id);
-  }
-
-  // Quest Steps
-  @Post()
-  createQuestStep(@Body() createQuestStepDto: CreateQuestStepDto) {
-    return this.questsService.createQuestStep(createQuestStepDto);
-  }
-
-  @Get()
-  findAllQuestsStep() {
-    return this.questsService.findAllQuestSteps();
-  }
-
-  @Get(':id')
-  findOneQuestStep(@Param('id') id: string) {
-    return this.questsService.findOneQuestStep(+id);
-  }
-
-  @Patch(':id')
-  updateQuestStep(
-    @Param('id') id: string,
-    @Body() updateQuestStepDto: UpdateQuestStepDto,
+  @UseGuards(AuthGuard)
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(updateQuestSchema)) updateQuestDto: UpdateQuestDto,
   ) {
-    return this.questsService.updateQuestStep(+id, updateQuestStepDto);
+    return this.questsService.update(id, updateQuestDto);
   }
 
   @Delete(':id')
-  removeQuestStep(@Param('id') id: string) {
-    return this.questsService.removeQuestStep(+id);
+  @UseGuards(AuthGuard)
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.questsService.remove(id);
   }
 }
