@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateResourceVariantDto } from './dto/create-resource-variant.dto';
+import { CreateResourceVariantDto } from './dto/create-resourceVariant.dto';
 import { ResourceVariant } from '@prisma/client';
 import prismaError from 'src/validation/prismaError';
-import { UpdateResourceVariantDto } from './dto/update-resource-variant.dto';
+import { UpdateResourceVariantDto } from './dto/update-resourceVariant.dto';
 
 @Injectable()
 export class ResourceVariantsService {

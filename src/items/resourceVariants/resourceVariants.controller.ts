@@ -16,11 +16,11 @@ import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import {
   CreateResourceVariantDto,
   createResourceVariantSchema,
-} from './dto/create-resource-variant.dto';
+} from './dto/create-resourceVariant.dto';
 import {
   UpdateResourceVariantDto,
   updateResourceVariantSchema,
-} from './dto/update-resource-variant.dto';
+} from './dto/update-resourceVariant.dto';
 
 @Controller('items/resources/variants')
 export class ResourceVariantsController {
