@@ -1,4 +1,22 @@
 export const controllerTemplate = `
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  UsePipes,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
+import { __PASCAL__PLURAL__Service } from './__CAMEL__PLURAL__.service';
+import { Create__PASCAL__Dto, create__PASCAL__Schema } from './dto/create-__CAMEL__.dto';
+import { Update__PASCAL__Dto, update__PASCAL__Schema } from './dto/update-__CAMEL__.dto';
+
 @Controller('__PLURAL__')
 export class __PASCAL_PLURAL__Controller {
   constructor(private readonly __CAMEL_PLURAL__Service: __PASCAL_PLURAL__Service) {}
