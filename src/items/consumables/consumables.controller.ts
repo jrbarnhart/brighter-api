@@ -22,7 +22,7 @@ import {
   updateConsumableSchema,
 } from './dto/update-consumable.dto';
 
-@Controller('consumables')
+@Controller('items/consumables')
 export class ConsumablesController {
   constructor(private readonly consumablesService: ConsumablesService) {}
 

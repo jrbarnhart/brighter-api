@@ -22,7 +22,7 @@ import {
   updateConsumableVariantSchema,
 } from './dto/update-consumableVariant.dto';
 
-@Controller('consumableVariants')
+@Controller('items/consumables/variants')
 export class ConsumableVariantsController {
   constructor(
     private readonly consumableVariantsService: ConsumableVariantsService,

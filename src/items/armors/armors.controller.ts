@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -17,7 +16,7 @@ import { ArmorsService } from './armors.service';
 import { CreateArmorDto, createArmorSchema } from './dto/create-armor.dto';
 import { UpdateArmorDto, updateArmorSchema } from './dto/update-armor.dto';
 
-@Controller('armors')
+@Controller('items/armors')
 export class ArmorsController {
   constructor(private readonly armorsService: ArmorsService) {}
 
@@ -42,7 +41,8 @@ export class ArmorsController {
   @UseGuards(AuthGuard)
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateArmorSchema)) updateArmorDto: UpdateArmorDto,
+    @Body(new ZodValidationPipe(updateArmorSchema))
+    updateArmorDto: UpdateArmorDto,
   ) {
     return this.armorsService.update(id, updateArmorDto);
   }

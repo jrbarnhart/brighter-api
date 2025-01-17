@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -14,10 +13,16 @@ import {
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { WeaponVariantsService } from './weaponVariants.service';
-import { CreateWeaponVariantDto, createWeaponVariantSchema } from './dto/create-weaponVariant.dto';
-import { UpdateWeaponVariantDto, updateWeaponVariantSchema } from './dto/update-weaponVariant.dto';
+import {
+  CreateWeaponVariantDto,
+  createWeaponVariantSchema,
+} from './dto/create-weaponVariant.dto';
+import {
+  UpdateWeaponVariantDto,
+  updateWeaponVariantSchema,
+} from './dto/update-weaponVariant.dto';
 
-@Controller('weaponVariants')
+@Controller('items/weapons/variants')
 export class WeaponVariantsController {
   constructor(private readonly weaponVariantsService: WeaponVariantsService) {}
 
@@ -42,7 +47,8 @@ export class WeaponVariantsController {
   @UseGuards(AuthGuard)
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateWeaponVariantSchema)) updateWeaponVariantDto: UpdateWeaponVariantDto,
+    @Body(new ZodValidationPipe(updateWeaponVariantSchema))
+    updateWeaponVariantDto: UpdateWeaponVariantDto,
   ) {
     return this.weaponVariantsService.update(id, updateWeaponVariantDto);
   }

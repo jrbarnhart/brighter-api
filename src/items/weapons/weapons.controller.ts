@@ -16,7 +16,7 @@ import { WeaponsService } from './weapons.service';
 import { CreateWeaponDto, createWeaponSchema } from './dto/create-weapon.dto';
 import { UpdateWeaponDto, updateWeaponSchema } from './dto/update-weapon.dto';
 
-@Controller('weapons')
+@Controller('items/weapons')
 export class WeaponsController {
   constructor(private readonly weaponsService: WeaponsService) {}
 

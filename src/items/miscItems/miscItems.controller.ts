@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -14,10 +13,16 @@ import {
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { MiscItemsService } from './miscItems.service';
-import { CreateMiscItemDto, createMiscItemSchema } from './dto/create-miscItem.dto';
-import { UpdateMiscItemDto, updateMiscItemSchema } from './dto/update-miscItem.dto';
+import {
+  CreateMiscItemDto,
+  createMiscItemSchema,
+} from './dto/create-miscItem.dto';
+import {
+  UpdateMiscItemDto,
+  updateMiscItemSchema,
+} from './dto/update-miscItem.dto';
 
-@Controller('miscItems')
+@Controller('items/misc')
 export class MiscItemsController {
   constructor(private readonly miscItemsService: MiscItemsService) {}
 
@@ -42,7 +47,8 @@ export class MiscItemsController {
   @UseGuards(AuthGuard)
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateMiscItemSchema)) updateMiscItemDto: UpdateMiscItemDto,
+    @Body(new ZodValidationPipe(updateMiscItemSchema))
+    updateMiscItemDto: UpdateMiscItemDto,
   ) {
     return this.miscItemsService.update(id, updateMiscItemDto);
   }

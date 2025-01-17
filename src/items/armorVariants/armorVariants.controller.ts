@@ -22,7 +22,7 @@ import {
   updateArmorVariantSchema,
 } from './dto/update-armorVariant.dto';
 
-@Controller('armorVariants')
+@Controller('items/armors/variants')
 export class ArmorVariantsController {
   constructor(private readonly armorVariantsService: ArmorVariantsService) {}
 
