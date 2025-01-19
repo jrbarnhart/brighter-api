@@ -23,18 +23,18 @@ model Region {
 }
 
 model Room {
-  id            Int             @id @default(autoincrement())
-  name          String          @unique
-  region        Region          @relation(fields: [regionId], references: [id])
-  regionId      Int
-  craftingSkill CraftingSkill[]
-  monsters      Monster[]
-  npcs          NPC[]
-  resources     Resource[]
-  questSteps    QuestStep[]
-  banks         BankType[]
-  portal        Boolean         @default(false)
-  obelisk       Boolean         @default(false)
+  id             Int             @id @default(autoincrement())
+  name           String          @unique
+  region         Region          @relation(fields: [regionId], references: [id])
+  regionId       Int
+  craftingSkills CraftingSkill[]
+  monsters       Monster[]
+  npcs           NPC[]
+  resources      Resource[]
+  questSteps     QuestStep[]
+  banks          BankType[]
+  portal         Boolean         @default(false)
+  obelisk        Boolean         @default(false)
 }
 
 model CombatSkill {
