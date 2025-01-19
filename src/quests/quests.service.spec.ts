@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClient } from '@prisma/client';
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
@@ -102,7 +101,9 @@ describe('QuestsService', () => {
         clientVersion: '4.7.1',
       });
 
-      await expect(service.create(createDto)).rejects.toThrow(BadRequestException);
+      await expect(service.create(createDto)).rejects.toThrow(
+        BadRequestException,
+      );
       expect(prismaMock.quest.create).toHaveBeenCalledTimes(1);
     });
   });
@@ -128,14 +129,16 @@ describe('QuestsService', () => {
     });
 
     it('should throw NotFoundException when updating non-existent quest', async () => {
-      const updateDto: UpdateQuestDto  = { name: 'Updated Quest' };
+      const updateDto: UpdateQuestDto = { name: 'Updated Quest' };
 
       prismaMock.quest.update.mockRejectedValue({
         code: 'P2025',
         clientVersion: '4.7.1',
       });
 
-      await expect(service.update(999, updateDto)).rejects.toThrow(NotFoundException);
+      await expect(service.update(999, updateDto)).rejects.toThrow(
+        NotFoundException,
+      );
       expect(prismaMock.quest.update).toHaveBeenCalledTimes(0);
     });
   });

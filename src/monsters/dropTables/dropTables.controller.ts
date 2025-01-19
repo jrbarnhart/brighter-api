@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -14,8 +13,14 @@ import {
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { DropTablesService } from './dropTables.service';
-import { CreateDropTableDto, createDropTableSchema } from './dto/create-dropTable.dto';
-import { UpdateDropTableDto, updateDropTableSchema } from './dto/update-dropTable.dto';
+import {
+  CreateDropTableDto,
+  createDropTableSchema,
+} from './dto/create-dropTable.dto';
+import {
+  UpdateDropTableDto,
+  updateDropTableSchema,
+} from './dto/update-dropTable.dto';
 
 @Controller('dropTables')
 export class DropTablesController {
@@ -42,7 +47,8 @@ export class DropTablesController {
   @UseGuards(AuthGuard)
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateDropTableSchema)) updateDropTableDto: UpdateDropTableDto,
+    @Body(new ZodValidationPipe(updateDropTableSchema))
+    updateDropTableDto: UpdateDropTableDto,
   ) {
     return this.dropTablesService.update(id, updateDropTableDto);
   }

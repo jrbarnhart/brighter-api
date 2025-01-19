@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClient } from '@prisma/client';
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
@@ -102,7 +101,9 @@ describe('MiscItemsService', () => {
         clientVersion: '4.7.1',
       });
 
-      await expect(service.create(createDto)).rejects.toThrow(BadRequestException);
+      await expect(service.create(createDto)).rejects.toThrow(
+        BadRequestException,
+      );
       expect(prismaMock.miscItem.create).toHaveBeenCalledTimes(1);
     });
   });
@@ -135,7 +136,9 @@ describe('MiscItemsService', () => {
         clientVersion: '4.7.1',
       });
 
-      await expect(service.update(999, updateDto)).rejects.toThrow(NotFoundException);
+      await expect(service.update(999, updateDto)).rejects.toThrow(
+        NotFoundException,
+      );
       expect(prismaMock.miscItem.update).toHaveBeenCalledTimes(0);
     });
   });

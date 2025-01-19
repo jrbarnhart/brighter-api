@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -42,7 +41,8 @@ export class QuestsController {
   @UseGuards(AuthGuard)
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateQuestSchema)) updateQuestDto: UpdateQuestDto,
+    @Body(new ZodValidationPipe(updateQuestSchema))
+    updateQuestDto: UpdateQuestDto,
   ) {
     return this.questsService.update(id, updateQuestDto);
   }
