@@ -24,9 +24,9 @@ export class CraftingSkillsService {
   findAll(): Promise<CraftingSkill[]> {
     return this.prisma.craftingSkill.findMany({
       include: {
-        craftingSpots: true,
         region: true,
         requirements: true,
+        rooms: true,
       },
     });
   }
@@ -35,9 +35,9 @@ export class CraftingSkillsService {
     const foundCraftingSkill = await this.prisma.craftingSkill.findUnique({
       where: { id },
       include: {
-        craftingSpots: true,
         region: true,
         requirements: true,
+        rooms: true,
       },
     });
 
