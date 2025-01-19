@@ -31,13 +31,26 @@ describe('RoomsService', () => {
   describe('getAllRooms', () => {
     it('should return all rooms array', async () => {
       const allRooms: Room[] = [
-        { id: 1, name: 'Room One', obelisk: true, portal: false, regionId: 10 },
-        { id: 2, name: 'Room Two', obelisk: false, portal: true, regionId: 10 },
+        {
+          id: 1,
+          name: 'Room One',
+          obelisk: true,
+          portal: false,
+          regionId: 10,
+          banks: [],
+        },
+        {
+          id: 2,
+          name: 'Room Two',
+          obelisk: false,
+          portal: true,
+          regionId: 10,
+          banks: [],
+        },
       ];
       const findManyArgsMock: Prisma.RoomFindManyArgs = {
         include: {
-          banks: true,
-          craftingSpots: true,
+          craftingSkills: true,
           monsters: true,
           npcs: true,
           questSteps: true,
@@ -57,8 +70,7 @@ describe('RoomsService', () => {
     it('should return empty array if there are no rooms', async () => {
       const findManyArgsMock: Prisma.RoomFindManyArgs = {
         include: {
-          banks: true,
-          craftingSpots: true,
+          craftingSkills: true,
           monsters: true,
           npcs: true,
           questSteps: true,
@@ -84,12 +96,12 @@ describe('RoomsService', () => {
         obelisk: true,
         portal: false,
         regionId: 10,
+        banks: [],
       };
       const findUniqueArgsMock: Prisma.RoomFindUniqueArgs = {
         where: { id: existingRoom.id },
         include: {
-          banks: true,
-          craftingSpots: true,
+          craftingSkills: true,
           monsters: true,
           npcs: true,
           questSteps: true,
@@ -112,8 +124,7 @@ describe('RoomsService', () => {
       const findUniqueArgsMock: Prisma.RoomFindUniqueArgs = {
         where: { id: 999 },
         include: {
-          banks: true,
-          craftingSpots: true,
+          craftingSkills: true,
           monsters: true,
           npcs: true,
           questSteps: true,
@@ -146,6 +157,7 @@ describe('RoomsService', () => {
         obelisk: true,
         portal: false,
         regionId: 10,
+        banks: [],
       };
       const createArgsMock: Prisma.RoomCreateArgs = { data: createDto };
 
@@ -185,6 +197,7 @@ describe('RoomsService', () => {
         obelisk: true,
         portal: false,
         regionId: 10,
+        banks: [],
       };
       const updateDto: UpdateRoomDto = { name: 'Updated Room' };
       const updatedRoom: Room = {
@@ -193,6 +206,7 @@ describe('RoomsService', () => {
         obelisk: true,
         portal: false,
         regionId: 10,
+        banks: [],
       };
       const updateArgsMock: Prisma.RoomUpdateArgs = {
         where: { id: existingRoom.id },
@@ -231,6 +245,7 @@ describe('RoomsService', () => {
         obelisk: true,
         portal: false,
         regionId: 10,
+        banks: [],
       };
       const deleteArgsMock: Prisma.RoomDeleteArgs = {
         where: { id: roomToDelete.id },

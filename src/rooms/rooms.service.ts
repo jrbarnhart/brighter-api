@@ -22,8 +22,7 @@ export class RoomsService {
   findAll(): Promise<Room[]> {
     return this.prisma.room.findMany({
       include: {
-        banks: true,
-        craftingSpots: true,
+        craftingSkills: true,
         monsters: true,
         npcs: true,
         questSteps: true,
@@ -37,8 +36,7 @@ export class RoomsService {
     const foundRoom = await this.prisma.room.findUnique({
       where: { id },
       include: {
-        banks: true,
-        craftingSpots: true,
+        craftingSkills: true,
         monsters: true,
         npcs: true,
         questSteps: true,
