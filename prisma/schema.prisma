@@ -23,18 +23,18 @@ model Region {
 }
 
 model Room {
-  id            Int            @id @default(autoincrement())
-  name          String         @unique
-  region        Region         @relation(fields: [regionId], references: [id])
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  region        Region          @relation(fields: [regionId], references: [id])
   regionId      Int
-  craftingSpots CraftingSpot[]
+  craftingSkill CraftingSkill[]
   monsters      Monster[]
   npcs          NPC[]
   resources     Resource[]
   questSteps    QuestStep[]
   banks         BankType[]
-  portal        Boolean        @default(false)
-  obelisk       Boolean        @default(false)
+  portal        Boolean         @default(false)
+  obelisk       Boolean         @default(false)
 }
 
 model CombatSkill {
@@ -130,12 +130,12 @@ model ResourceVariant {
 }
 
 model CraftingSkill {
-  id            Int                        @id @default(autoincrement())
-  name          String                     @unique
-  region        Region                     @relation(fields: [regionId], references: [id])
-  regionId      Int
-  requirements  CraftingSkillRequirement[]
-  craftingSpots CraftingSpot[]
+  id           Int                        @id @default(autoincrement())
+  name         String                     @unique
+  region       Region                     @relation(fields: [regionId], references: [id])
+  regionId     Int
+  requirements CraftingSkillRequirement[]
+  rooms        Room[]
 }
 
 model CraftingSkillRequirement {
@@ -148,12 +148,10 @@ model CraftingSkillRequirement {
 }
 
 model CraftingRecipe {
-  id             Int                      @id @default(autoincrement())
-  name           String                   @unique
-  requirement    CraftingSkillRequirement @relation(fields: [requirementId], references: [id])
-  requirementId  Int                      @unique
-  craftingSpot   CraftingSpot?            @relation(fields: [craftingSpotId], references: [id])
-  craftingSpotId Int                      @unique
+  id            Int                      @id @default(autoincrement())
+  name          String                   @unique
+  requirement   CraftingSkillRequirement @relation(fields: [requirementId], references: [id])
+  requirementId Int                      @unique
 
   inputResourceVariants ResourceVariant[]
   inputItems            MiscItem[]
@@ -161,16 +159,6 @@ model CraftingRecipe {
   outputConsumableVariant ConsumableVariant?
   outputWeaponVariant     WeaponVariant?
   outputArmorVariant      ArmorVariant?
-}
-
-model CraftingSpot {
-  id      Int              @id @default(autoincrement())
-  name    String           @unique
-  skill   CraftingSkill    @relation(fields: [skillId], references: [id])
-  skillId Int
-  room    Room?            @relation(fields: [roomId], references: [id])
-  roomId  Int?
-  recipes CraftingRecipe[]
 }
 
 model Weapon {
