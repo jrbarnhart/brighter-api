@@ -86,7 +86,7 @@ model DropTable {
   weaponVariants     WeaponVariant[]
   armorVariants      ArmorVariant[]
   consumableVariants ConsumableVariant[]
-  currency           Int
+  currency           Int?
 }
 
 model GatheringSkill {
