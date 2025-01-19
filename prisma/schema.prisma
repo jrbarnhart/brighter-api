@@ -32,7 +32,7 @@ model Room {
   npcs          NPC[]
   resources     Resource[]
   questSteps    QuestStep[]
-  banks         Bank[]
+  banks         BankType[]
   portal        Boolean        @default(false)
   obelisk       Boolean        @default(false)
 }
@@ -272,14 +272,6 @@ model QuestStep {
   roomId      Int?   @unique
   npc         NPC?   @relation(fields: [npcId], references: [id])
   npcId       Int?   @unique
-}
-
-model Bank {
-  id     Int      @id @default(autoincrement())
-  name   String   @unique
-  room   Room     @relation(fields: [roomId], references: [id])
-  roomId Int      @unique
-  type   BankType
 }
 
 enum Element {
