@@ -1,7 +1,7 @@
-import { z } from 'zod';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export const updateConsumableSchema = z.object({
-  name: z.string().optional(),
-});
-
-export type UpdateConsumableDto = z.infer<typeof updateConsumableSchema>;
+export class UpdateConsumableDto {
+  @IsString()
+  @IsNotEmpty()
+  name?: string;
+}
