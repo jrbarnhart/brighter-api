@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsString, Max } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateConsumableDto {
   @IsString()
   @IsNotEmpty()
-  @Max(256)
+  @MaxLength(256)
   name: string;
 }

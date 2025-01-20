@@ -10,7 +10,7 @@ import {
 export class CreateArmorVariantDto {
   @IsString()
   @IsNotEmpty()
-  @Max(256)
+  @MaxLength(256)
   name: string;
 
   @IsNumberString()

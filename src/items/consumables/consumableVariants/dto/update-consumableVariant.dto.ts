@@ -4,13 +4,13 @@ import {
   IsNumberString,
   IsPositive,
   IsString,
-  Max,
+  MaxLength,
 } from 'class-validator';
 
 export class UpdateConsumableVariantDto {
   @IsString()
   @IsNotEmpty()
-  @Max(256)
+  @MaxLength(256)
   name?: string;
 
   @IsNumberString()

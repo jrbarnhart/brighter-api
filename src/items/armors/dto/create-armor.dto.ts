@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Faction, GearSlot } from '@prisma/client';
-import { IsEnum, IsNotEmpty, IsString, Max } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateArmorDto {
   @IsString()
   @IsNotEmpty()
-  @Max(256)
+  @MaxLength(256)
   name: string;
 
   @IsEnum(Faction)
