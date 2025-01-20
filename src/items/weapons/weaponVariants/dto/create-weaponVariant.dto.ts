@@ -1,8 +1,21 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const createWeaponVariantSchema = z.object({
-  name: z.string(),
-  weaponId: z.number().int().positive(),
-});
+export class CreateWeaponVariantDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
 
-export type CreateWeaponVariantDto = z.infer<typeof createWeaponVariantSchema>;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  weaponId: number;
+}
