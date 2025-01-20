@@ -1,6 +1,6 @@
 {
   "watch": ["src"],
   "ext": "ts",
-  "ignore": ["src/**/*.spec.ts"],
-  "exec": "nest start"
+  "ignore": ["src/**/*.spec.ts", "src/metadata.ts"],
+  "exec": "nest start --watch --type-check"
 }
