@@ -1,28 +1,29 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
-  ParseIntPipe,
-  Patch,
   Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
   UseGuards,
-  UsePipes,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { ConsumableVariantsService } from './consumableVariants.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
+import { ConsumableVariantsService } from './consumableVariants.service';
+import { CreateConsumableVariantDto } from './dto/create-consumableVariant.dto';
+import { UpdateConsumableVariantDto } from './dto/update-consumableVariant.dto';
 import {
-  CreateConsumableVariantDto,
-  createConsumableVariantSchema,
-} from './dto/create-consumableVariant.dto';
-import {
-  UpdateConsumableVariantDto,
-  updateConsumableVariantSchema,
-} from './dto/update-consumableVariant.dto';
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
-@Controller('items/consumables/variants')
+@Controller('items/consumableVariants')
 export class ConsumableVariantsController {
   constructor(
     private readonly consumableVariantsService: ConsumableVariantsService,
@@ -30,26 +31,52 @@ export class ConsumableVariantsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createConsumableVariantSchema))
+  @ApiOperation({
+    summary: 'Create consumableVariant',
+    description: 'This creates a new consumableVariant record',
+  })
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ description: 'ConsumableVariant created' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createConsumableVariantDto: CreateConsumableVariantDto) {
     return this.consumableVariantsService.create(createConsumableVariantDto);
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all consumableVariant',
+    description: 'This gets all consumableVariant records',
+  })
+  @ApiOkResponse({ description: 'Found all consumableVariant records' })
   findAll() {
     return this.consumableVariantsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get consumableVariant by id',
+    description: 'This gets one consumableVariant by its id',
+  })
+  @ApiOkResponse({ description: 'Found consumableVariant record' })
+  @ApiNotFoundResponse({ description: 'ConsumableVariant not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.consumableVariantsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Update consumableVariant',
+    description: 'This updates an consumableVariant record by id',
+  })
+  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: 'ConsumableVariant not found' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateConsumableVariantSchema))
+    @Body()
     updateConsumableVariantDto: UpdateConsumableVariantDto,
   ) {
     return this.consumableVariantsService.update(
@@ -60,6 +87,14 @@ export class ConsumableVariantsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Delete consumableVariant',
+    description: 'This deletes an consumableVariant record by id',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'ConsumableVariant was deleted' })
+  @ApiNotFoundResponse({ description: 'ConsumableVariant not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.consumableVariantsService.remove(id);
   }

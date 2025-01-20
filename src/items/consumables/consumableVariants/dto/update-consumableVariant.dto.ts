@@ -1,10 +1,19 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
-export const updateConsumableVariantSchema = z.object({
-  name: z.string().optional(),
-  consumableId: z.number().int().positive().optional(),
-});
+export class UpdateConsumableVariantDto {
+  @IsString()
+  @IsNotEmpty()
+  name?: string;
 
-export type UpdateConsumableVariantDto = z.infer<
-  typeof updateConsumableVariantSchema
->;
+  @IsNumberString()
+  @IsNotEmpty()
+  @IsInt()
+  @IsPositive()
+  consumableId?: number;
+}

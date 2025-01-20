@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
 export class UpdateArmorVariantDto {
   @IsString()
@@ -7,5 +13,7 @@ export class UpdateArmorVariantDto {
 
   @IsNumberString()
   @IsNotEmpty()
+  @IsInt()
+  @IsPositive()
   armorId?: number;
 }

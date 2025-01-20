@@ -1,10 +1,19 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
-export const createConsumableVariantSchema = z.object({
-  name: z.string(),
-  consumableId: z.number().int().positive(),
-});
+export class CreateConsumableVariantDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-export type CreateConsumableVariantDto = z.infer<
-  typeof createConsumableVariantSchema
->;
+  @IsNumberString()
+  @IsNotEmpty()
+  @IsInt()
+  @IsPositive()
+  consumableId: number;
+}
