@@ -1,13 +1,56 @@
-import { zELEMENT } from 'src/zod/enums';
-import { z } from 'zod';
+import { ApiProperty } from '@nestjs/swagger';
+import { Element } from '@prisma/client';
+import {
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const updateMonsterSchema = z.object({
-  name: z.string().optional(),
-  skillId: z.number().int().positive().optional(),
-  passive: z.boolean().optional(),
-  attackElement: zELEMENT.optional(),
-  immuneElement: zELEMENT.optional(),
-  vulnerableElement: zELEMENT.optional(),
-});
+export class UpdateMonsterDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name?: string;
 
-export type UpdateMonsterDto = z.infer<typeof updateMonsterSchema>;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  skillId?: number;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  passive?: boolean;
+
+  @IsNotEmpty()
+  @IsEnum(Element)
+  @ApiProperty({
+    description: 'The gear slot that this armor occupies',
+    enum: Element,
+    type: String,
+  })
+  attackElement?: Element;
+
+  @IsNotEmpty()
+  @IsEnum(Element)
+  @ApiProperty({
+    description: 'The gear slot that this armor occupies',
+    enum: Element,
+    type: String,
+  })
+  immuneElement?: Element;
+
+  @IsNotEmpty()
+  @IsEnum(Element)
+  @ApiProperty({
+    description: 'The gear slot that this armor occupies',
+    enum: Element,
+    type: String,
+  })
+  vulnerableElement?: Element;
+}
