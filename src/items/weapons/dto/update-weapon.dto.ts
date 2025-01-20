@@ -1,12 +1,42 @@
-import { zELEMENT, zFACTION } from 'src/zod/enums';
-import { z } from 'zod';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+import { Element, Faction } from '@prisma/client';
+import { ApiProperty } from '@nestjs/swagger';
 
-export const updateWeaponSchema = z.object({
-  name: z.string().optional(),
-  faction: zFACTION.optional(),
-  isRanged: z.boolean().optional(),
-  isTwoHanded: z.boolean().optional(),
-  element: zELEMENT.optional(),
-});
+export class UpdateWeaponDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name?: string;
 
-export type UpdateWeaponDto = z.infer<typeof updateWeaponSchema>;
+  @IsNotEmpty()
+  @IsEnum(Faction)
+  @ApiProperty({
+    description: 'The gear slot that this armor occupies',
+    enum: Faction,
+    type: String,
+  })
+  faction?: Faction;
+
+  @IsNotEmpty()
+  @IsEnum(Element)
+  @ApiProperty({
+    description: 'The gear slot that this armor occupies',
+    enum: Element,
+    type: String,
+  })
+  element?: Element;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  isRanged?: boolean;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  isTwoHanded?: boolean;
+}
