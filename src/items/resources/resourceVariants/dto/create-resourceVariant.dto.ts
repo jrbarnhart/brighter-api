@@ -1,10 +1,21 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const createResourceVariantSchema = z.object({
-  name: z.string(),
-  resourceId: z.number().int().positive(),
-});
+export class CreateResourceVariantDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
 
-export type CreateResourceVariantDto = z.infer<
-  typeof createResourceVariantSchema
->;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  resourceId: number;
+}
