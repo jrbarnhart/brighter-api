@@ -4,7 +4,7 @@ import {
   IsNumberString,
   IsPositive,
   IsString,
-  Max,
+  MaxLength,
 } from 'class-validator';
 
 export class UpdateArmorVariantDto {
