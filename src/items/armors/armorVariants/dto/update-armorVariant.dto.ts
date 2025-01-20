@@ -1,8 +1,11 @@
-import { z } from 'zod';
+import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
 
-export const updateArmorVariantSchema = z.object({
-  name: z.string(),
-  armorId: z.number().int().positive().optional(),
-});
+export class UpdateArmorVariantDto {
+  @IsString()
+  @IsNotEmpty()
+  name?: string;
 
-export type UpdateArmorVariantDto = z.infer<typeof updateArmorVariantSchema>;
+  @IsNumberString()
+  @IsNotEmpty()
+  armorId?: number;
+}
