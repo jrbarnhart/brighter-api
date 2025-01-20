@@ -1,10 +1,21 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const createMonsterVariantSchema = z.object({
-  name: z.string(),
-  monsterId: z.number().int().positive(),
-});
+export class CreateMonsterVariantDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
 
-export type CreateMonsterVariantDto = z.infer<
-  typeof createMonsterVariantSchema
->;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  monsterId: number;
+}
