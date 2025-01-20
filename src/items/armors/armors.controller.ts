@@ -7,14 +7,21 @@ import {
   Param,
   Delete,
   UseGuards,
-  UsePipes,
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { ArmorsService } from './armors.service';
-import { CreateArmorDto, createArmorSchema } from './dto/create-armor.dto';
-import { UpdateArmorDto, updateArmorSchema } from './dto/update-armor.dto';
+import { CreateArmorDto } from './dto/create-armor.dto';
+import { UpdateArmorDto } from './dto/update-armor.dto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
 @Controller('items/armors')
 export class ArmorsController {
@@ -22,26 +29,52 @@ export class ArmorsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createArmorSchema))
+  @ApiOperation({
+    summary: 'Create armor',
+    description: 'This creates a new armor record',
+  })
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ description: 'Armor created' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createArmorDto: CreateArmorDto) {
     return this.armorsService.create(createArmorDto);
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all armor',
+    description: 'This gets all armor records',
+  })
+  @ApiOkResponse({ description: 'Found all armor records' })
   findAll() {
     return this.armorsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get armor by id',
+    description: 'This gets one armor by its id',
+  })
+  @ApiOkResponse({ description: 'Found armor record' })
+  @ApiNotFoundResponse({ description: 'Armor not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.armorsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Update armor',
+    description: 'This updates an armor record by id',
+  })
+  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: 'Armor not found' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateArmorSchema))
+    @Body()
     updateArmorDto: UpdateArmorDto,
   ) {
     return this.armorsService.update(id, updateArmorDto);
@@ -49,6 +82,14 @@ export class ArmorsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Delete armor',
+    description: 'This deletes an armor record by id',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Armor was deleted' })
+  @ApiNotFoundResponse({ description: 'Armor not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.armorsService.remove(id);
   }

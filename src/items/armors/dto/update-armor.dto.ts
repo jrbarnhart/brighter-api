@@ -1,10 +1,16 @@
-import { zFACTION, zGEARSLOT } from 'src/zod/enums';
-import { z } from 'zod';
+import { Faction, GearSlot } from '@prisma/client';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
-export const updateArmorSchema = z.object({
-  name: z.string().optional(),
-  faction: zFACTION.optional(),
-  slot: zGEARSLOT.optional(),
-});
+export class UpdateArmorDto {
+  @IsString()
+  @IsNotEmpty()
+  name?: string;
 
-export type UpdateArmorDto = z.infer<typeof updateArmorSchema>;
+  @IsEnum(Faction)
+  @IsNotEmpty()
+  faction?: Faction;
+
+  @IsEnum(GearSlot)
+  @IsNotEmpty()
+  slot?: GearSlot;
+}
