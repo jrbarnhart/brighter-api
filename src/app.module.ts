@@ -11,6 +11,8 @@ import { MonstersModule } from './monsters/monsters.module';
 import { ItemsModule } from './items/items.module';
 import { NpcsModule } from './npcs/npcs.module';
 import { QuestsModule } from './quests/quests.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 @Module({
   imports: [
@@ -26,6 +28,9 @@ import { QuestsModule } from './quests/quests.module';
     QuestsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
+  ],
 })
 export class AppModule {}
