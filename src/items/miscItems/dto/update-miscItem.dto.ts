@@ -1,7 +1,8 @@
-import { z } from 'zod';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export const updateMiscItemSchema = z.object({
-  name: z.string().optional(),
-});
-
-export type UpdateMiscItemDto = z.infer<typeof updateMiscItemSchema>;
+export class UpdateMiscItemDto {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(256)
+  name?: string;
+}
