@@ -1,9 +1,26 @@
-import { z } from 'zod';
+import {
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const updateResourceSchema = z.object({
-  name: z.string().optional(),
-  skillId: z.number().int().positive().optional(),
-  passive: z.boolean().optional(),
-});
+export class UpdateResourceDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name?: string;
 
-export type UpdateResourceDto = z.infer<typeof updateResourceSchema>;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  skillId?: number;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  passive?: boolean;
+}

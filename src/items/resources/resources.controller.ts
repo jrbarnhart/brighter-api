@@ -1,26 +1,27 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
-  ParseIntPipe,
-  Patch,
   Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
   UseGuards,
-  UsePipes,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { ResourcesService } from './resources.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
+import { ResourcesService } from './resources.service';
+import { CreateResourceDto } from './dto/create-resource.dto';
+import { UpdateResourceDto } from './dto/update-resource.dto';
 import {
-  CreateResourceDto,
-  createResourceSchema,
-} from './dto/create-resource.dto';
-import {
-  UpdateResourceDto,
-  updateResourceSchema,
-} from './dto/update-resource.dto';
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
 @Controller('items/resources')
 export class ResourcesController {
@@ -28,26 +29,52 @@ export class ResourcesController {
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createResourceSchema))
+  @ApiOperation({
+    summary: 'Create resource',
+    description: 'This creates a new resource record',
+  })
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ description: 'Resource created' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createResourceDto: CreateResourceDto) {
     return this.resourcesService.create(createResourceDto);
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all resource',
+    description: 'This gets all resource records',
+  })
+  @ApiOkResponse({ description: 'Found all resource records' })
   findAll() {
     return this.resourcesService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get resource by id',
+    description: 'This gets one resource by its id',
+  })
+  @ApiOkResponse({ description: 'Found resource record' })
+  @ApiNotFoundResponse({ description: 'Resource not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.resourcesService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Update resource',
+    description: 'This updates an resource record by id',
+  })
+  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: 'Resource not found' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateResourceSchema))
+    @Body()
     updateResourceDto: UpdateResourceDto,
   ) {
     return this.resourcesService.update(id, updateResourceDto);
@@ -55,6 +82,14 @@ export class ResourcesController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Delete resource',
+    description: 'This deletes an resource record by id',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Resource was deleted' })
+  @ApiNotFoundResponse({ description: 'Resource not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.resourcesService.remove(id);
   }
