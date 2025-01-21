@@ -7,20 +7,21 @@ import {
   Param,
   Delete,
   UseGuards,
-  UsePipes,
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { CraftingSkillsService } from './craftingSkills.service';
+import { CreateCraftingSkillDto } from './dto/create-craftingSkill.dto';
+import { UpdateCraftingSkillDto } from './dto/update-craftingSkill.dto';
 import {
-  CreateCraftingSkillDto,
-  createCraftingSkillSchema,
-} from './dto/create-craftingSkill.dto';
-import {
-  UpdateCraftingSkillDto,
-  updateCraftingSkillSchema,
-} from './dto/update-craftingSkill.dto';
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
 @Controller('skills/crafting')
 export class CraftingSkillsController {
@@ -28,26 +29,52 @@ export class CraftingSkillsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createCraftingSkillSchema))
+  @ApiOperation({
+    summary: 'Create craftingSkill',
+    description: 'This creates a new craftingSkill record',
+  })
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ description: 'CraftingSkill created' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createCraftingSkillDto: CreateCraftingSkillDto) {
     return this.craftingSkillsService.create(createCraftingSkillDto);
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all craftingSkill',
+    description: 'This gets all craftingSkill records',
+  })
+  @ApiOkResponse({ description: 'Found all craftingSkill records' })
   findAll() {
     return this.craftingSkillsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get craftingSkill by id',
+    description: 'This gets one craftingSkill by its id',
+  })
+  @ApiOkResponse({ description: 'Found craftingSkill record' })
+  @ApiNotFoundResponse({ description: 'CraftingSkill not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.craftingSkillsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Update craftingSkill',
+    description: 'This updates an craftingSkill record by id',
+  })
+  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: 'CraftingSkill not found' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateCraftingSkillSchema))
+    @Body()
     updateCraftingSkillDto: UpdateCraftingSkillDto,
   ) {
     return this.craftingSkillsService.update(id, updateCraftingSkillDto);
@@ -55,6 +82,14 @@ export class CraftingSkillsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Delete craftingSkill',
+    description: 'This deletes an craftingSkill record by id',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'CraftingSkill was deleted' })
+  @ApiNotFoundResponse({ description: 'CraftingSkill not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.craftingSkillsService.remove(id);
   }

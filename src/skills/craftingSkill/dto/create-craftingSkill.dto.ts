@@ -1,8 +1,21 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const createCraftingSkillSchema = z.object({
-  name: z.string().max(256),
-  regionId: z.number().int().positive(),
-});
+export class CreateCraftingSkillDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
 
-export type CreateCraftingSkillDto = z.infer<typeof createCraftingSkillSchema>;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  regionId: number;
+}

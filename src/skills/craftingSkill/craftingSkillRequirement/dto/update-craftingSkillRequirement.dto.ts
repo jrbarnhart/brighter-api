@@ -1,12 +1,33 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const updateCraftingSkillRequirementSchema = z.object({
-  skillId: z.number().int().positive().optional(),
-  unlockLevel: z.number().int().positive().optional(),
-  description: z.string().max(400).optional(),
-  recipeId: z.number().int().positive().optional(),
-});
+export class UpdateCraftingSkillRequirementDto {
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  skillId: number;
 
-export type UpdateCraftingSkillRequirementDto = z.infer<
-  typeof updateCraftingSkillRequirementSchema
->;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  unlockLevel: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(400)
+  description?: string;
+
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  recipeId?: number;
+}
