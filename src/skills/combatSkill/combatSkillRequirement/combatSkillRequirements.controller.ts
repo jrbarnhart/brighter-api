@@ -7,20 +7,21 @@ import {
   Param,
   Delete,
   UseGuards,
-  UsePipes,
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { CombatSkillRequirementsService } from './combatSkillRequirements.service';
+import { CreateCombatSkillRequirementDto } from './dto/create-combatSkillRequirement.dto';
+import { UpdateCombatSkillRequirementDto } from './dto/update-combatSkillRequirement.dto';
 import {
-  CreateCombatSkillRequirementDto,
-  createCombatSkillRequirementSchema,
-} from './dto/create-combatSkillRequirement.dto';
-import {
-  UpdateCombatSkillRequirementDto,
-  updateCombatSkillRequirementSchema,
-} from './dto/update-combatSkillRequirement.dto';
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
 @Controller('/skills/combat/requirements')
 export class CombatSkillRequirementsController {
@@ -30,7 +31,14 @@ export class CombatSkillRequirementsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createCombatSkillRequirementSchema))
+  @ApiOperation({
+    summary: 'Create combatSkillRequirement',
+    description: 'This creates a new combatSkillRequirement record',
+  })
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ description: 'CombatSkillRequirement created' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(
     @Body() createCombatSkillRequirementDto: CreateCombatSkillRequirementDto,
   ) {
@@ -40,20 +48,39 @@ export class CombatSkillRequirementsController {
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all combatSkillRequirement',
+    description: 'This gets all combatSkillRequirement records',
+  })
+  @ApiOkResponse({ description: 'Found all combatSkillRequirement records' })
   findAll() {
     return this.combatSkillRequirementsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get combatSkillRequirement by id',
+    description: 'This gets one combatSkillRequirement by its id',
+  })
+  @ApiOkResponse({ description: 'Found combatSkillRequirement record' })
+  @ApiNotFoundResponse({ description: 'CombatSkillRequirement not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.combatSkillRequirementsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Update combatSkillRequirement',
+    description: 'This updates an combatSkillRequirement record by id',
+  })
+  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: 'CombatSkillRequirement not found' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateCombatSkillRequirementSchema))
+    @Body()
     updateCombatSkillRequirementDto: UpdateCombatSkillRequirementDto,
   ) {
     return this.combatSkillRequirementsService.update(
@@ -64,6 +91,14 @@ export class CombatSkillRequirementsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Delete combatSkillRequirement',
+    description: 'This deletes an combatSkillRequirement record by id',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'CombatSkillRequirement was deleted' })
+  @ApiNotFoundResponse({ description: 'CombatSkillRequirement not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.combatSkillRequirementsService.remove(id);
   }

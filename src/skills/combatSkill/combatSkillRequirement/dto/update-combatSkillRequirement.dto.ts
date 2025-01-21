@@ -1,12 +1,33 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const updateCombatSkillRequirementSchema = z.object({
-  skillId: z.number().int().positive().optional(),
-  unlockLevel: z.number().int().positive().optional(),
-  description: z.string().max(400).optional(),
-  monsterVariantId: z.number().int().positive().optional(),
-});
+export class UpdateCombatSkillRequirementDto {
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  skillId?: number;
 
-export type UpdateCombatSkillRequirementDto = z.infer<
-  typeof updateCombatSkillRequirementSchema
->;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  unlockLevel?: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(400)
+  description?: string;
+
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  monsterVariantId?: number;
+}

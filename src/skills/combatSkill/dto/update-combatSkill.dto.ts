@@ -1,8 +1,21 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const updateCombatSkillSchema = z.object({
-  name: z.string().max(256).optional(),
-  regionId: z.number().int().positive().optional(),
-});
+export class UpdateCombatSkillDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name?: string;
 
-export type UpdateCombatSkillDto = z.infer<typeof updateCombatSkillSchema>;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  regionId?: number;
+}
