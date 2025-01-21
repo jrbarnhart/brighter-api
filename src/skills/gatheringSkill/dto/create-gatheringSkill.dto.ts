@@ -1,10 +1,21 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const createGatheringSkillSchema = z.object({
-  name: z.string().max(256),
-  regionId: z.number().int().positive(),
-});
+export class CreateGatheringSkillDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
 
-export type CreateGatheringSkillDto = z.infer<
-  typeof createGatheringSkillSchema
->;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  regionId: number;
+}

@@ -1,12 +1,33 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const createGatheringSkillRequirementSchema = z.object({
-  skillId: z.number().int().positive(),
-  unlockLevel: z.number().int().positive(),
-  description: z.string().max(400).optional(),
-  resourceVariantId: z.number().int().positive().optional(),
-});
+export class CreateGatheringSkillRequirementDto {
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  skillId: number;
 
-export type CreateGatheringSkillRequirementDto = z.infer<
-  typeof createGatheringSkillRequirementSchema
->;
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  unlockLevel: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(400)
+  description?: string;
+
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  resourceVariantId?: number;
+}
