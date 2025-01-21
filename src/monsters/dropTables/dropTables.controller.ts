@@ -23,7 +23,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-@Controller('items/dropTables')
+@Controller('monsters/tables')
 export class DropTablesController {
   constructor(private readonly dropTablesService: DropTablesService) {}
 
