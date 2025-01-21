@@ -66,6 +66,7 @@ export class CreateRoomDto {
   @IsEnum(BankType, { each: true })
   @ApiProperty({
     description: 'The array of types of bank in this room',
+    isArray: true,
     enum: BankType,
     type: String,
   })
