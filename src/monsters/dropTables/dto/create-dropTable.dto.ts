@@ -1,12 +1,44 @@
-import { z } from 'zod';
+import {
+  IsArray,
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+} from 'class-validator';
 
-export const createDropTableSchema = z.object({
-  monsterVariantId: z.number().int().positive(),
-  resourceVariantIds: z.array(z.number().int().positive()).optional(),
-  weaponVariantIds: z.array(z.number().int().positive()).optional(),
-  armorVariantIds: z.array(z.number().int().positive()).optional(),
-  consumableVariantIds: z.array(z.number().int().positive()).optional(),
-  currency: z.number().int().positive().optional(),
-});
+export class CreateDropTableDto {
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  monsterVariantId: number;
 
-export type CreateDropTableDto = z.infer<typeof createDropTableSchema>;
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  resourceVariantIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  weaponVariantIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  armorVariantIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  consumableVariantIds?: number[];
+
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  currency?: number;
+}

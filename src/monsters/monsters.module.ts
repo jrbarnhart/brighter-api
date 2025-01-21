@@ -4,9 +4,20 @@ import { MonstersController } from './monsters.controller';
 import { MonstersService } from './monsters.service';
 import { MonsterVariantsService } from './monsterVariants/monsterVariants.service';
 import { PrismaService } from 'src/prisma.service';
+import { DropTablesController } from './dropTables/dropTables.controller';
+import { DropTablesService } from './dropTables/dropTables.service';
 
 @Module({
-  controllers: [MonsterVariantsController, MonstersController],
-  providers: [PrismaService, MonsterVariantsService, MonstersService],
+  controllers: [
+    MonsterVariantsController,
+    MonstersController,
+    DropTablesController,
+  ],
+  providers: [
+    PrismaService,
+    MonsterVariantsService,
+    MonstersService,
+    DropTablesService,
+  ],
 })
 export class MonstersModule {}
