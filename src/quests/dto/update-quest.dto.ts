@@ -1,7 +1,8 @@
-import { z } from 'zod';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export const updateQuestSchema = z.object({
-  name: z.string().optional(),
-});
-
-export type UpdateQuestDto = z.infer<typeof updateQuestSchema>;
+export class UpdateQuestDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name?: string;
+}
