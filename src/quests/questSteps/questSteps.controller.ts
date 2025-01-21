@@ -7,48 +7,74 @@ import {
   Param,
   Delete,
   UseGuards,
-  UsePipes,
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { QuestStepsService } from './questSteps.service';
+import { CreateQuestStepDto } from './dto/create-questStep.dto';
+import { UpdateQuestStepDto } from './dto/update-questStep.dto';
 import {
-  CreateQuestStepDto,
-  createQuestStepSchema,
-} from './dto/create-questStep.dto';
-import {
-  UpdateQuestStepDto,
-  updateQuestStepSchema,
-} from './dto/update-questStep.dto';
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
-// Maybe change this and controller/service logic later to allow for /quests/:id/steps
-@Controller('quests/steps')
+@Controller('items/questSteps')
 export class QuestStepsController {
   constructor(private readonly questStepsService: QuestStepsService) {}
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createQuestStepSchema))
+  @ApiOperation({
+    summary: 'Create questStep',
+    description: 'This creates a new questStep record',
+  })
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ description: 'QuestStep created' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createQuestStepDto: CreateQuestStepDto) {
     return this.questStepsService.create(createQuestStepDto);
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all questStep',
+    description: 'This gets all questStep records',
+  })
+  @ApiOkResponse({ description: 'Found all questStep records' })
   findAll() {
     return this.questStepsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get questStep by id',
+    description: 'This gets one questStep by its id',
+  })
+  @ApiOkResponse({ description: 'Found questStep record' })
+  @ApiNotFoundResponse({ description: 'QuestStep not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.questStepsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Update questStep',
+    description: 'This updates an questStep record by id',
+  })
+  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: 'QuestStep not found' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateQuestStepSchema))
+    @Body()
     updateQuestStepDto: UpdateQuestStepDto,
   ) {
     return this.questStepsService.update(id, updateQuestStepDto);
@@ -56,6 +82,14 @@ export class QuestStepsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Delete questStep',
+    description: 'This deletes an questStep record by id',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'QuestStep was deleted' })
+  @ApiNotFoundResponse({ description: 'QuestStep not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.questStepsService.remove(id);
   }

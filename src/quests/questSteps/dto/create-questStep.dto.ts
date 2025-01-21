@@ -1,11 +1,39 @@
-import { z } from 'zod';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export const createQuestStepSchema = z.object({
-  index: z.number().int().positive(),
-  description: z.string().max(400),
-  questId: z.number().int().positive(),
-  roomId: z.number().int().positive().optional(),
-  npcId: z.number().int().positive().optional(),
-});
+export class CreateQuestStepDto {
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  index: number;
 
-export type CreateQuestStepDto = z.infer<typeof createQuestStepSchema>;
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(400)
+  description: string;
+
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  questId: number;
+
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  roomId?: number;
+
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  npcId?: number;
+}
