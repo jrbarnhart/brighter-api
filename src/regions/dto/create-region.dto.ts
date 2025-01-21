@@ -1,7 +1,8 @@
-import { z } from 'zod';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export const createRegionSchema = z.object({
-  name: z.string(),
-});
-
-export type CreateRegionDto = z.infer<typeof createRegionSchema>;
+export class CreateRegionDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+}

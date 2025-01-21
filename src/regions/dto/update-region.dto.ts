@@ -1,11 +1,8 @@
-import { z } from 'zod';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export const updateRegionSchema = z
-  .object({
-    name: z.string().optional(),
-  })
-  .refine((obj) => Object.keys(obj).length > 0, {
-    message: 'At least one property is required in body',
-  });
-
-export type UpdateRegionDto = z.infer<typeof updateRegionSchema>;
+export class UpdateRegionDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name?: string;
+}
