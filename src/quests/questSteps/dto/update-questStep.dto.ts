@@ -12,18 +12,18 @@ export class UpdateQuestStepDto {
   @IsNumberString()
   @IsInt()
   @IsPositive()
-  index: number;
+  index?: number;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(400)
-  description: string;
+  description?: string;
 
   @IsNotEmpty()
   @IsNumberString()
   @IsInt()
   @IsPositive()
-  questId: number;
+  questId?: number;
 
   @IsNotEmpty()
   @IsNumberString()
