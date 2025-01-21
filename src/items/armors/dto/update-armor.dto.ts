@@ -11,7 +11,7 @@ export class UpdateArmorDto {
   @IsEnum(Faction)
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The gear slot that this armor occupies',
+    description: 'The faction/player class this belongs to',
     enum: Faction,
     type: String,
   })

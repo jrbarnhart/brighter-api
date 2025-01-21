@@ -30,7 +30,7 @@ export class CreateMonsterDto {
   @IsNotEmpty()
   @IsEnum(Element)
   @ApiProperty({
-    description: 'The gear slot that this armor occupies',
+    description: 'The damage type this monster attacks with',
     enum: Element,
     type: String,
   })
@@ -39,7 +39,7 @@ export class CreateMonsterDto {
   @IsNotEmpty()
   @IsEnum(Element)
   @ApiProperty({
-    description: 'The gear slot that this armor occupies',
+    description: 'The damage type this monster is immune to',
     enum: Element,
     type: String,
   })
@@ -48,7 +48,7 @@ export class CreateMonsterDto {
   @IsNotEmpty()
   @IsEnum(Element)
   @ApiProperty({
-    description: 'The gear slot that this armor occupies',
+    description: 'The damage type this monster is vulnerable to',
     enum: Element,
     type: String,
   })
