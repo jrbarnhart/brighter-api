@@ -1,21 +1,73 @@
 import { BankType } from '@prisma/client';
-import { z } from 'zod';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
-export const updateRoomSchema = z
-  .object({
-    name: z.string().optional(),
-    regionId: z.number().int().positive().optional(),
-    craftingSkillIds: z.array(z.number().int().positive()).optional(),
-    monsterIds: z.array(z.number().int().positive()).optional(),
-    npcIds: z.array(z.number().int().positive()).optional(),
-    resourceIds: z.array(z.number().int().positive()).optional(),
-    questStepIds: z.array(z.number().int().positive()).optional(),
-    bankIds: z.array(z.nativeEnum(BankType)).optional(),
-    portal: z.boolean().optional(),
-    obelisk: z.boolean().optional(),
+export class UpdateRoomDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name?: string;
+
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  regionId?: number;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  portal?: boolean;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  obelisk?: boolean;
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  craftingSkillIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  monsterIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  npcIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  resourceIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  questStepIds?: number[];
+
+  @IsArray()
+  @IsEnum(BankType, { each: true })
+  @ApiProperty({
+    description: 'The array of types of bank in this room',
+    enum: BankType,
+    type: String,
   })
-  .refine((obj) => Object.keys(obj).length > 0, {
-    message: 'At least one property is required in body',
-  });
-
-export type UpdateRoomDto = z.infer<typeof updateRoomSchema>;
+  banks?: BankType[];
+}

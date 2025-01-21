@@ -7,14 +7,21 @@ import {
   Param,
   Delete,
   UseGuards,
-  UsePipes,
   ParseIntPipe,
 } from '@nestjs/common';
-import { RoomsService } from './rooms.service';
-import { CreateRoomDto, createRoomSchema } from './dto/create-room.dto';
-import { UpdateRoomDto, updateRoomSchema } from './dto/update-room.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
+import { RoomsService } from './rooms.service';
+import { CreateRoomDto } from './dto/create-room.dto';
+import { UpdateRoomDto } from './dto/update-room.dto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
 @Controller('rooms')
 export class RoomsController {
@@ -22,32 +29,67 @@ export class RoomsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createRoomSchema))
+  @ApiOperation({
+    summary: 'Create room',
+    description: 'This creates a new room record',
+  })
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ description: 'Room created' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createRoomDto: CreateRoomDto) {
     return this.roomsService.create(createRoomDto);
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all room',
+    description: 'This gets all room records',
+  })
+  @ApiOkResponse({ description: 'Found all room records' })
   findAll() {
     return this.roomsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get room by id',
+    description: 'This gets one room by its id',
+  })
+  @ApiOkResponse({ description: 'Found room record' })
+  @ApiNotFoundResponse({ description: 'Room not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.roomsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Update room',
+    description: 'This updates an room record by id',
+  })
+  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: 'Room not found' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateRoomSchema)) updateRoomDto: UpdateRoomDto,
+    @Body()
+    updateRoomDto: UpdateRoomDto,
   ) {
     return this.roomsService.update(id, updateRoomDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Delete room',
+    description: 'This deletes an room record by id',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Room was deleted' })
+  @ApiNotFoundResponse({ description: 'Room not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.roomsService.remove(id);
   }
