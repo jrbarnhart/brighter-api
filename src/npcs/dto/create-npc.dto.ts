@@ -1,7 +1,8 @@
-import { z } from 'zod';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export const createNpcSchema = z.object({
-  name: z.string(),
-});
-
-export type CreateNpcDto = z.infer<typeof createNpcSchema>;
+export class CreateNpcDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+}

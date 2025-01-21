@@ -1,7 +1,8 @@
-import { z } from 'zod';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export const updateNpcSchema = z.object({
-  name: z.string().optional(),
-});
-
-export type UpdateNpcDto = z.infer<typeof updateNpcSchema>;
+export class UpdateNpcDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name?: string;
+}
