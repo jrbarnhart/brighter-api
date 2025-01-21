@@ -1,12 +1,45 @@
-import { z } from 'zod';
+import {
+  IsArray,
+  IsInt,
+  IsNotEmpty,
+  IsNumberString,
+  IsPositive,
+} from 'class-validator';
 
-export const createVendorSchema = z.object({
-  npcId: z.number().int().positive(),
-  resourceVariantIds: z.array(z.number().int().positive()).optional(),
-  consumableVariantIds: z.array(z.number().int().positive()).optional(),
-  weaponVariantIds: z.array(z.number().int().positive()).optional(),
-  armorVariantIds: z.array(z.number().int().positive()).optional(),
-  miscItemsIds: z.array(z.number().int().positive()).optional(),
-});
+export class CreateVendorDto {
+  @IsNotEmpty()
+  @IsNumberString()
+  @IsInt()
+  @IsPositive()
+  npcId: number;
 
-export type CreateVendorDto = z.infer<typeof createVendorSchema>;
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  resourceVariantIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  weaponVariantIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  armorVariantIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  consumableVariantIds?: number[];
+
+  @IsArray()
+  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  miscItemsIds?: number[];
+}

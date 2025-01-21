@@ -7,41 +7,74 @@ import {
   Param,
   Delete,
   UseGuards,
-  UsePipes,
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ZodValidationPipe } from 'src/validation/zodValidation.pipe';
 import { VendorsService } from './vendors.service';
-import { CreateVendorDto, createVendorSchema } from './dto/create-vendor.dto';
-import { UpdateVendorDto, updateVendorSchema } from './dto/update-vendor.dto';
+import { CreateVendorDto } from './dto/create-vendor.dto';
+import { UpdateVendorDto } from './dto/update-vendor.dto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
-@Controller('npcs/vendors')
+@Controller('items/vendors')
 export class VendorsController {
   constructor(private readonly vendorsService: VendorsService) {}
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(createVendorSchema))
+  @ApiOperation({
+    summary: 'Create vendor',
+    description: 'This creates a new vendor record',
+  })
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ description: 'Vendor created' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createVendorDto: CreateVendorDto) {
     return this.vendorsService.create(createVendorDto);
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all vendor',
+    description: 'This gets all vendor records',
+  })
+  @ApiOkResponse({ description: 'Found all vendor records' })
   findAll() {
     return this.vendorsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get vendor by id',
+    description: 'This gets one vendor by its id',
+  })
+  @ApiOkResponse({ description: 'Found vendor record' })
+  @ApiNotFoundResponse({ description: 'Vendor not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.vendorsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Update vendor',
+    description: 'This updates an vendor record by id',
+  })
+  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: 'Vendor not found' })
+  @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ZodValidationPipe(updateVendorSchema))
+    @Body()
     updateVendorDto: UpdateVendorDto,
   ) {
     return this.vendorsService.update(id, updateVendorDto);
@@ -49,6 +82,14 @@ export class VendorsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Delete vendor',
+    description: 'This deletes an vendor record by id',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Vendor was deleted' })
+  @ApiNotFoundResponse({ description: 'Vendor not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.vendorsService.remove(id);
   }
