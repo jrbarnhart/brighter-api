@@ -48,44 +48,18 @@ To set up Brighter API locally, follow these steps:
 
 After starting the server, the API will be available at `http://localhost:3000` by default. Use tools like [Postman](https://www.postman.com/) or `curl` to test the endpoints.
 
-### Example Endpoint
-
-- Get a list of monsters:
-
-  ```bash
-  GET /monsters
-  ```
-
-  Example Response (Does not reflect actual data structure):
-
-  ```json
-  [
-    {
-      "id": 1,
-      "name": "Goblin Soldier",
-      "variant": ["Looter", "Hooligan", "Plunderer"],
-      "skillLevel": 0
-    },
-    {
-      "id": 2,
-      "name": "Goblin Chief",
-      "variant": ["Irritable", "Bossy", "Robust"],
-      "skillLevel": 5
-    }
-  ]
-  ```
-
----
+You can also go to the server url/api to see the Swagger UI which lists all the endpoints.
 
 ## Authentication and Protected Routes
 
-To access the login route and protected routes for editing or adding data, you will need to configure a `.env` file at the root of the project. This file should include the following variables:
+To access the login route and protected routes for editing or adding data, as well as to connect to a database, you will need to configure a `.env` file at the root of the project. This file should include the following variables:
 
 ```
 ADMIN_USERNAME=<your_admin_username>
 ADMIN_PASSWORD=<your_admin_password>
 ADMIN_ID=<your_admin_id>
 JWT_SECRET=<your_jwt_secret>
+DATABASE_URL="postgresql://<username>:<password>@<db-url>:<port>/<your-db-name>?schema=public"
 ```
 
 The `ConfigModule` in the project is set to look for this `.env` file in the root directory, so ensure it is correctly placed and configured before attempting to use these features.
