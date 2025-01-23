@@ -9,7 +9,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { ArmorVariantEntity } from '../armorVariants/entities/armorVariants.entity';
+import { ArmorVariantBaseEntity } from '../armorVariants/entities/armorVariants.entity';
 
 export class ArmorEntity {
   @IsNotEmpty()
@@ -41,5 +41,5 @@ export class ArmorEntity {
   })
   slot: GearSlot;
 
-  armorVariants: ArmorVariantEntity[];
+  armorVariants: ArmorVariantBaseEntity[];
 }
