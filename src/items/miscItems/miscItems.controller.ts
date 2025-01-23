@@ -22,8 +22,9 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { MiscItemEntity } from './entities/miscItems.entity';
 
-@Controller('items/misc')
+@Controller('miscItems')
 export class MiscItemsController {
   constructor(private readonly miscItemsService: MiscItemsService) {}
 
@@ -34,7 +35,7 @@ export class MiscItemsController {
     description: 'This creates a new miscItem record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'MiscItem created' })
+  @ApiCreatedResponse({ description: 'MiscItem created', type: MiscItemEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createMiscItemDto: CreateMiscItemDto) {
@@ -46,7 +47,10 @@ export class MiscItemsController {
     summary: 'Get all miscItem',
     description: 'This gets all miscItem records',
   })
-  @ApiOkResponse({ description: 'Found all miscItem records' })
+  @ApiOkResponse({
+    description: 'Found all miscItem records',
+    type: MiscItemEntity,
+  })
   findAll() {
     return this.miscItemsService.findAll();
   }
@@ -56,7 +60,7 @@ export class MiscItemsController {
     summary: 'Get miscItem by id',
     description: 'This gets one miscItem by its id',
   })
-  @ApiOkResponse({ description: 'Found miscItem record' })
+  @ApiOkResponse({ description: 'Found miscItem record', type: MiscItemEntity })
   @ApiNotFoundResponse({ description: 'MiscItem not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.miscItemsService.findOne(id);
@@ -69,6 +73,10 @@ export class MiscItemsController {
     description: 'This updates an miscItem record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated miscItem record',
+    type: MiscItemEntity,
+  })
   @ApiNotFoundResponse({ description: 'MiscItem not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +95,7 @@ export class MiscItemsController {
     description: 'This deletes an miscItem record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'MiscItem was deleted' })
+  @ApiOkResponse({ description: 'MiscItem was deleted', type: MiscItemEntity })
   @ApiNotFoundResponse({ description: 'MiscItem not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
