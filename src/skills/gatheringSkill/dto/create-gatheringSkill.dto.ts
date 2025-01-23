@@ -1,7 +1,7 @@
 import {
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -14,7 +14,7 @@ export class CreateGatheringSkillDto {
   name: string;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   regionId: number;

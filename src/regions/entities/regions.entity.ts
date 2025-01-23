@@ -1,7 +1,7 @@
 import {
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -10,7 +10,7 @@ import { RoomEntity } from 'src/rooms/entities/rooms.entity';
 
 export class RegionEntity {
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   id: number;

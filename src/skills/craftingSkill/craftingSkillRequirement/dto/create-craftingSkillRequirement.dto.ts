@@ -1,7 +1,7 @@
 import {
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -9,13 +9,13 @@ import {
 
 export class CreateCraftingSkillRequirementDto {
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   skillId: number;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   unlockLevel: number;
@@ -26,7 +26,7 @@ export class CreateCraftingSkillRequirementDto {
   description?: string;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   recipeId?: number;

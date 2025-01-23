@@ -1,7 +1,7 @@
 import {
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -13,7 +13,7 @@ export class UpdateConsumableVariantDto {
   @MaxLength(256)
   name?: string;
 
-  @IsNumberString()
+  @IsNumber()
   @IsNotEmpty()
   @IsInt()
   @IsPositive()

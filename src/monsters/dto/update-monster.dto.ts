@@ -5,7 +5,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -18,7 +18,7 @@ export class UpdateMonsterDto {
   name?: string;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   skillId?: number;

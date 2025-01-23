@@ -4,7 +4,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -13,7 +13,7 @@ import { ArmorVariantEntity } from '../armorVariants/entities/armorVariants.enti
 
 export class ArmorEntity {
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   id: number;

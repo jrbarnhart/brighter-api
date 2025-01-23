@@ -5,7 +5,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -19,7 +19,7 @@ export class CreateRoomDto {
   name: string;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   regionId: number;
@@ -33,31 +33,31 @@ export class CreateRoomDto {
   obelisk: boolean;
 
   @IsArray()
-  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   craftingSkillIds?: number[];
 
   @IsArray()
-  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   monsterIds?: number[];
 
   @IsArray()
-  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   npcIds?: number[];
 
   @IsArray()
-  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   resourceIds?: number[];
 
   @IsArray()
-  @IsNumberString({ no_symbols: true }, { each: true })
+  @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   questStepIds?: number[];

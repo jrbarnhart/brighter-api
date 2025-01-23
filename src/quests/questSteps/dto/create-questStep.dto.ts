@@ -1,7 +1,7 @@
 import {
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -9,7 +9,7 @@ import {
 
 export class CreateQuestStepDto {
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   index: number;
@@ -20,19 +20,19 @@ export class CreateQuestStepDto {
   description: string;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   questId: number;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   roomId?: number;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   npcId?: number;

@@ -2,7 +2,7 @@ import {
   IsBoolean,
   IsInt,
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsPositive,
   IsString,
   MaxLength,
@@ -15,7 +15,7 @@ export class UpdateResourceDto {
   name?: string;
 
   @IsNotEmpty()
-  @IsNumberString()
+  @IsNumber()
   @IsInt()
   @IsPositive()
   skillId?: number;
