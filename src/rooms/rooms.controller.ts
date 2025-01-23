@@ -22,6 +22,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { RoomEntity } from './entities/rooms.entity';
 
 @Controller('rooms')
 export class RoomsController {
@@ -34,7 +35,7 @@ export class RoomsController {
     description: 'This creates a new room record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Room created' })
+  @ApiCreatedResponse({ description: 'Room created', type: RoomEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createRoomDto: CreateRoomDto) {
@@ -46,7 +47,7 @@ export class RoomsController {
     summary: 'Get all room',
     description: 'This gets all room records',
   })
-  @ApiOkResponse({ description: 'Found all room records' })
+  @ApiOkResponse({ description: 'Found all room records', type: RoomEntity })
   findAll() {
     return this.roomsService.findAll();
   }
@@ -56,7 +57,7 @@ export class RoomsController {
     summary: 'Get room by id',
     description: 'This gets one room by its id',
   })
-  @ApiOkResponse({ description: 'Found room record' })
+  @ApiOkResponse({ description: 'Found room record', type: RoomEntity })
   @ApiNotFoundResponse({ description: 'Room not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.roomsService.findOne(id);
@@ -69,6 +70,7 @@ export class RoomsController {
     description: 'This updates an room record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Updated room record', type: RoomEntity })
   @ApiNotFoundResponse({ description: 'Room not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +89,7 @@ export class RoomsController {
     description: 'This deletes an room record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Room was deleted' })
+  @ApiOkResponse({ description: 'Room was deleted', type: RoomEntity })
   @ApiNotFoundResponse({ description: 'Room not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
