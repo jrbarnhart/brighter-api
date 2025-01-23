@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { CraftingRecipeEntity } from './entities/craftingRecipes.entity';
 
-@Controller('craftingRecipes')
+@Controller('/skills/crafting/recipes')
 export class CraftingRecipesController {
   constructor(
     private readonly craftingRecipesService: CraftingRecipesService,
