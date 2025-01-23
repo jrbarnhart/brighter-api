@@ -22,9 +22,12 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { ArmorVariantEntity } from './entities/armorVariants.entity';
+import {
+  ArmorVariantEntity,
+  ArmorVariantBaseEntity,
+} from './entities/armorVariants.entity';
 
-@Controller('items/armors/variants')
+@Controller('armorVariants')
 export class ArmorVariantsController {
   constructor(private readonly armorVariantsService: ArmorVariantsService) {}
 
@@ -37,7 +40,7 @@ export class ArmorVariantsController {
   @ApiBearerAuth()
   @ApiCreatedResponse({
     description: 'ArmorVariant created',
-    type: ArmorVariantEntity,
+    type: ArmorVariantBaseEntity,
   })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -81,7 +84,7 @@ export class ArmorVariantsController {
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'Updated armorVariant record',
-    type: ArmorVariantEntity,
+    type: ArmorVariantBaseEntity,
   })
   @ApiNotFoundResponse({ description: 'ArmorVariant not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
@@ -103,7 +106,7 @@ export class ArmorVariantsController {
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'ArmorVariant was deleted',
-    type: ArmorVariantEntity,
+    type: ArmorVariantBaseEntity,
   })
   @ApiNotFoundResponse({ description: 'ArmorVariant not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })

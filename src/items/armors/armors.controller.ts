@@ -22,9 +22,9 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { ArmorEntity } from './entities/armors.entity';
+import { ArmorEntity, ArmorBaseEntity } from './entities/armors.entity';
 
-@Controller('items/armors')
+@Controller('armors')
 export class ArmorsController {
   constructor(private readonly armorsService: ArmorsService) {}
 
@@ -35,7 +35,7 @@ export class ArmorsController {
     description: 'This creates a new armor record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Armor created', type: ArmorEntity })
+  @ApiCreatedResponse({ description: 'Armor created', type: ArmorBaseEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createArmorDto: CreateArmorDto) {
@@ -70,7 +70,7 @@ export class ArmorsController {
     description: 'This updates an armor record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Updated armor record', type: ArmorEntity })
+  @ApiOkResponse({ description: 'Updated armor record', type: ArmorBaseEntity })
   @ApiNotFoundResponse({ description: 'Armor not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -89,7 +89,7 @@ export class ArmorsController {
     description: 'This deletes an armor record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Armor was deleted', type: ArmorEntity })
+  @ApiOkResponse({ description: 'Armor was deleted', type: ArmorBaseEntity })
   @ApiNotFoundResponse({ description: 'Armor not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
