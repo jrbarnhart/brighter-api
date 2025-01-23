@@ -47,7 +47,10 @@ export class RegionsController {
     summary: 'Get all region',
     description: 'This gets all region records',
   })
-  @ApiOkResponse({ description: 'Found all region records' })
+  @ApiOkResponse({
+    description: 'Found all region records',
+    type: RegionEntity,
+  })
   findAll() {
     return this.regionsService.findAll();
   }
@@ -57,7 +60,7 @@ export class RegionsController {
     summary: 'Get region by id',
     description: 'This gets one region by its id',
   })
-  @ApiOkResponse({ description: 'Found region record' })
+  @ApiOkResponse({ description: 'Found region record', type: RegionEntity })
   @ApiNotFoundResponse({ description: 'Region not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.regionsService.findOne(id);
@@ -70,6 +73,7 @@ export class RegionsController {
     description: 'This updates an region record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Updated region record', type: RegionEntity })
   @ApiNotFoundResponse({ description: 'Region not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -88,7 +92,7 @@ export class RegionsController {
     description: 'This deletes an region record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Region was deleted' })
+  @ApiOkResponse({ description: 'Region was deleted', type: RegionEntity })
   @ApiNotFoundResponse({ description: 'Region not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
