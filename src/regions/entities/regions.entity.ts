@@ -7,7 +7,7 @@ import {
   MaxLength,
 } from 'class-validator';
 
-export class Region {
+export class RegionEntity {
   @IsNotEmpty()
   @IsNumberString()
   @IsInt()
