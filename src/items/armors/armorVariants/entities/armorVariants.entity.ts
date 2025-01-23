@@ -35,7 +35,7 @@ export class ArmorVariantEntity {
   @IsNumber()
   @IsInt()
   @IsPositive()
-  recipeId: number;
+  recipeId: number | null;
 
   //dropTables: DropTableEntity[]
   //vendors: VendorEntity[]
@@ -63,5 +63,5 @@ export class ArmorVariantBaseEntity {
   @IsNumber()
   @IsInt()
   @IsPositive()
-  recipeId: number;
+  recipeId: number | null;
 }
