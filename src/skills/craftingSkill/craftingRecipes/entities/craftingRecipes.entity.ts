@@ -34,3 +34,21 @@ export class CraftingRecipeEntity {
   //outputWeaponVariant?: WeaponVariantEntity
   outputArmorVariant?: ArmorVariantEntity;
 }
+
+export class CraftingRecipeBaseEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  requirementId?: number | null;
+}
