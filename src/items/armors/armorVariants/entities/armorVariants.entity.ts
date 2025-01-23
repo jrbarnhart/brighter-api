@@ -7,6 +7,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { ArmorEntity } from '../../entities/armors.entity';
+import { CraftingRecipeEntity } from 'src/skills/craftingSkill/craftingRecipes/entities/craftingRecipes.entity';
 
 export class ArmorVariantEntity {
   @IsNotEmpty()
@@ -28,7 +29,7 @@ export class ArmorVariantEntity {
   @IsPositive()
   armorId: number;
 
-  //recipe: RecipeEntity;
+  recipe: CraftingRecipeEntity;
 
   @IsNotEmpty()
   @IsNumber()
@@ -38,4 +39,29 @@ export class ArmorVariantEntity {
 
   //dropTables: DropTableEntity[]
   //vendors: VendorEntity[]
+}
+
+export class ArmorVariantBaseEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  armorId: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  recipeId: number;
 }
