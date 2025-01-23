@@ -6,6 +6,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { RoomEntity } from 'src/rooms/entities/rooms.entity';
 
 export class RegionEntity {
   @IsNotEmpty()
@@ -18,4 +19,6 @@ export class RegionEntity {
   @IsString()
   @MaxLength(256)
   name: string;
+
+  rooms: RoomEntity[];
 }
