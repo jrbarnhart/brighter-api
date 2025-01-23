@@ -51,6 +51,9 @@ importers:
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
+      '@inquirer/prompts':
+        specifier: ^7.2.3
+        version: 7.2.3(@types/node@22.10.7)
       '@nestjs/cli':
         specifier: ^11.0.0
         version: 11.0.0(@swc/cli@0.6.0(@swc/core@1.10.8)(chokidar@4.0.3))(@swc/core@1.10.8)(@types/node@22.10.7)
