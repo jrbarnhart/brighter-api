@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { ConsumableEntity } from './entities/consumables.entity';
 
-@Controller('consumables')
+@Controller('items/consumables')
 export class ConsumablesController {
   constructor(private readonly consumablesService: ConsumablesService) {}
 

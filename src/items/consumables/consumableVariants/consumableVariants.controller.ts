@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { ConsumableVariantEntity } from './entities/consumableVariants.entity';
 
-@Controller('consumableVariants')
+@Controller('items/consumables/variants')
 export class ConsumableVariantsController {
   constructor(
     private readonly consumableVariantsService: ConsumableVariantsService,

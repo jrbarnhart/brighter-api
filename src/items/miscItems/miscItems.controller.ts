@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { MiscItemEntity } from './entities/miscItems.entity';
 
-@Controller('miscItems')
+@Controller('items/misc')
 export class MiscItemsController {
   constructor(private readonly miscItemsService: MiscItemsService) {}
 

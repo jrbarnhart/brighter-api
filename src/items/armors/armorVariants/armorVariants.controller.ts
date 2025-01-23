@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { ArmorVariantEntity } from './entities/armorVariants.entity';
 
-@Controller('armorVariants')
+@Controller('items/armors/variants')
 export class ArmorVariantsController {
   constructor(private readonly armorVariantsService: ArmorVariantsService) {}
 
