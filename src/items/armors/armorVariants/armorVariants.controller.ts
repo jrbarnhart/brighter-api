@@ -22,8 +22,9 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { ArmorVariantEntity } from './entities/armorVariants.entity';
 
-@Controller('items/armors/variants')
+@Controller('armorVariants')
 export class ArmorVariantsController {
   constructor(private readonly armorVariantsService: ArmorVariantsService) {}
 
@@ -34,7 +35,10 @@ export class ArmorVariantsController {
     description: 'This creates a new armorVariant record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'ArmorVariant created' })
+  @ApiCreatedResponse({
+    description: 'ArmorVariant created',
+    type: ArmorVariantEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createArmorVariantDto: CreateArmorVariantDto) {
@@ -46,7 +50,10 @@ export class ArmorVariantsController {
     summary: 'Get all armorVariant',
     description: 'This gets all armorVariant records',
   })
-  @ApiOkResponse({ description: 'Found all armorVariant records' })
+  @ApiOkResponse({
+    description: 'Found all armorVariant records',
+    type: ArmorVariantEntity,
+  })
   findAll() {
     return this.armorVariantsService.findAll();
   }
@@ -56,7 +63,10 @@ export class ArmorVariantsController {
     summary: 'Get armorVariant by id',
     description: 'This gets one armorVariant by its id',
   })
-  @ApiOkResponse({ description: 'Found armorVariant record' })
+  @ApiOkResponse({
+    description: 'Found armorVariant record',
+    type: ArmorVariantEntity,
+  })
   @ApiNotFoundResponse({ description: 'ArmorVariant not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.armorVariantsService.findOne(id);
@@ -69,6 +79,10 @@ export class ArmorVariantsController {
     description: 'This updates an armorVariant record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated armorVariant record',
+    type: ArmorVariantEntity,
+  })
   @ApiNotFoundResponse({ description: 'ArmorVariant not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +101,10 @@ export class ArmorVariantsController {
     description: 'This deletes an armorVariant record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'ArmorVariant was deleted' })
+  @ApiOkResponse({
+    description: 'ArmorVariant was deleted',
+    type: ArmorVariantEntity,
+  })
   @ApiNotFoundResponse({ description: 'ArmorVariant not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
