@@ -24,7 +24,12 @@ export class CraftingRecipesService {
   findAll(): Promise<CraftingRecipe[]> {
     return this.prisma.craftingRecipe.findMany({
       include: {
-        // Add your includes here
+        inputItems: true,
+        inputResourceVariants: true,
+        outputArmorVariant: true,
+        outputConsumableVariant: true,
+        outputWeaponVariant: true,
+        requirement: true,
       },
     });
   }
@@ -33,7 +38,12 @@ export class CraftingRecipesService {
     const foundCraftingRecipe = await this.prisma.craftingRecipe.findUnique({
       where: { id },
       include: {
-        // Add your includes here
+        inputItems: true,
+        inputResourceVariants: true,
+        outputArmorVariant: true,
+        outputConsumableVariant: true,
+        outputWeaponVariant: true,
+        requirement: true,
       },
     });
 
