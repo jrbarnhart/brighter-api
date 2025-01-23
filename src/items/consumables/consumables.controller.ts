@@ -22,8 +22,9 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { ConsumableEntity } from './entities/consumables.entity';
 
-@Controller('items/consumables')
+@Controller('consumables')
 export class ConsumablesController {
   constructor(private readonly consumablesService: ConsumablesService) {}
 
@@ -34,7 +35,10 @@ export class ConsumablesController {
     description: 'This creates a new consumable record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Consumable created' })
+  @ApiCreatedResponse({
+    description: 'Consumable created',
+    type: ConsumableEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createConsumableDto: CreateConsumableDto) {
@@ -46,7 +50,10 @@ export class ConsumablesController {
     summary: 'Get all consumable',
     description: 'This gets all consumable records',
   })
-  @ApiOkResponse({ description: 'Found all consumable records' })
+  @ApiOkResponse({
+    description: 'Found all consumable records',
+    type: ConsumableEntity,
+  })
   findAll() {
     return this.consumablesService.findAll();
   }
@@ -56,7 +63,10 @@ export class ConsumablesController {
     summary: 'Get consumable by id',
     description: 'This gets one consumable by its id',
   })
-  @ApiOkResponse({ description: 'Found consumable record' })
+  @ApiOkResponse({
+    description: 'Found consumable record',
+    type: ConsumableEntity,
+  })
   @ApiNotFoundResponse({ description: 'Consumable not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.consumablesService.findOne(id);
@@ -69,6 +79,10 @@ export class ConsumablesController {
     description: 'This updates an consumable record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated consumable record',
+    type: ConsumableEntity,
+  })
   @ApiNotFoundResponse({ description: 'Consumable not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +101,10 @@ export class ConsumablesController {
     description: 'This deletes an consumable record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Consumable was deleted' })
+  @ApiOkResponse({
+    description: 'Consumable was deleted',
+    type: ConsumableEntity,
+  })
   @ApiNotFoundResponse({ description: 'Consumable not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {

@@ -22,8 +22,9 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { ConsumableVariantEntity } from './entities/consumableVariants.entity';
 
-@Controller('items/consumables/variants')
+@Controller('consumableVariants')
 export class ConsumableVariantsController {
   constructor(
     private readonly consumableVariantsService: ConsumableVariantsService,
@@ -36,7 +37,10 @@ export class ConsumableVariantsController {
     description: 'This creates a new consumableVariant record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'ConsumableVariant created' })
+  @ApiCreatedResponse({
+    description: 'ConsumableVariant created',
+    type: ConsumableVariantEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createConsumableVariantDto: CreateConsumableVariantDto) {
@@ -48,7 +52,10 @@ export class ConsumableVariantsController {
     summary: 'Get all consumableVariant',
     description: 'This gets all consumableVariant records',
   })
-  @ApiOkResponse({ description: 'Found all consumableVariant records' })
+  @ApiOkResponse({
+    description: 'Found all consumableVariant records',
+    type: ConsumableVariantEntity,
+  })
   findAll() {
     return this.consumableVariantsService.findAll();
   }
@@ -58,7 +65,10 @@ export class ConsumableVariantsController {
     summary: 'Get consumableVariant by id',
     description: 'This gets one consumableVariant by its id',
   })
-  @ApiOkResponse({ description: 'Found consumableVariant record' })
+  @ApiOkResponse({
+    description: 'Found consumableVariant record',
+    type: ConsumableVariantEntity,
+  })
   @ApiNotFoundResponse({ description: 'ConsumableVariant not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.consumableVariantsService.findOne(id);
@@ -71,6 +81,10 @@ export class ConsumableVariantsController {
     description: 'This updates an consumableVariant record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated consumableVariant record',
+    type: ConsumableVariantEntity,
+  })
   @ApiNotFoundResponse({ description: 'ConsumableVariant not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -92,7 +106,10 @@ export class ConsumableVariantsController {
     description: 'This deletes an consumableVariant record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'ConsumableVariant was deleted' })
+  @ApiOkResponse({
+    description: 'ConsumableVariant was deleted',
+    type: ConsumableVariantEntity,
+  })
   @ApiNotFoundResponse({ description: 'ConsumableVariant not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
