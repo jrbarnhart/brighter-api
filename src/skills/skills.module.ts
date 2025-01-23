@@ -14,12 +14,15 @@ import { CombatSkillRequirementsService } from './combatSkill/combatSkillRequire
 import { CombatSkillsService } from './combatSkill/combatSkills.service';
 import { SkillsController } from './skills.controller';
 import { SkillsService } from './skills.service';
+import { CraftingRecipesController } from './craftingSkill/craftingRecipes/craftingRecipes.controller';
+import { CraftingRecipesService } from './craftingSkill/craftingRecipes/craftingRecipes.service';
 
 @Module({
   controllers: [
     GatheringSkillRequirementsController,
     GatheringSkillsController,
     CraftingSkillRequirementsController,
+    CraftingRecipesController,
     CraftingSkillsController,
     CombatSkillRequirementsController,
     CombatSkillsController,
@@ -30,6 +33,7 @@ import { SkillsService } from './skills.service';
     GatheringSkillRequirementsService,
     GatheringSkillsService,
     CraftingSkillRequirementsService,
+    CraftingRecipesService,
     CraftingSkillsService,
     CombatSkillRequirementsService,
     CombatSkillsService,
