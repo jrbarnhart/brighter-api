@@ -22,6 +22,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { Region } from './entities/regions.entity';
 
 @Controller('regions')
 export class RegionsController {
@@ -34,7 +35,7 @@ export class RegionsController {
     description: 'This creates a new region record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Region created' })
+  @ApiCreatedResponse({ description: 'Region created', type: Region })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createRegionDto: CreateRegionDto) {
