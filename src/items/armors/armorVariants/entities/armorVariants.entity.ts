@@ -6,8 +6,8 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { ArmorEntity } from '../../entities/armors.entity';
-import { CraftingRecipeEntity } from 'src/skills/craftingSkill/craftingRecipes/entities/craftingRecipes.entity';
+import { ArmorBaseEntity } from '../../entities/armors.entity';
+import { CraftingRecipeBaseEntity } from 'src/skills/craftingSkill/craftingRecipes/entities/craftingRecipes.entity';
 
 export class ArmorVariantEntity {
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class ArmorVariantEntity {
   @MaxLength(256)
   name: string;
 
-  armor: ArmorEntity;
+  armor: ArmorBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()
@@ -29,7 +29,7 @@ export class ArmorVariantEntity {
   @IsPositive()
   armorId: number;
 
-  recipe: CraftingRecipeEntity;
+  recipe: CraftingRecipeBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()
