@@ -23,7 +23,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
- import { __PASCAL__Entity } from './entities/__CAMEL__.entity';
+ import { __PASCAL__Entity } from './entities/__CAMEL_PLURAL__.entity';
 
 @Controller('__CAMEL_PLURAL__')
 export class __PASCAL_PLURAL__Controller {
