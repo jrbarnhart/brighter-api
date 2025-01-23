@@ -23,7 +23,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-@Controller('items/armor/variants')
+@Controller('items/armors/variants')
 export class ArmorVariantsController {
   constructor(private readonly armorVariantsService: ArmorVariantsService) {}
 
