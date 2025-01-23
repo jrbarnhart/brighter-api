@@ -22,8 +22,9 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { ArmorEntity } from './entities/armors.entity';
 
-@Controller('items/armors')
+@Controller('armors')
 export class ArmorsController {
   constructor(private readonly armorsService: ArmorsService) {}
 
@@ -34,7 +35,7 @@ export class ArmorsController {
     description: 'This creates a new armor record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Armor created' })
+  @ApiCreatedResponse({ description: 'Armor created', type: ArmorEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createArmorDto: CreateArmorDto) {
@@ -46,7 +47,7 @@ export class ArmorsController {
     summary: 'Get all armor',
     description: 'This gets all armor records',
   })
-  @ApiOkResponse({ description: 'Found all armor records' })
+  @ApiOkResponse({ description: 'Found all armor records', type: ArmorEntity })
   findAll() {
     return this.armorsService.findAll();
   }
@@ -56,7 +57,7 @@ export class ArmorsController {
     summary: 'Get armor by id',
     description: 'This gets one armor by its id',
   })
-  @ApiOkResponse({ description: 'Found armor record' })
+  @ApiOkResponse({ description: 'Found armor record', type: ArmorEntity })
   @ApiNotFoundResponse({ description: 'Armor not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.armorsService.findOne(id);
@@ -69,6 +70,7 @@ export class ArmorsController {
     description: 'This updates an armor record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Updated armor record', type: ArmorEntity })
   @ApiNotFoundResponse({ description: 'Armor not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +89,7 @@ export class ArmorsController {
     description: 'This deletes an armor record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Armor was deleted' })
+  @ApiOkResponse({ description: 'Armor was deleted', type: ArmorEntity })
   @ApiNotFoundResponse({ description: 'Armor not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
