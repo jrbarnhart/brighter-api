@@ -21,4 +21,21 @@ export class ArmorVariantEntity {
   name: string;
 
   armor: ArmorEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  armorId: number;
+
+  //recipe: RecipeEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  recipeId: number;
+
+  //dropTables: DropTableEntity[]
+  //vendors: VendorEntity[]
 }
