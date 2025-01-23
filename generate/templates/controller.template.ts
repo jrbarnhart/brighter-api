@@ -23,7 +23,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
- import { __PASCAL__Entity } from './entities/__CAMEL_PLURAL__.entity';
+ import { __PASCAL__Entity, __PASCAL__BaseEntity  } from './entities/__CAMEL_PLURAL__.entity';
 
 @Controller('__CAMEL_PLURAL__')
 export class __PASCAL_PLURAL__Controller {
@@ -36,7 +36,7 @@ export class __PASCAL_PLURAL__Controller {
     description: 'This creates a new __CAMEL__ record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: '__PASCAL__ created', type: __PASCAL__Entity })
+  @ApiCreatedResponse({ description: '__PASCAL__ created', type: __PASCAL__BaseEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() create__PASCAL__Dto: Create__PASCAL__Dto) {
@@ -71,7 +71,7 @@ export class __PASCAL_PLURAL__Controller {
     description: 'This updates an __CAMEL__ record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Updated __CAMEL__ record', type: __PASCAL__Entity  })
+  @ApiOkResponse({ description: 'Updated __CAMEL__ record', type: __PASCAL__BaseEntity  })
   @ApiNotFoundResponse({ description: '__PASCAL__ not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -90,7 +90,7 @@ export class __PASCAL_PLURAL__Controller {
     description: 'This deletes an __CAMEL__ record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: '__PASCAL__ was deleted', type: __PASCAL__Entity })
+  @ApiOkResponse({ description: '__PASCAL__ was deleted', type: __PASCAL__BaseEntity })
   @ApiNotFoundResponse({ description: '__PASCAL__ not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
