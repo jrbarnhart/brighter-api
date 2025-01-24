@@ -27,7 +27,7 @@ import {
   CraftingSkillRequirementBaseEntity,
 } from './entities/craftingSkillRequirements.entity';
 
-@Controller('craftingSkillRequirements')
+@Controller('skills/crafting/requirements')
 export class CraftingSkillRequirementsController {
   constructor(
     private readonly craftingSkillRequirementsService: CraftingSkillRequirementsService,
