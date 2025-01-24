@@ -22,8 +22,12 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  CombatSkillRequirementEntity,
+  CombatSkillRequirementBaseEntity,
+} from './entities/combatSkillRequirements.entity';
 
-@Controller('/skills/combat/requirements')
+@Controller('skills/combat/requirements')
 export class CombatSkillRequirementsController {
   constructor(
     private readonly combatSkillRequirementsService: CombatSkillRequirementsService,
@@ -36,7 +40,10 @@ export class CombatSkillRequirementsController {
     description: 'This creates a new combatSkillRequirement record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'CombatSkillRequirement created' })
+  @ApiCreatedResponse({
+    description: 'CombatSkillRequirement created',
+    type: CombatSkillRequirementBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(
@@ -52,7 +59,10 @@ export class CombatSkillRequirementsController {
     summary: 'Get all combatSkillRequirement',
     description: 'This gets all combatSkillRequirement records',
   })
-  @ApiOkResponse({ description: 'Found all combatSkillRequirement records' })
+  @ApiOkResponse({
+    description: 'Found all combatSkillRequirement records',
+    type: CombatSkillRequirementEntity,
+  })
   findAll() {
     return this.combatSkillRequirementsService.findAll();
   }
@@ -62,7 +72,10 @@ export class CombatSkillRequirementsController {
     summary: 'Get combatSkillRequirement by id',
     description: 'This gets one combatSkillRequirement by its id',
   })
-  @ApiOkResponse({ description: 'Found combatSkillRequirement record' })
+  @ApiOkResponse({
+    description: 'Found combatSkillRequirement record',
+    type: CombatSkillRequirementEntity,
+  })
   @ApiNotFoundResponse({ description: 'CombatSkillRequirement not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.combatSkillRequirementsService.findOne(id);
@@ -75,6 +88,10 @@ export class CombatSkillRequirementsController {
     description: 'This updates an combatSkillRequirement record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated combatSkillRequirement record',
+    type: CombatSkillRequirementBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'CombatSkillRequirement not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -96,7 +113,10 @@ export class CombatSkillRequirementsController {
     description: 'This deletes an combatSkillRequirement record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'CombatSkillRequirement was deleted' })
+  @ApiOkResponse({
+    description: 'CombatSkillRequirement was deleted',
+    type: CombatSkillRequirementBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'CombatSkillRequirement not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {

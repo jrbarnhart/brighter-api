@@ -1,0 +1,61 @@
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+import { CombatSkillBaseEntity } from '../../entities/combatSkills.entity';
+
+export class CombatSkillRequirementEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsString()
+  @MaxLength(400)
+  description?: string;
+
+  skill: CombatSkillBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  skillId: number;
+
+  //monsterVariant: MonsterVariantBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  unlockLevel: number;
+}
+
+export class CombatSkillRequirementBaseEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsString()
+  @MaxLength(400)
+  description?: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  skillId: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  unlockLevel: number;
+}
