@@ -22,6 +22,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { VendorEntity, VendorBaseEntity } from './entities/vendors.entity';
 
 @Controller('npcs/vendors')
 export class VendorsController {
@@ -34,7 +35,7 @@ export class VendorsController {
     description: 'This creates a new vendor record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Vendor created' })
+  @ApiCreatedResponse({ description: 'Vendor created', type: VendorBaseEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createVendorDto: CreateVendorDto) {
@@ -46,7 +47,10 @@ export class VendorsController {
     summary: 'Get all vendor',
     description: 'This gets all vendor records',
   })
-  @ApiOkResponse({ description: 'Found all vendor records' })
+  @ApiOkResponse({
+    description: 'Found all vendor records',
+    type: VendorEntity,
+  })
   findAll() {
     return this.vendorsService.findAll();
   }
@@ -56,7 +60,7 @@ export class VendorsController {
     summary: 'Get vendor by id',
     description: 'This gets one vendor by its id',
   })
-  @ApiOkResponse({ description: 'Found vendor record' })
+  @ApiOkResponse({ description: 'Found vendor record', type: VendorEntity })
   @ApiNotFoundResponse({ description: 'Vendor not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.vendorsService.findOne(id);
@@ -69,6 +73,10 @@ export class VendorsController {
     description: 'This updates an vendor record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated vendor record',
+    type: VendorBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'Vendor not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +95,7 @@ export class VendorsController {
     description: 'This deletes an vendor record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Vendor was deleted' })
+  @ApiOkResponse({ description: 'Vendor was deleted', type: VendorBaseEntity })
   @ApiNotFoundResponse({ description: 'Vendor not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {

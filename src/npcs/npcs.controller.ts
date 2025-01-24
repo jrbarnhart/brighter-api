@@ -22,6 +22,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { NpcEntity, NpcBaseEntity } from './entities/npcs.entity';
 
 @Controller('npcs')
 export class NpcsController {
@@ -34,7 +35,7 @@ export class NpcsController {
     description: 'This creates a new npc record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Npc created' })
+  @ApiCreatedResponse({ description: 'Npc created', type: NpcBaseEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createNpcDto: CreateNpcDto) {
@@ -46,7 +47,7 @@ export class NpcsController {
     summary: 'Get all npc',
     description: 'This gets all npc records',
   })
-  @ApiOkResponse({ description: 'Found all npc records' })
+  @ApiOkResponse({ description: 'Found all npc records', type: NpcEntity })
   findAll() {
     return this.npcsService.findAll();
   }
@@ -56,7 +57,7 @@ export class NpcsController {
     summary: 'Get npc by id',
     description: 'This gets one npc by its id',
   })
-  @ApiOkResponse({ description: 'Found npc record' })
+  @ApiOkResponse({ description: 'Found npc record', type: NpcEntity })
   @ApiNotFoundResponse({ description: 'Npc not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.npcsService.findOne(id);
@@ -69,6 +70,7 @@ export class NpcsController {
     description: 'This updates an npc record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Updated npc record', type: NpcBaseEntity })
   @ApiNotFoundResponse({ description: 'Npc not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +89,7 @@ export class NpcsController {
     description: 'This deletes an npc record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Npc was deleted' })
+  @ApiOkResponse({ description: 'Npc was deleted', type: NpcBaseEntity })
   @ApiNotFoundResponse({ description: 'Npc not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
