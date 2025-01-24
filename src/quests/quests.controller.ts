@@ -22,10 +22,11 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { QuestEntity, QuestBaseEntity } from './entities/quests.entity';
 
 @Controller('quests')
 export class QuestsController {
-  constructor(private readonly QuestsService: QuestsService) {}
+  constructor(private readonly questsService: QuestsService) {}
 
   @Post()
   @UseGuards(AuthGuard)
@@ -34,11 +35,11 @@ export class QuestsController {
     description: 'This creates a new quest record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Quest created' })
+  @ApiCreatedResponse({ description: 'Quest created', type: QuestBaseEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createQuestDto: CreateQuestDto) {
-    return this.QuestsService.create(createQuestDto);
+    return this.questsService.create(createQuestDto);
   }
 
   @Get()
@@ -46,9 +47,9 @@ export class QuestsController {
     summary: 'Get all quest',
     description: 'This gets all quest records',
   })
-  @ApiOkResponse({ description: 'Found all quest records' })
+  @ApiOkResponse({ description: 'Found all quest records', type: QuestEntity })
   findAll() {
-    return this.QuestsService.findAll();
+    return this.questsService.findAll();
   }
 
   @Get(':id')
@@ -56,10 +57,10 @@ export class QuestsController {
     summary: 'Get quest by id',
     description: 'This gets one quest by its id',
   })
-  @ApiOkResponse({ description: 'Found quest record' })
+  @ApiOkResponse({ description: 'Found quest record', type: QuestEntity })
   @ApiNotFoundResponse({ description: 'Quest not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.QuestsService.findOne(id);
+    return this.questsService.findOne(id);
   }
 
   @Patch(':id')
@@ -69,6 +70,7 @@ export class QuestsController {
     description: 'This updates an quest record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Updated quest record', type: QuestBaseEntity })
   @ApiNotFoundResponse({ description: 'Quest not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -77,7 +79,7 @@ export class QuestsController {
     @Body()
     updateQuestDto: UpdateQuestDto,
   ) {
-    return this.QuestsService.update(id, updateQuestDto);
+    return this.questsService.update(id, updateQuestDto);
   }
 
   @Delete(':id')
@@ -87,10 +89,10 @@ export class QuestsController {
     description: 'This deletes an quest record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Quest was deleted' })
+  @ApiOkResponse({ description: 'Quest was deleted', type: QuestBaseEntity })
   @ApiNotFoundResponse({ description: 'Quest not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
-    return this.QuestsService.remove(id);
+    return this.questsService.remove(id);
   }
 }
