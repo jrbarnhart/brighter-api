@@ -22,6 +22,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { WeaponEntity, WeaponBaseEntity } from './entities/weapons.entity';
 
 @Controller('items/weapons')
 export class WeaponsController {
@@ -34,7 +35,7 @@ export class WeaponsController {
     description: 'This creates a new weapon record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Weapon created' })
+  @ApiCreatedResponse({ description: 'Weapon created', type: WeaponBaseEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createWeaponDto: CreateWeaponDto) {
@@ -46,7 +47,10 @@ export class WeaponsController {
     summary: 'Get all weapon',
     description: 'This gets all weapon records',
   })
-  @ApiOkResponse({ description: 'Found all weapon records' })
+  @ApiOkResponse({
+    description: 'Found all weapon records',
+    type: WeaponEntity,
+  })
   findAll() {
     return this.weaponsService.findAll();
   }
@@ -56,7 +60,7 @@ export class WeaponsController {
     summary: 'Get weapon by id',
     description: 'This gets one weapon by its id',
   })
-  @ApiOkResponse({ description: 'Found weapon record' })
+  @ApiOkResponse({ description: 'Found weapon record', type: WeaponEntity })
   @ApiNotFoundResponse({ description: 'Weapon not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.weaponsService.findOne(id);
@@ -69,6 +73,10 @@ export class WeaponsController {
     description: 'This updates an weapon record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated weapon record',
+    type: WeaponBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'Weapon not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +95,7 @@ export class WeaponsController {
     description: 'This deletes an weapon record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Weapon was deleted' })
+  @ApiOkResponse({ description: 'Weapon was deleted', type: WeaponBaseEntity })
   @ApiNotFoundResponse({ description: 'Weapon not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {

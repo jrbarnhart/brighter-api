@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Faction } from '@prisma/client';
+import { Faction, Element } from '@prisma/client';
 import {
   IsBoolean,
   IsEnum,
