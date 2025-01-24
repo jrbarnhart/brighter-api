@@ -8,6 +8,7 @@ import {
 } from 'class-validator';
 import { NpcBaseEntity } from 'src/npcs/entities/npcs.entity';
 import { QuestBaseEntity } from 'src/quests/entities/quests.entity';
+import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
 
 export class QuestStepEntity {
   @IsNotEmpty()
@@ -35,7 +36,7 @@ export class QuestStepEntity {
   @IsPositive()
   questId: number;
 
-  //room?: RoomBaseEntity
+  room?: RoomBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()
