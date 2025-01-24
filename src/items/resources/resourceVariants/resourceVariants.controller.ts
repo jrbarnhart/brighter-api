@@ -22,8 +22,12 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  ResourceVariantEntity,
+  ResourceVariantBaseEntity,
+} from './entities/resourceVariants.entity';
 
-@Controller('items/resources/variants')
+@Controller('resourceVariants')
 export class ResourceVariantsController {
   constructor(
     private readonly resourceVariantsService: ResourceVariantsService,
@@ -36,7 +40,10 @@ export class ResourceVariantsController {
     description: 'This creates a new resourceVariant record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'ResourceVariant created' })
+  @ApiCreatedResponse({
+    description: 'ResourceVariant created',
+    type: ResourceVariantBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createResourceVariantDto: CreateResourceVariantDto) {
@@ -48,7 +55,10 @@ export class ResourceVariantsController {
     summary: 'Get all resourceVariant',
     description: 'This gets all resourceVariant records',
   })
-  @ApiOkResponse({ description: 'Found all resourceVariant records' })
+  @ApiOkResponse({
+    description: 'Found all resourceVariant records',
+    type: ResourceVariantEntity,
+  })
   findAll() {
     return this.resourceVariantsService.findAll();
   }
@@ -58,7 +68,10 @@ export class ResourceVariantsController {
     summary: 'Get resourceVariant by id',
     description: 'This gets one resourceVariant by its id',
   })
-  @ApiOkResponse({ description: 'Found resourceVariant record' })
+  @ApiOkResponse({
+    description: 'Found resourceVariant record',
+    type: ResourceVariantEntity,
+  })
   @ApiNotFoundResponse({ description: 'ResourceVariant not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.resourceVariantsService.findOne(id);
@@ -71,6 +84,10 @@ export class ResourceVariantsController {
     description: 'This updates an resourceVariant record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated resourceVariant record',
+    type: ResourceVariantBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'ResourceVariant not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -89,7 +106,10 @@ export class ResourceVariantsController {
     description: 'This deletes an resourceVariant record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'ResourceVariant was deleted' })
+  @ApiOkResponse({
+    description: 'ResourceVariant was deleted',
+    type: ResourceVariantBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'ResourceVariant not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {

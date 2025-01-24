@@ -22,8 +22,12 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  ResourceEntity,
+  ResourceBaseEntity,
+} from './entities/resources.entity';
 
-@Controller('items/resources')
+@Controller('resources')
 export class ResourcesController {
   constructor(private readonly resourcesService: ResourcesService) {}
 
@@ -34,7 +38,10 @@ export class ResourcesController {
     description: 'This creates a new resource record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Resource created' })
+  @ApiCreatedResponse({
+    description: 'Resource created',
+    type: ResourceBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createResourceDto: CreateResourceDto) {
@@ -46,7 +53,10 @@ export class ResourcesController {
     summary: 'Get all resource',
     description: 'This gets all resource records',
   })
-  @ApiOkResponse({ description: 'Found all resource records' })
+  @ApiOkResponse({
+    description: 'Found all resource records',
+    type: ResourceEntity,
+  })
   findAll() {
     return this.resourcesService.findAll();
   }
@@ -56,7 +66,7 @@ export class ResourcesController {
     summary: 'Get resource by id',
     description: 'This gets one resource by its id',
   })
-  @ApiOkResponse({ description: 'Found resource record' })
+  @ApiOkResponse({ description: 'Found resource record', type: ResourceEntity })
   @ApiNotFoundResponse({ description: 'Resource not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.resourcesService.findOne(id);
@@ -69,6 +79,10 @@ export class ResourcesController {
     description: 'This updates an resource record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated resource record',
+    type: ResourceBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'Resource not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +101,10 @@ export class ResourcesController {
     description: 'This deletes an resource record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Resource was deleted' })
+  @ApiOkResponse({
+    description: 'Resource was deleted',
+    type: ResourceBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'Resource not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
