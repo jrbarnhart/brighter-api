@@ -22,7 +22,10 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { MiscItemEntity } from './entities/miscItems.entity';
+import {
+  MiscItemEntity,
+  MiscItemBaseEntity,
+} from './entities/miscItems.entity';
 
 @Controller('items/misc')
 export class MiscItemsController {
@@ -35,7 +38,10 @@ export class MiscItemsController {
     description: 'This creates a new miscItem record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'MiscItem created', type: MiscItemEntity })
+  @ApiCreatedResponse({
+    description: 'MiscItem created',
+    type: MiscItemBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createMiscItemDto: CreateMiscItemDto) {
@@ -75,7 +81,7 @@ export class MiscItemsController {
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'Updated miscItem record',
-    type: MiscItemEntity,
+    type: MiscItemBaseEntity,
   })
   @ApiNotFoundResponse({ description: 'MiscItem not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
@@ -95,7 +101,10 @@ export class MiscItemsController {
     description: 'This deletes an miscItem record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'MiscItem was deleted', type: MiscItemEntity })
+  @ApiOkResponse({
+    description: 'MiscItem was deleted',
+    type: MiscItemBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'MiscItem not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {

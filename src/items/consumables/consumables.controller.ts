@@ -22,7 +22,10 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { ConsumableEntity } from './entities/consumables.entity';
+import {
+  ConsumableEntity,
+  ConsumableBaseEntity,
+} from './entities/consumables.entity';
 
 @Controller('items/consumables')
 export class ConsumablesController {
@@ -37,7 +40,7 @@ export class ConsumablesController {
   @ApiBearerAuth()
   @ApiCreatedResponse({
     description: 'Consumable created',
-    type: ConsumableEntity,
+    type: ConsumableBaseEntity,
   })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -81,7 +84,7 @@ export class ConsumablesController {
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'Updated consumable record',
-    type: ConsumableEntity,
+    type: ConsumableBaseEntity,
   })
   @ApiNotFoundResponse({ description: 'Consumable not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
@@ -103,7 +106,7 @@ export class ConsumablesController {
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'Consumable was deleted',
-    type: ConsumableEntity,
+    type: ConsumableBaseEntity,
   })
   @ApiNotFoundResponse({ description: 'Consumable not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
