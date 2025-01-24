@@ -8,6 +8,9 @@ import {
 } from 'class-validator';
 import { ResourceBaseEntity } from '../../entities/resources.entity';
 import { CraftingRecipeBaseEntity } from 'src/skills/craftingSkill/craftingRecipes/entities/craftingRecipes.entity';
+import { GatheringSkillRequirementBaseEntity } from 'src/skills/gatheringSkill/gatheringSkillRequirement/entities/gatheringSkillRequirements.entity';
+import { VendorBaseEntity } from 'src/npcs/vendors/entities/vendors.entity';
+import { DropTableBaseEntity } from 'src/monsters/dropTables/entities/dropTables.entity';
 
 export class ResourceVariantEntity {
   @IsNotEmpty()
@@ -29,7 +32,7 @@ export class ResourceVariantEntity {
   @IsPositive()
   resourceId: number;
 
-  // requirement: GatheringSkillRequirementBaseEntity
+  requirement?: GatheringSkillRequirementBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()
@@ -39,8 +42,9 @@ export class ResourceVariantEntity {
 
   inRecipes: CraftingRecipeBaseEntity[];
 
-  // vendors: VendorBaseEntity[]
-  // dropTables: DropTableBaseEntity[]
+  vendors: VendorBaseEntity[];
+
+  dropTables: DropTableBaseEntity[];
 }
 
 export class ResourceVariantBaseEntity {

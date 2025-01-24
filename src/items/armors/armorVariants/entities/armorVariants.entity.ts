@@ -8,6 +8,8 @@ import {
 } from 'class-validator';
 import { ArmorBaseEntity } from '../../entities/armors.entity';
 import { CraftingRecipeBaseEntity } from 'src/skills/craftingSkill/craftingRecipes/entities/craftingRecipes.entity';
+import { DropTableBaseEntity } from 'src/monsters/dropTables/entities/dropTables.entity';
+import { VendorBaseEntity } from 'src/npcs/vendors/entities/vendors.entity';
 
 export class ArmorVariantEntity {
   @IsNotEmpty()
@@ -29,7 +31,7 @@ export class ArmorVariantEntity {
   @IsPositive()
   armorId: number;
 
-  recipe: CraftingRecipeBaseEntity;
+  recipe?: CraftingRecipeBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()
@@ -37,8 +39,9 @@ export class ArmorVariantEntity {
   @IsPositive()
   recipeId: number | null;
 
-  //dropTables: DropTableEntity[]
-  //vendors: VendorEntity[]
+  vendors: VendorBaseEntity[];
+
+  dropTables: DropTableBaseEntity[];
 }
 
 export class ArmorVariantBaseEntity {

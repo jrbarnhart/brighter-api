@@ -7,6 +7,8 @@ import {
   MaxLength,
 } from 'class-validator';
 import { CombatSkillRequirementBaseEntity } from '../combatSkillRequirement/entities/combatSkillRequirements.entity';
+import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
+import { MonsterBaseEntity } from 'src/monsters/entities/monsters.entity';
 
 export class CombatSkillEntity {
   @IsNotEmpty()
@@ -20,7 +22,7 @@ export class CombatSkillEntity {
   @MaxLength(256)
   name: string;
 
-  //region: RegionBaseEntity
+  region: RegionBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()
@@ -30,7 +32,7 @@ export class CombatSkillEntity {
 
   skillRequirements: CombatSkillRequirementBaseEntity[];
 
-  //monsters: MonsterBaseEntity[]
+  monsters: MonsterBaseEntity[];
 }
 
 export class CombatSkillBaseEntity {

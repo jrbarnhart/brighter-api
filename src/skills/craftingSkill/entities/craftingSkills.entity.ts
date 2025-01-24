@@ -7,6 +7,8 @@ import {
   MaxLength,
 } from 'class-validator';
 import { CraftingSkillRequirementBaseEntity } from '../craftingSkillRequirement/entities/craftingSkillRequirements.entity';
+import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
+import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
 
 export class CraftingSkillEntity {
   @IsNotEmpty()
@@ -20,7 +22,7 @@ export class CraftingSkillEntity {
   @MaxLength(256)
   name: string;
 
-  //region: RegionBaseEntity;
+  region: RegionBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()
@@ -30,7 +32,7 @@ export class CraftingSkillEntity {
 
   requirements: CraftingSkillRequirementBaseEntity[];
 
-  //rooms: RoomBaseEntity[]
+  rooms: RoomBaseEntity[];
 }
 
 export class CraftingSkillBaseEntity {

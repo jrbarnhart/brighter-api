@@ -8,6 +8,8 @@ import {
   MaxLength,
 } from 'class-validator';
 import { ResourceVariantBaseEntity } from '../resourceVariants/entities/resourceVariants.entity';
+import { GatheringSkillBaseEntity } from 'src/skills/gatheringSkill/entities/gatheringSkills.entity';
+import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
 
 export class ResourceEntity {
   @IsNotEmpty()
@@ -21,7 +23,7 @@ export class ResourceEntity {
   @MaxLength(256)
   name: string;
 
-  //skill: GatheringSkillBaseEntity
+  skill: GatheringSkillBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()
@@ -29,7 +31,7 @@ export class ResourceEntity {
   @IsPositive()
   skillId: number;
 
-  //rooms: RoomBaseEntity[]
+  rooms: RoomBaseEntity[];
 
   @IsNotEmpty()
   @IsBoolean()

@@ -12,6 +12,7 @@ import {
 } from 'class-validator';
 import { CombatSkillBaseEntity } from 'src/skills/combatSkill/entities/combatSkills.entity';
 import { MonsterVariantBaseEntity } from '../monsterVariants/entities/monsterVariants.entity';
+import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
 
 export class MonsterEntity {
   @IsNotEmpty()
@@ -33,7 +34,7 @@ export class MonsterEntity {
   @IsPositive()
   skillId: number;
 
-  //rooms: RoomBaseEntity[]
+  rooms: RoomBaseEntity[];
 
   @IsNotEmpty()
   @IsBoolean()

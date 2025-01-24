@@ -6,6 +6,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { DropTableBaseEntity } from 'src/monsters/dropTables/entities/dropTables.entity';
 import { MonsterBaseEntity } from 'src/monsters/entities/monsters.entity';
 import { CombatSkillRequirementBaseEntity } from 'src/skills/combatSkill/combatSkillRequirement/entities/combatSkillRequirements.entity';
 
@@ -36,7 +37,7 @@ export class MonsterVariantEntity {
   @IsPositive()
   requirementId: number | null;
 
-  //dropTable: DropTableBaseEntity;
+  dropTable: DropTableBaseEntity;
 }
 
 export class MonsterVariantBaseEntity {
