@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Element } from '@prisma/client';
+import { AttackElement } from '@prisma/client';
 import {
   IsBoolean,
   IsEnum,
@@ -28,29 +28,29 @@ export class CreateMonsterDto {
   passive: boolean;
 
   @IsNotEmpty()
-  @IsEnum(Element)
+  @IsEnum(AttackElement)
   @ApiProperty({
     description: 'The damage type this monster attacks with',
-    enum: Element,
+    enum: AttackElement,
     type: String,
   })
-  attackElement: Element;
+  attackElement: AttackElement;
 
   @IsNotEmpty()
-  @IsEnum(Element)
+  @IsEnum(AttackElement)
   @ApiProperty({
     description: 'The damage type this monster is immune to',
-    enum: Element,
+    enum: AttackElement,
     type: String,
   })
-  immuneElement: Element;
+  immuneElement: AttackElement;
 
   @IsNotEmpty()
-  @IsEnum(Element)
+  @IsEnum(AttackElement)
   @ApiProperty({
     description: 'The damage type this monster is vulnerable to',
-    enum: Element,
+    enum: AttackElement,
     type: String,
   })
-  vulnerableElement: Element;
+  vulnerableElement: AttackElement;
 }

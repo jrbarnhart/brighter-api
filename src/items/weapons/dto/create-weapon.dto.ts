@@ -5,7 +5,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { Element, Faction } from '@prisma/client';
+import { AttackElement, Faction } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateWeaponDto {
@@ -24,13 +24,13 @@ export class CreateWeaponDto {
   faction: Faction;
 
   @IsNotEmpty()
-  @IsEnum(Element)
+  @IsEnum(AttackElement)
   @ApiProperty({
     description: 'The damage element this weapon has',
-    enum: Element,
+    enum: AttackElement,
     type: String,
   })
-  element: Element;
+  element: AttackElement;
 
   @IsNotEmpty()
   @IsBoolean()

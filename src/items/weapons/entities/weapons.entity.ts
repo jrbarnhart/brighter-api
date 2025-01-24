@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Faction, Element } from '@prisma/client';
+import { Faction, AttackElement } from '@prisma/client';
 import {
   IsBoolean,
   IsEnum,
@@ -34,13 +34,13 @@ export class WeaponEntity {
   faction: Faction;
 
   @IsNotEmpty()
-  @IsEnum(Element)
+  @IsEnum(AttackElement)
   @ApiProperty({
     description: 'The damage element this weapon has',
-    enum: Element,
+    enum: AttackElement,
     type: String,
   })
-  element: Element;
+  element: AttackElement;
 
   @IsNotEmpty()
   @IsBoolean()
@@ -75,13 +75,13 @@ export class WeaponBaseEntity {
   faction: Faction;
 
   @IsNotEmpty()
-  @IsEnum(Element)
+  @IsEnum(AttackElement)
   @ApiProperty({
     description: 'The damage element this weapon has',
-    enum: Element,
+    enum: AttackElement,
     type: String,
   })
-  element: Element;
+  element: AttackElement;
 
   @IsNotEmpty()
   @IsBoolean()

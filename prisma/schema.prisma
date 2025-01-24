@@ -62,9 +62,9 @@ model Monster {
   skillId           Int
   rooms             Room[]
   passive           Boolean
-  attackElement     Element
-  immuneElement     Element
-  vulnerableElement Element
+  attackElement     AttackElement
+  immuneElement     AttackElement
+  vulnerableElement AttackElement
   variants          MonsterVariant[]
 }
 
@@ -167,7 +167,7 @@ model Weapon {
   faction     Faction
   isRanged    Boolean
   isTwoHanded Boolean
-  element     Element
+  element     AttackElement
   variants    WeaponVariant[]
 }
 
@@ -262,7 +262,7 @@ model QuestStep {
   npcId       Int?   @unique
 }
 
-enum Element {
+enum AttackElement {
   ARBORAE
   CRYONAE
   INFERNAE
