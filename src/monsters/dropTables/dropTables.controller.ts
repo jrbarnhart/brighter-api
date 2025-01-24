@@ -22,8 +22,12 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  DropTableEntity,
+  DropTableBaseEntity,
+} from './entities/dropTables.entity';
 
-@Controller('monsters/tables')
+@Controller('monsters/drop-tables')
 export class DropTablesController {
   constructor(private readonly dropTablesService: DropTablesService) {}
 
@@ -34,7 +38,10 @@ export class DropTablesController {
     description: 'This creates a new dropTable record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'DropTable created' })
+  @ApiCreatedResponse({
+    description: 'DropTable created',
+    type: DropTableBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createDropTableDto: CreateDropTableDto) {
@@ -46,7 +53,10 @@ export class DropTablesController {
     summary: 'Get all dropTable',
     description: 'This gets all dropTable records',
   })
-  @ApiOkResponse({ description: 'Found all dropTable records' })
+  @ApiOkResponse({
+    description: 'Found all dropTable records',
+    type: DropTableEntity,
+  })
   findAll() {
     return this.dropTablesService.findAll();
   }
@@ -56,7 +66,10 @@ export class DropTablesController {
     summary: 'Get dropTable by id',
     description: 'This gets one dropTable by its id',
   })
-  @ApiOkResponse({ description: 'Found dropTable record' })
+  @ApiOkResponse({
+    description: 'Found dropTable record',
+    type: DropTableEntity,
+  })
   @ApiNotFoundResponse({ description: 'DropTable not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.dropTablesService.findOne(id);
@@ -69,6 +82,10 @@ export class DropTablesController {
     description: 'This updates an dropTable record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated dropTable record',
+    type: DropTableBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'DropTable not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +104,10 @@ export class DropTablesController {
     description: 'This deletes an dropTable record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'DropTable was deleted' })
+  @ApiOkResponse({
+    description: 'DropTable was deleted',
+    type: DropTableBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'DropTable not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
