@@ -6,6 +6,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { DropTableBaseEntity } from 'src/monsters/dropTables/entities/dropTables.entity';
 import { CraftingRecipeBaseEntity } from 'src/skills/craftingSkill/craftingRecipes/entities/craftingRecipes.entity';
 
 export class MiscItemEntity {
@@ -21,7 +22,10 @@ export class MiscItemEntity {
   name: string;
 
   inRecipes: CraftingRecipeBaseEntity[];
+
   //vendors: VendorBaseEntity[]
+
+  dropTables: DropTableBaseEntity[];
 }
 
 export class MiscItemBaseEntity {

@@ -37,6 +37,12 @@ export class UpdateDropTableDto {
   @IsPositive({ each: true })
   consumableVariantIds?: number[];
 
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  miscItemIds?: number[];
+
   @IsNumber()
   @IsInt()
   @IsPositive()

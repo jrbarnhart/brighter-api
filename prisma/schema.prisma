@@ -86,6 +86,7 @@ model DropTable {
   weaponVariants     WeaponVariant[]
   armorVariants      ArmorVariant[]
   consumableVariants ConsumableVariant[]
+  miscItems          MiscItem[]
   currency           Int?
 }
 
@@ -219,10 +220,11 @@ model ConsumableVariant {
 }
 
 model MiscItem {
-  id        Int              @id @default(autoincrement())
-  name      String           @unique
-  vendors   Vendor[]
-  inRecipes CraftingRecipe[]
+  id         Int              @id @default(autoincrement())
+  name       String           @unique
+  vendors    Vendor[]
+  inRecipes  CraftingRecipe[]
+  dropTables DropTable[]
 }
 
 model NPC {
