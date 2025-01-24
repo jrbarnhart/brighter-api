@@ -22,7 +22,7 @@ To set up Brighter API locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/Brighter-API.git
+   git clone https://github.com/jrbarnhart/brighter-api.git
    ```
 
 2. Navigate to the project directory:
