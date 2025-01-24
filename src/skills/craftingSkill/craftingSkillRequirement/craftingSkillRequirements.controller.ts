@@ -22,8 +22,12 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  CraftingSkillRequirementEntity,
+  CraftingSkillRequirementBaseEntity,
+} from './entities/craftingSkillRequirements.entity';
 
-@Controller('skills/crafting/requirements')
+@Controller('craftingSkillRequirements')
 export class CraftingSkillRequirementsController {
   constructor(
     private readonly craftingSkillRequirementsService: CraftingSkillRequirementsService,
@@ -36,7 +40,10 @@ export class CraftingSkillRequirementsController {
     description: 'This creates a new craftingSkillRequirement record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'CraftingSkillRequirement created' })
+  @ApiCreatedResponse({
+    description: 'CraftingSkillRequirement created',
+    type: CraftingSkillRequirementBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(
@@ -53,7 +60,10 @@ export class CraftingSkillRequirementsController {
     summary: 'Get all craftingSkillRequirement',
     description: 'This gets all craftingSkillRequirement records',
   })
-  @ApiOkResponse({ description: 'Found all craftingSkillRequirement records' })
+  @ApiOkResponse({
+    description: 'Found all craftingSkillRequirement records',
+    type: CraftingSkillRequirementEntity,
+  })
   findAll() {
     return this.craftingSkillRequirementsService.findAll();
   }
@@ -63,7 +73,10 @@ export class CraftingSkillRequirementsController {
     summary: 'Get craftingSkillRequirement by id',
     description: 'This gets one craftingSkillRequirement by its id',
   })
-  @ApiOkResponse({ description: 'Found craftingSkillRequirement record' })
+  @ApiOkResponse({
+    description: 'Found craftingSkillRequirement record',
+    type: CraftingSkillRequirementEntity,
+  })
   @ApiNotFoundResponse({ description: 'CraftingSkillRequirement not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.craftingSkillRequirementsService.findOne(id);
@@ -76,6 +89,10 @@ export class CraftingSkillRequirementsController {
     description: 'This updates an craftingSkillRequirement record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated craftingSkillRequirement record',
+    type: CraftingSkillRequirementBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'CraftingSkillRequirement not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -97,7 +114,10 @@ export class CraftingSkillRequirementsController {
     description: 'This deletes an craftingSkillRequirement record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'CraftingSkillRequirement was deleted' })
+  @ApiOkResponse({
+    description: 'CraftingSkillRequirement was deleted',
+    type: CraftingSkillRequirementBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'CraftingSkillRequirement not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {

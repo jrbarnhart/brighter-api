@@ -22,6 +22,10 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  CraftingSkillEntity,
+  CraftingSkillBaseEntity,
+} from './entities/craftingSkills.entity';
 
 @Controller('skills/crafting')
 export class CraftingSkillsController {
@@ -34,7 +38,10 @@ export class CraftingSkillsController {
     description: 'This creates a new craftingSkill record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'CraftingSkill created' })
+  @ApiCreatedResponse({
+    description: 'CraftingSkill created',
+    type: CraftingSkillBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createCraftingSkillDto: CreateCraftingSkillDto) {
@@ -46,7 +53,10 @@ export class CraftingSkillsController {
     summary: 'Get all craftingSkill',
     description: 'This gets all craftingSkill records',
   })
-  @ApiOkResponse({ description: 'Found all craftingSkill records' })
+  @ApiOkResponse({
+    description: 'Found all craftingSkill records',
+    type: CraftingSkillEntity,
+  })
   findAll() {
     return this.craftingSkillsService.findAll();
   }
@@ -56,7 +66,10 @@ export class CraftingSkillsController {
     summary: 'Get craftingSkill by id',
     description: 'This gets one craftingSkill by its id',
   })
-  @ApiOkResponse({ description: 'Found craftingSkill record' })
+  @ApiOkResponse({
+    description: 'Found craftingSkill record',
+    type: CraftingSkillEntity,
+  })
   @ApiNotFoundResponse({ description: 'CraftingSkill not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.craftingSkillsService.findOne(id);
@@ -69,6 +82,10 @@ export class CraftingSkillsController {
     description: 'This updates an craftingSkill record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated craftingSkill record',
+    type: CraftingSkillBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'CraftingSkill not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +104,10 @@ export class CraftingSkillsController {
     description: 'This deletes an craftingSkill record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'CraftingSkill was deleted' })
+  @ApiOkResponse({
+    description: 'CraftingSkill was deleted',
+    type: CraftingSkillBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'CraftingSkill not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
