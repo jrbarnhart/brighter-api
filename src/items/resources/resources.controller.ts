@@ -27,7 +27,7 @@ import {
   ResourceBaseEntity,
 } from './entities/resources.entity';
 
-@Controller('resources')
+@Controller('items/resources')
 export class ResourcesController {
   constructor(private readonly resourcesService: ResourcesService) {}
 

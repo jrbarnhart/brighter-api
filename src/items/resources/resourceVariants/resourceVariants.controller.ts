@@ -27,7 +27,7 @@ import {
   ResourceVariantBaseEntity,
 } from './entities/resourceVariants.entity';
 
-@Controller('resourceVariants')
+@Controller('items/resources/variants')
 export class ResourceVariantsController {
   constructor(
     private readonly resourceVariantsService: ResourceVariantsService,
