@@ -22,9 +22,12 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CraftingRecipeEntity } from './entities/craftingRecipes.entity';
+import {
+  CraftingRecipeEntity,
+  CraftingRecipeBaseEntity,
+} from './entities/craftingRecipes.entity';
 
-@Controller('/skills/crafting/recipes')
+@Controller('skills/crafting/recipes')
 export class CraftingRecipesController {
   constructor(
     private readonly craftingRecipesService: CraftingRecipesService,
@@ -39,7 +42,7 @@ export class CraftingRecipesController {
   @ApiBearerAuth()
   @ApiCreatedResponse({
     description: 'CraftingRecipe created',
-    type: CraftingRecipeEntity,
+    type: CraftingRecipeBaseEntity,
   })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -83,7 +86,7 @@ export class CraftingRecipesController {
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'Updated craftingRecipe record',
-    type: CraftingRecipeEntity,
+    type: CraftingRecipeBaseEntity,
   })
   @ApiNotFoundResponse({ description: 'CraftingRecipe not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
@@ -105,7 +108,7 @@ export class CraftingRecipesController {
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'CraftingRecipe was deleted',
-    type: CraftingRecipeEntity,
+    type: CraftingRecipeBaseEntity,
   })
   @ApiNotFoundResponse({ description: 'CraftingRecipe not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
