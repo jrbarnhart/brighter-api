@@ -22,7 +22,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { RegionEntity } from './entities/regions.entity';
+import { RegionEntity, RegionBaseEntity } from './entities/regions.entity';
 
 @Controller('regions')
 export class RegionsController {
@@ -35,7 +35,7 @@ export class RegionsController {
     description: 'This creates a new region record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Region created', type: RegionEntity })
+  @ApiCreatedResponse({ description: 'Region created', type: RegionBaseEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createRegionDto: CreateRegionDto) {
@@ -73,7 +73,10 @@ export class RegionsController {
     description: 'This updates an region record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Updated region record', type: RegionEntity })
+  @ApiOkResponse({
+    description: 'Updated region record',
+    type: RegionBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'Region not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -92,7 +95,7 @@ export class RegionsController {
     description: 'This deletes an region record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Region was deleted', type: RegionEntity })
+  @ApiOkResponse({ description: 'Region was deleted', type: RegionBaseEntity })
   @ApiNotFoundResponse({ description: 'Region not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {

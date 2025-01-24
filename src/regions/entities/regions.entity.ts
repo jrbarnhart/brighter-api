@@ -6,7 +6,10 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { RoomEntity } from 'src/rooms/entities/rooms.entity';
+import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
+import { CombatSkillBaseEntity } from 'src/skills/combatSkill/entities/combatSkills.entity';
+import { CraftingSkillBaseEntity } from 'src/skills/craftingSkill/entities/craftingSkills.entity';
+import { GatheringSkillBaseEntity } from 'src/skills/gatheringSkill/entities/gatheringSkills.entity';
 
 export class RegionEntity {
   @IsNotEmpty()
@@ -20,5 +23,24 @@ export class RegionEntity {
   @MaxLength(256)
   name: string;
 
-  rooms: RoomEntity[];
+  rooms: RoomBaseEntity[];
+
+  combatSkills: CombatSkillBaseEntity[];
+
+  gatheringSkills: GatheringSkillBaseEntity[];
+
+  craftingSkills: CraftingSkillBaseEntity[];
+}
+
+export class RegionBaseEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
 }

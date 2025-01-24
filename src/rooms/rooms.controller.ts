@@ -22,7 +22,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { RoomEntity } from './entities/rooms.entity';
+import { RoomEntity, RoomBaseEntity } from './entities/rooms.entity';
 
 @Controller('rooms')
 export class RoomsController {
@@ -35,7 +35,7 @@ export class RoomsController {
     description: 'This creates a new room record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Room created', type: RoomEntity })
+  @ApiCreatedResponse({ description: 'Room created', type: RoomBaseEntity })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createRoomDto: CreateRoomDto) {
@@ -70,7 +70,7 @@ export class RoomsController {
     description: 'This updates an room record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Updated room record', type: RoomEntity })
+  @ApiOkResponse({ description: 'Updated room record', type: RoomBaseEntity })
   @ApiNotFoundResponse({ description: 'Room not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -89,7 +89,7 @@ export class RoomsController {
     description: 'This deletes an room record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Room was deleted', type: RoomEntity })
+  @ApiOkResponse({ description: 'Room was deleted', type: RoomBaseEntity })
   @ApiNotFoundResponse({ description: 'Room not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
