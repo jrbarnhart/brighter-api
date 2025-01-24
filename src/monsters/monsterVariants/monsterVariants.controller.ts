@@ -22,11 +22,15 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  MonsterVariantEntity,
+  MonsterVariantBaseEntity,
+} from './entities/monsterVariants.entity';
 
 @Controller('monsters/variants')
 export class MonsterVariantsController {
   constructor(
-    private readonly MonsterVariantsService: MonsterVariantsService,
+    private readonly monsterVariantsService: MonsterVariantsService,
   ) {}
 
   @Post()
@@ -36,11 +40,14 @@ export class MonsterVariantsController {
     description: 'This creates a new monsterVariant record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'MonsterVariant created' })
+  @ApiCreatedResponse({
+    description: 'MonsterVariant created',
+    type: MonsterVariantBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createMonsterVariantDto: CreateMonsterVariantDto) {
-    return this.MonsterVariantsService.create(createMonsterVariantDto);
+    return this.monsterVariantsService.create(createMonsterVariantDto);
   }
 
   @Get()
@@ -48,9 +55,12 @@ export class MonsterVariantsController {
     summary: 'Get all monsterVariant',
     description: 'This gets all monsterVariant records',
   })
-  @ApiOkResponse({ description: 'Found all monsterVariant records' })
+  @ApiOkResponse({
+    description: 'Found all monsterVariant records',
+    type: MonsterVariantEntity,
+  })
   findAll() {
-    return this.MonsterVariantsService.findAll();
+    return this.monsterVariantsService.findAll();
   }
 
   @Get(':id')
@@ -58,10 +68,13 @@ export class MonsterVariantsController {
     summary: 'Get monsterVariant by id',
     description: 'This gets one monsterVariant by its id',
   })
-  @ApiOkResponse({ description: 'Found monsterVariant record' })
+  @ApiOkResponse({
+    description: 'Found monsterVariant record',
+    type: MonsterVariantEntity,
+  })
   @ApiNotFoundResponse({ description: 'MonsterVariant not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.MonsterVariantsService.findOne(id);
+    return this.monsterVariantsService.findOne(id);
   }
 
   @Patch(':id')
@@ -71,6 +84,10 @@ export class MonsterVariantsController {
     description: 'This updates an monsterVariant record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated monsterVariant record',
+    type: MonsterVariantBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'MonsterVariant not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -79,7 +96,7 @@ export class MonsterVariantsController {
     @Body()
     updateMonsterVariantDto: UpdateMonsterVariantDto,
   ) {
-    return this.MonsterVariantsService.update(id, updateMonsterVariantDto);
+    return this.monsterVariantsService.update(id, updateMonsterVariantDto);
   }
 
   @Delete(':id')
@@ -89,10 +106,13 @@ export class MonsterVariantsController {
     description: 'This deletes an monsterVariant record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'MonsterVariant was deleted' })
+  @ApiOkResponse({
+    description: 'MonsterVariant was deleted',
+    type: MonsterVariantBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'MonsterVariant not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
-    return this.MonsterVariantsService.remove(id);
+    return this.monsterVariantsService.remove(id);
   }
 }

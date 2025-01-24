@@ -22,6 +22,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { MonsterEntity, MonsterBaseEntity } from './entities/monsters.entity';
 
 @Controller('monsters')
 export class MonstersController {
@@ -34,7 +35,10 @@ export class MonstersController {
     description: 'This creates a new monster record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Monster created' })
+  @ApiCreatedResponse({
+    description: 'Monster created',
+    type: MonsterBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(@Body() createMonsterDto: CreateMonsterDto) {
@@ -46,7 +50,10 @@ export class MonstersController {
     summary: 'Get all monster',
     description: 'This gets all monster records',
   })
-  @ApiOkResponse({ description: 'Found all monster records' })
+  @ApiOkResponse({
+    description: 'Found all monster records',
+    type: MonsterEntity,
+  })
   findAll() {
     return this.monstersService.findAll();
   }
@@ -56,7 +63,7 @@ export class MonstersController {
     summary: 'Get monster by id',
     description: 'This gets one monster by its id',
   })
-  @ApiOkResponse({ description: 'Found monster record' })
+  @ApiOkResponse({ description: 'Found monster record', type: MonsterEntity })
   @ApiNotFoundResponse({ description: 'Monster not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.monstersService.findOne(id);
@@ -69,6 +76,10 @@ export class MonstersController {
     description: 'This updates an monster record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated monster record',
+    type: MonsterBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'Monster not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -87,7 +98,10 @@ export class MonstersController {
     description: 'This deletes an monster record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'Monster was deleted' })
+  @ApiOkResponse({
+    description: 'Monster was deleted',
+    type: MonsterBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'Monster not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
