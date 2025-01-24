@@ -22,6 +22,10 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  GatheringSkillRequirementEntity,
+  GatheringSkillRequirementBaseEntity,
+} from './entities/gatheringSkillRequirements.entity';
 
 @Controller('skills/gathering/requirements')
 export class GatheringSkillRequirementsController {
@@ -36,7 +40,10 @@ export class GatheringSkillRequirementsController {
     description: 'This creates a new gatheringSkillRequirement record',
   })
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'GatheringSkillRequirement created' })
+  @ApiCreatedResponse({
+    description: 'GatheringSkillRequirement created',
+    type: GatheringSkillRequirementBaseEntity,
+  })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   create(
@@ -53,7 +60,10 @@ export class GatheringSkillRequirementsController {
     summary: 'Get all gatheringSkillRequirement',
     description: 'This gets all gatheringSkillRequirement records',
   })
-  @ApiOkResponse({ description: 'Found all gatheringSkillRequirement records' })
+  @ApiOkResponse({
+    description: 'Found all gatheringSkillRequirement records',
+    type: GatheringSkillRequirementEntity,
+  })
   findAll() {
     return this.gatheringSkillRequirementsService.findAll();
   }
@@ -63,7 +73,10 @@ export class GatheringSkillRequirementsController {
     summary: 'Get gatheringSkillRequirement by id',
     description: 'This gets one gatheringSkillRequirement by its id',
   })
-  @ApiOkResponse({ description: 'Found gatheringSkillRequirement record' })
+  @ApiOkResponse({
+    description: 'Found gatheringSkillRequirement record',
+    type: GatheringSkillRequirementEntity,
+  })
   @ApiNotFoundResponse({ description: 'GatheringSkillRequirement not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.gatheringSkillRequirementsService.findOne(id);
@@ -76,6 +89,10 @@ export class GatheringSkillRequirementsController {
     description: 'This updates an gatheringSkillRequirement record by id',
   })
   @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Updated gatheringSkillRequirement record',
+    type: GatheringSkillRequirementBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'GatheringSkillRequirement not found' })
   @ApiBadRequestResponse({ description: 'Bad request, invalid body data' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
@@ -97,7 +114,10 @@ export class GatheringSkillRequirementsController {
     description: 'This deletes an gatheringSkillRequirement record by id',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'GatheringSkillRequirement was deleted' })
+  @ApiOkResponse({
+    description: 'GatheringSkillRequirement was deleted',
+    type: GatheringSkillRequirementBaseEntity,
+  })
   @ApiNotFoundResponse({ description: 'GatheringSkillRequirement not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
   remove(@Param('id', ParseIntPipe) id: number) {
