@@ -28,7 +28,7 @@ To set up Brighter API locally, follow these steps:
 2. Navigate to the project directory:
 
    ```bash
-   cd Brighter-API
+   cd brighter-api
    ```
 
 3. Install dependencies:
