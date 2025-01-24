@@ -6,6 +6,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -32,36 +33,42 @@ export class CreateRoomDto {
   @IsBoolean()
   obelisk: boolean;
 
+  @IsOptional()
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   craftingSkillIds?: number[];
 
+  @IsOptional()
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   monsterIds?: number[];
 
+  @IsOptional()
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   npcIds?: number[];
 
+  @IsOptional()
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   resourceIds?: number[];
 
+  @IsOptional()
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   questStepIds?: number[];
 
+  @IsOptional()
   @IsArray()
   @IsEnum(BankType, { each: true })
   @ApiProperty({
