@@ -14,4 +14,22 @@ export class UpdateRegionDto {
   @IsArray()
   @Type(() => ConnectDto)
   rooms?: { connect: { id: number }[] };
+
+  @ApiPropertyOptional({ type: [ConnectDto] })
+  @IsOptional()
+  @IsArray()
+  @Type(() => ConnectDto)
+  combatSkills?: { connect: { id: number }[] };
+
+  @ApiPropertyOptional({ type: [ConnectDto] })
+  @IsOptional()
+  @IsArray()
+  @Type(() => ConnectDto)
+  gatheringSkills?: { connect: { id: number }[] };
+
+  @ApiPropertyOptional({ type: [ConnectDto] })
+  @IsOptional()
+  @IsArray()
+  @Type(() => ConnectDto)
+  craftingSkills?: { connect: { id: number }[] };
 }
