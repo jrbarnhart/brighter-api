@@ -24,13 +24,25 @@ export class RegionsService {
   }
 
   findAll(): Promise<Region[]> {
-    return this.prisma.region.findMany({ include: { rooms: true } });
+    return this.prisma.region.findMany({
+      include: {
+        rooms: true,
+        combatSkills: true,
+        craftingSkills: true,
+        gatheringSkills: true,
+      },
+    });
   }
 
   async findOne(id: number): Promise<Region> {
     const foundRegion = await this.prisma.region.findUnique({
       where: { id },
-      include: { rooms: true },
+      include: {
+        rooms: true,
+        combatSkills: true,
+        craftingSkills: true,
+        gatheringSkills: true,
+      },
     });
 
     if (foundRegion === null) {
