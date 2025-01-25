@@ -50,6 +50,7 @@ export class RegionsController {
   @ApiOkResponse({
     description: 'Found all region records',
     type: RegionEntity,
+    isArray: true,
   })
   findAll() {
     return this.regionsService.findAll();
