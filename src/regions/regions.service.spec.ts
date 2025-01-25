@@ -35,7 +35,12 @@ describe('RegionsService', () => {
         { id: 2, name: 'Region Two' },
       ];
       const findManyArgsMock: Prisma.RegionFindManyArgs = {
-        include: { rooms: true },
+        include: {
+          rooms: true,
+          combatSkills: true,
+          craftingSkills: true,
+          gatheringSkills: true,
+        },
       };
 
       prismaMock.region.findMany.mockResolvedValue(allRegions);
@@ -48,7 +53,12 @@ describe('RegionsService', () => {
 
     it('should return empty array if there are no regions', async () => {
       const findManyArgsMock: Prisma.RegionFindManyArgs = {
-        include: { rooms: true },
+        include: {
+          rooms: true,
+          combatSkills: true,
+          craftingSkills: true,
+          gatheringSkills: true,
+        },
       };
 
       prismaMock.region.findMany.mockResolvedValue([]);
@@ -65,7 +75,12 @@ describe('RegionsService', () => {
       const existingRegion: Region = { id: 1, name: 'Region One' };
       const findUniqueArgsMock: Prisma.RegionFindUniqueArgs = {
         where: { id: existingRegion.id },
-        include: { rooms: true },
+        include: {
+          rooms: true,
+          combatSkills: true,
+          craftingSkills: true,
+          gatheringSkills: true,
+        },
       };
 
       prismaMock.region.findUnique.mockResolvedValue(existingRegion);
@@ -82,7 +97,12 @@ describe('RegionsService', () => {
       prismaMock.region.findUnique.mockResolvedValue(null);
       const findUniqueArgsMock: Prisma.RegionFindUniqueArgs = {
         where: { id: 999 },
-        include: { rooms: true },
+        include: {
+          rooms: true,
+          combatSkills: true,
+          craftingSkills: true,
+          gatheringSkills: true,
+        },
       };
 
       await expect(service.findOne(999)).rejects.toThrow(NotFoundException);
