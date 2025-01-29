@@ -54,6 +54,7 @@ export class ResourcesController {
     description: 'This gets all resource records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all resource records',
     type: ResourceEntity,
   })

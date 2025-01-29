@@ -61,6 +61,7 @@ export class GatheringSkillRequirementsController {
     description: 'This gets all gatheringSkillRequirement records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all gatheringSkillRequirement records',
     type: GatheringSkillRequirementEntity,
   })

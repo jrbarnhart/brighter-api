@@ -54,6 +54,7 @@ export class ConsumablesController {
     description: 'This gets all consumable records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all consumable records',
     type: ConsumableEntity,
   })

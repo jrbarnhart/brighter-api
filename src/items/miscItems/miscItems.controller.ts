@@ -54,6 +54,7 @@ export class MiscItemsController {
     description: 'This gets all miscItem records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all miscItem records',
     type: MiscItemEntity,
   })

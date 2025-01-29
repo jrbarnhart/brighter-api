@@ -56,6 +56,7 @@ export class ResourceVariantsController {
     description: 'This gets all resourceVariant records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all resourceVariant records',
     type: ResourceVariantEntity,
   })

@@ -54,6 +54,7 @@ export class DropTablesController {
     description: 'This gets all dropTable records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all dropTable records',
     type: DropTableEntity,
   })

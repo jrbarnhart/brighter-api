@@ -60,6 +60,7 @@ export class CombatSkillRequirementsController {
     description: 'This gets all combatSkillRequirement records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all combatSkillRequirement records',
     type: CombatSkillRequirementEntity,
   })

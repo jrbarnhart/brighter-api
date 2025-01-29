@@ -56,6 +56,7 @@ export class MonsterVariantsController {
     description: 'This gets all monsterVariant records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all monsterVariant records',
     type: MonsterVariantEntity,
   })

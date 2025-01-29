@@ -54,6 +54,7 @@ export class WeaponVariantsController {
     description: 'This gets all weaponVariant records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all weaponVariant records',
     type: WeaponVariantEntity,
   })

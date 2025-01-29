@@ -47,7 +47,11 @@ export class ArmorsController {
     summary: 'Get all armor',
     description: 'This gets all armor records',
   })
-  @ApiOkResponse({ description: 'Found all armor records', type: ArmorEntity })
+  @ApiOkResponse({
+    isArray: true,
+    description: 'Found all armor records',
+    type: ArmorEntity,
+  })
   findAll() {
     return this.armorsService.findAll();
   }

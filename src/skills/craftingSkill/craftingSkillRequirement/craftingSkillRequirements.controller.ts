@@ -61,6 +61,7 @@ export class CraftingSkillRequirementsController {
     description: 'This gets all craftingSkillRequirement records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all craftingSkillRequirement records',
     type: CraftingSkillRequirementEntity,
   })

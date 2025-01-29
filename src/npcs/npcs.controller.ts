@@ -47,7 +47,11 @@ export class NpcsController {
     summary: 'Get all npc',
     description: 'This gets all npc records',
   })
-  @ApiOkResponse({ description: 'Found all npc records', type: NpcEntity })
+  @ApiOkResponse({
+    isArray: true,
+    description: 'Found all npc records',
+    type: NpcEntity,
+  })
   findAll() {
     return this.npcsService.findAll();
   }

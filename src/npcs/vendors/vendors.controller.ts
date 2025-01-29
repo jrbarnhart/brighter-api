@@ -48,6 +48,7 @@ export class VendorsController {
     description: 'This gets all vendor records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all vendor records',
     type: VendorEntity,
   })

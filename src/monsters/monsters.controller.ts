@@ -51,6 +51,7 @@ export class MonstersController {
     description: 'This gets all monster records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all monster records',
     type: MonsterEntity,
   })

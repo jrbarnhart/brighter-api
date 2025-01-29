@@ -47,7 +47,11 @@ export class QuestsController {
     summary: 'Get all quest',
     description: 'This gets all quest records',
   })
-  @ApiOkResponse({ description: 'Found all quest records', type: QuestEntity })
+  @ApiOkResponse({
+    isArray: true,
+    description: 'Found all quest records',
+    type: QuestEntity,
+  })
   findAll() {
     return this.questsService.findAll();
   }

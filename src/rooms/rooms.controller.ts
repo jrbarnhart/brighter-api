@@ -47,7 +47,11 @@ export class RoomsController {
     summary: 'Get all room',
     description: 'This gets all room records',
   })
-  @ApiOkResponse({ description: 'Found all room records', type: RoomEntity })
+  @ApiOkResponse({
+    description: 'Found all room records',
+    type: RoomEntity,
+    isArray: true,
+  })
   findAll() {
     return this.roomsService.findAll();
   }

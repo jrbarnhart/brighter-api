@@ -54,6 +54,7 @@ export class QuestStepsController {
     description: 'This gets all questStep records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all questStep records',
     type: QuestStepEntity,
   })

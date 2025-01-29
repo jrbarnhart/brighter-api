@@ -56,6 +56,7 @@ export class ConsumableVariantsController {
     description: 'This gets all consumableVariant records',
   })
   @ApiOkResponse({
+    isArray: true,
     description: 'Found all consumableVariant records',
     type: ConsumableVariantEntity,
   })
