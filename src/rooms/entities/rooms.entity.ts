@@ -56,7 +56,7 @@ export class RoomEntity {
   })
   banks: BankType[];
 
-  craftingSKills: CraftingSkillBaseEntity[];
+  craftingSkills: CraftingSkillBaseEntity[];
 
   monsters: MonsterBaseEntity[];
 
