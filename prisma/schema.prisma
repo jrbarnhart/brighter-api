@@ -38,12 +38,12 @@ model Room {
 }
 
 model CombatSkill {
-  id                Int                      @id @default(autoincrement())
-  name              String                   @unique
-  region            Region                   @relation(fields: [regionId], references: [id])
-  regionId          Int
-  skillRequirements CombatSkillRequirement[]
-  monsters          Monster[]
+  id           Int                      @id @default(autoincrement())
+  name         String                   @unique
+  region       Region                   @relation(fields: [regionId], references: [id])
+  regionId     Int
+  requirements CombatSkillRequirement[]
+  monsters     Monster[]
 }
 
 model CombatSkillRequirement {
