@@ -26,7 +26,7 @@ export class CombatSkillsService {
       include: {
         monsters: true,
         region: true,
-        skillRequirements: true,
+        requirements: true,
       },
     });
   }
@@ -37,7 +37,7 @@ export class CombatSkillsService {
       include: {
         monsters: true,
         region: true,
-        skillRequirements: true,
+        requirements: true,
       },
     });
 

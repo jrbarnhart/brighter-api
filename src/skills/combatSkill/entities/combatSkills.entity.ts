@@ -30,7 +30,7 @@ export class CombatSkillEntity {
   @IsPositive()
   regionId: number;
 
-  skillRequirements: CombatSkillRequirementBaseEntity[];
+  requirements: CombatSkillRequirementBaseEntity[];
 
   monsters: MonsterBaseEntity[];
 }

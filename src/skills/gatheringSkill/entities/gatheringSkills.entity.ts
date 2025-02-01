@@ -30,7 +30,7 @@ export class GatheringSkillEntity {
   @IsPositive()
   regionId: number;
 
-  skillRequirements: GatheringSkillRequirementBaseEntity[];
+  requirements: GatheringSkillRequirementBaseEntity[];
 
   resources: ResourceBaseEntity[];
 }
