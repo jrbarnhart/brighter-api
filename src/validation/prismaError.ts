@@ -8,5 +8,6 @@ export default function prismaError(error: unknown): BadRequestException {
   }
 
   // For any other error that we didn't explicitly handle
+  console.log(error);
   return new BadRequestException('An unknown error occured');
 }
