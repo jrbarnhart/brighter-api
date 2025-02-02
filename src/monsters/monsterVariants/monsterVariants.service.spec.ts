@@ -36,13 +36,11 @@ describe('MonsterVariantsService', () => {
           id: 1,
           name: 'MonsterVariant One',
           monsterId: 10,
-          requirementId: null,
         },
         {
           id: 2,
           name: 'MonsterVariant Two',
           monsterId: 20,
-          requirementId: null,
         },
       ];
 
@@ -68,7 +66,6 @@ describe('MonsterVariantsService', () => {
         id: 1,
         name: 'MonsterVariant One',
         monsterId: 10,
-        requirementId: null,
       };
 
       prismaMock.monsterVariant.findUnique.mockResolvedValue(
@@ -98,7 +95,6 @@ describe('MonsterVariantsService', () => {
         id: 1,
         name: 'MonsterVariant One',
         monsterId: 10,
-        requirementId: null,
       };
 
       prismaMock.monsterVariant.create.mockResolvedValue(createdMonsterVariant);
@@ -132,7 +128,6 @@ describe('MonsterVariantsService', () => {
         id: 1,
         name: 'MonsterVariant One',
         monsterId: 10,
-        requirementId: null,
       };
       const updateDto: UpdateMonsterVariantDto = {
         name: 'Updated MonsterVariant',
@@ -141,7 +136,6 @@ describe('MonsterVariantsService', () => {
         id: 1,
         name: 'Updated MonsterVariant',
         monsterId: 10,
-        requirementId: null,
       };
 
       prismaMock.monsterVariant.findUnique.mockResolvedValue(
@@ -175,7 +169,6 @@ describe('MonsterVariantsService', () => {
         id: 1,
         name: 'MonsterVariant One',
         monsterId: 10,
-        requirementId: null,
       };
 
       prismaMock.monsterVariant.findUnique.mockResolvedValue(

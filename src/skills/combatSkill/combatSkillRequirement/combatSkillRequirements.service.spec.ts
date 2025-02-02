@@ -34,12 +34,19 @@ describe('CombatSkillRequirementsService', () => {
   describe('findAll', () => {
     it('should return all combatSkillRequirements array', async () => {
       const allCombatSkillRequirements: CombatSkillRequirement[] = [
-        { id: 1, description: 'Unlock Goblins', skillId: 10, unlockLevel: 1 },
+        {
+          id: 1,
+          description: 'Unlock Goblins',
+          skillId: 10,
+          unlockLevel: 1,
+          monsterVariantId: null,
+        },
         {
           id: 2,
           description: 'Unlock Deathcrows',
           skillId: 10,
           unlockLevel: 12,
+          monsterVariantId: null,
         },
       ];
 
@@ -72,6 +79,7 @@ describe('CombatSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        monsterVariantId: null,
       };
 
       prismaMock.combatSkillRequirement.findUnique.mockResolvedValue(
@@ -107,6 +115,7 @@ describe('CombatSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        monsterVariantId: null,
       };
 
       prismaMock.combatSkillRequirement.create.mockResolvedValue(
@@ -144,6 +153,7 @@ describe('CombatSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        monsterVariantId: null,
       };
       const updateDto: UpdateCombatSkillRequirementDto = {
         description: 'Unlock Goblins',
@@ -155,6 +165,7 @@ describe('CombatSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        monsterVariantId: null,
       };
 
       prismaMock.combatSkillRequirement.findUnique.mockResolvedValue(
@@ -195,6 +206,7 @@ describe('CombatSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        monsterVariantId: null,
       };
 
       prismaMock.combatSkillRequirement.findUnique.mockResolvedValue(

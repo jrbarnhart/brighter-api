@@ -34,8 +34,20 @@ describe('CraftingSkillRequirementsService', () => {
   describe('findAll', () => {
     it('should return all craftingSkillRequirements array', async () => {
       const allCraftingSkillRequirements: CraftingSkillRequirement[] = [
-        { id: 1, description: 'Requirement One', skillId: 10, unlockLevel: 1 },
-        { id: 2, description: 'Requirement Two', skillId: 10, unlockLevel: 12 },
+        {
+          id: 1,
+          description: 'Requirement One',
+          skillId: 10,
+          unlockLevel: 1,
+          recipeId: null,
+        },
+        {
+          id: 2,
+          description: 'Requirement Two',
+          skillId: 10,
+          unlockLevel: 12,
+          recipeId: null,
+        },
       ];
 
       prismaMock.craftingSkillRequirement.findMany.mockResolvedValue(
@@ -67,6 +79,7 @@ describe('CraftingSkillRequirementsService', () => {
         description: 'Requirement One',
         skillId: 10,
         unlockLevel: 1,
+        recipeId: null,
       };
 
       prismaMock.craftingSkillRequirement.findUnique.mockResolvedValue(
@@ -102,6 +115,7 @@ describe('CraftingSkillRequirementsService', () => {
         description: 'Requirement One',
         skillId: 10,
         unlockLevel: 1,
+        recipeId: null,
       };
 
       prismaMock.craftingSkillRequirement.create.mockResolvedValue(
@@ -143,6 +157,7 @@ describe('CraftingSkillRequirementsService', () => {
         description: 'Requirement One',
         skillId: 10,
         unlockLevel: 1,
+        recipeId: null,
       };
       const updateDto: UpdateCraftingSkillRequirementDto = {
         description: 'Requirement One',
@@ -154,6 +169,7 @@ describe('CraftingSkillRequirementsService', () => {
         description: 'Requirement One',
         skillId: 10,
         unlockLevel: 1,
+        recipeId: null,
       };
 
       prismaMock.craftingSkillRequirement.findUnique.mockResolvedValue(
@@ -198,6 +214,7 @@ describe('CraftingSkillRequirementsService', () => {
         description: 'Requirement One',
         skillId: 10,
         unlockLevel: 1,
+        recipeId: null,
       };
 
       prismaMock.craftingSkillRequirement.findUnique.mockResolvedValue(
