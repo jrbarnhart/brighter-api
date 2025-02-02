@@ -47,12 +47,13 @@ model CombatSkill {
 }
 
 model CombatSkillRequirement {
-  id             Int             @id @default(autoincrement())
-  description    String?
-  skill          CombatSkill     @relation(fields: [skillId], references: [id])
-  skillId        Int
-  monsterVariant MonsterVariant?
-  unlockLevel    Int
+  id               Int             @id @default(autoincrement())
+  description      String?
+  skill            CombatSkill     @relation(fields: [skillId], references: [id])
+  skillId          Int
+  monsterVariant   MonsterVariant? @relation(fields: [monsterVariantId], references: [id])
+  monsterVariantId Int?            @unique
+  unlockLevel      Int
 }
 
 model Monster {
@@ -69,13 +70,12 @@ model Monster {
 }
 
 model MonsterVariant {
-  id            Int                     @id @default(autoincrement())
-  name          String
-  monster       Monster                 @relation(fields: [monsterId], references: [id])
-  monsterId     Int
-  requirement   CombatSkillRequirement? @relation(fields: [requirementId], references: [id])
-  requirementId Int?                    @unique
-  dropTable     DropTable?
+  id          Int                     @id @default(autoincrement())
+  name        String
+  monster     Monster                 @relation(fields: [monsterId], references: [id])
+  monsterId   Int
+  requirement CombatSkillRequirement?
+  dropTable   DropTable?
 }
 
 model DropTable {
