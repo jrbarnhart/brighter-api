@@ -2,6 +2,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -12,22 +13,26 @@ export class UpdateCombatSkillRequirementDto {
   @IsNumber()
   @IsInt()
   @IsPositive()
+  @IsOptional()
   skillId?: number;
 
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
   @IsPositive()
+  @IsOptional()
   unlockLevel?: number;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(400)
+  @IsOptional()
   description?: string;
 
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
   @IsPositive()
+  @IsOptional()
   monsterVariantId?: number;
 }
