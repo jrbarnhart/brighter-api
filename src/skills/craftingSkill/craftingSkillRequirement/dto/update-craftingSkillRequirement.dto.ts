@@ -13,12 +13,14 @@ export class UpdateCraftingSkillRequirementDto {
   @IsNumber()
   @IsInt()
   @IsPositive()
+  @IsOptional()
   skillId: number;
 
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
   @IsPositive()
+  @IsOptional()
   unlockLevel: number;
 
   @IsString()
