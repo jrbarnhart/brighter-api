@@ -1,6 +1,5 @@
 import {
   IsInt,
-  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
@@ -9,19 +8,17 @@ import {
 } from 'class-validator';
 
 export class UpdateCraftingSkillRequirementDto {
-  @IsNotEmpty()
   @IsNumber()
   @IsInt()
   @IsPositive()
   @IsOptional()
-  skillId: number;
+  skillId?: number;
 
-  @IsNotEmpty()
   @IsNumber()
   @IsInt()
   @IsPositive()
   @IsOptional()
-  unlockLevel: number;
+  unlockLevel?: number;
 
   @IsString()
   @MaxLength(400)
