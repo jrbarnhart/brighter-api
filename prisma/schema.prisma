@@ -145,7 +145,7 @@ model CraftingSkillRequirement {
   skill       CraftingSkill   @relation(fields: [skillId], references: [id])
   skillId     Int
   recipe      CraftingRecipe? @relation(fields: [recipeId], references: [id])
-  recipeId    Int             @unique
+  recipeId    Int?            @unique
   unlockLevel Int
 }
 
