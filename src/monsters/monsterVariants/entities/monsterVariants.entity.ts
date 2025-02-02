@@ -63,3 +63,29 @@ export class MonsterVariantBaseEntity {
   @IsPositive()
   requirementId: number | null;
 }
+
+export class MonsterVariantBaseWithMonsterEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  monsterId: number;
+
+  monster: MonsterBaseEntity;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  requirementId: number | null;
+}

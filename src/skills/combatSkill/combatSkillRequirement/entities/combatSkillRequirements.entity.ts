@@ -7,7 +7,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { CombatSkillBaseEntity } from '../../entities/combatSkills.entity';
-import { MonsterVariantBaseEntity } from 'src/monsters/monsterVariants/entities/monsterVariants.entity';
+import { MonsterVariantBaseWithMonsterEntity } from 'src/monsters/monsterVariants/entities/monsterVariants.entity';
 
 export class CombatSkillRequirementEntity {
   @IsNotEmpty()
@@ -28,7 +28,7 @@ export class CombatSkillRequirementEntity {
   @IsPositive()
   skillId: number;
 
-  monsterVariant?: MonsterVariantBaseEntity;
+  monsterVariant?: MonsterVariantBaseWithMonsterEntity;
 
   @IsNotEmpty()
   @IsNumber()

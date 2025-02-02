@@ -24,7 +24,7 @@ export class CombatSkillRequirementsService {
   findAll(): Promise<CombatSkillRequirement[]> {
     return this.prisma.combatSkillRequirement.findMany({
       include: {
-        monsterVariant: true,
+        monsterVariant: { include: { monster: true } },
         skill: true,
       },
     });
@@ -35,7 +35,7 @@ export class CombatSkillRequirementsService {
       await this.prisma.combatSkillRequirement.findUnique({
         where: { id },
         include: {
-          monsterVariant: true,
+          monsterVariant: { include: { monster: true } },
           skill: true,
         },
       });
