@@ -144,15 +144,15 @@ model CraftingSkillRequirement {
   description String?
   skill       CraftingSkill   @relation(fields: [skillId], references: [id])
   skillId     Int
-  recipe      CraftingRecipe?
+  recipe      CraftingRecipe? @relation(fields: [recipeId], references: [id])
+  recipeId    Int             @unique
   unlockLevel Int
 }
 
 model CraftingRecipe {
-  id            Int                       @id @default(autoincrement())
-  name          String                    @unique
-  requirement   CraftingSkillRequirement? @relation(fields: [requirementId], references: [id])
-  requirementId Int?                      @unique
+  id          Int                       @id @default(autoincrement())
+  name        String                    @unique
+  requirement CraftingSkillRequirement?
 
   inputResourceVariants ResourceVariant[]
   inputItems            MiscItem[]
