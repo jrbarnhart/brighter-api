@@ -1,19 +1,19 @@
 import {
   IsInt,
-  IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
 } from 'class-validator';
 
 export class UpdateResourceVariantDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @MaxLength(256)
   name?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @IsInt()
   @IsPositive()
