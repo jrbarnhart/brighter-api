@@ -13,8 +13,33 @@ export class CraftingRecipesService {
     createCraftingRecipeDto: CreateCraftingRecipeDto,
   ): Promise<CraftingRecipe> {
     try {
+      const {
+        name,
+        inputItemIds,
+        inputResourceVariantIds,
+        outputArmorVariantId,
+        outputConsumableVariantId,
+        outputWeaponVariantId,
+      } = createCraftingRecipeDto;
       return await this.prisma.craftingRecipe.create({
-        data: createCraftingRecipeDto,
+        data: {
+          name,
+          inputResourceVariants: inputResourceVariantIds
+            ? { connect: inputResourceVariantIds.map((id) => ({ id })) }
+            : undefined,
+          inputItems: inputItemIds
+            ? { connect: inputItemIds.map((id) => ({ id })) }
+            : undefined,
+          outputArmorVariant: outputArmorVariantId
+            ? { connect: { id: outputArmorVariantId } }
+            : undefined,
+          outputConsumableVariant: outputConsumableVariantId
+            ? { connect: { id: outputConsumableVariantId } }
+            : undefined,
+          outputWeaponVariant: outputWeaponVariantId
+            ? { connect: { id: outputArmorVariantId } }
+            : undefined,
+        },
       });
     } catch (error) {
       throw prismaError(error);
@@ -67,9 +92,34 @@ export class CraftingRecipesService {
     }
 
     try {
+      const {
+        name,
+        inputResourceVariantIds,
+        inputItemIds,
+        outputArmorVariantId,
+        outputConsumableVariantId,
+        outputWeaponVariantId,
+      } = updateCraftingRecipeDto;
       return await this.prisma.craftingRecipe.update({
         where: { id },
-        data: updateCraftingRecipeDto,
+        data: {
+          name,
+          inputResourceVariants: inputResourceVariantIds
+            ? { connect: inputResourceVariantIds.map((id) => ({ id })) }
+            : undefined,
+          inputItems: inputItemIds
+            ? { connect: inputItemIds.map((id) => ({ id })) }
+            : undefined,
+          outputArmorVariant: outputArmorVariantId
+            ? { connect: { id: outputArmorVariantId } }
+            : undefined,
+          outputConsumableVariant: outputConsumableVariantId
+            ? { connect: { id: outputConsumableVariantId } }
+            : undefined,
+          outputWeaponVariant: outputWeaponVariantId
+            ? { connect: { id: outputArmorVariantId } }
+            : undefined,
+        },
       });
     } catch (error) {
       throw prismaError(error);
