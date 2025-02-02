@@ -100,12 +100,13 @@ model GatheringSkill {
 }
 
 model GatheringSkillRequirement {
-  id              Int              @id @default(autoincrement())
-  description     String?
-  skill           GatheringSkill   @relation(fields: [skillId], references: [id])
-  skillId         Int
-  resourceVariant ResourceVariant?
-  unlockLevel     Int
+  id                Int              @id @default(autoincrement())
+  description       String?
+  skill             GatheringSkill   @relation(fields: [skillId], references: [id])
+  skillId           Int
+  resourceVariant   ResourceVariant? @relation(fields: [resourceVariantId], references: [id])
+  resourceVariantId Int?             @unique
+  unlockLevel       Int
 }
 
 model Resource {
@@ -119,15 +120,14 @@ model Resource {
 }
 
 model ResourceVariant {
-  id            Int                        @id @default(autoincrement())
-  name          String                     @unique
-  resource      Resource                   @relation(fields: [resourceId], references: [id])
-  resourceId    Int                        @unique
-  requirement   GatheringSkillRequirement? @relation(fields: [requirementId], references: [id])
-  requirementId Int?                       @unique
-  inRecipes     CraftingRecipe[]
-  vendors       Vendor[]
-  dropTables    DropTable[]
+  id          Int                        @id @default(autoincrement())
+  name        String                     @unique
+  resource    Resource                   @relation(fields: [resourceId], references: [id])
+  resourceId  Int                        @unique
+  requirement GatheringSkillRequirement?
+  inRecipes   CraftingRecipe[]
+  vendors     Vendor[]
+  dropTables  DropTable[]
 }
 
 model CraftingSkill {
