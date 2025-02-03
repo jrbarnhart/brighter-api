@@ -27,7 +27,7 @@ export class ResourceVariantsService {
         dropTables: true,
         inRecipes: true,
         requirement: true,
-        resource: true,
+        resource: { include: { skill: true } },
         vendors: true,
       },
     });
@@ -40,7 +40,7 @@ export class ResourceVariantsService {
         dropTables: true,
         inRecipes: true,
         requirement: true,
-        resource: true,
+        resource: { include: { skill: true } },
         vendors: true,
       },
     });

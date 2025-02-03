@@ -6,7 +6,10 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { ResourceBaseEntity } from '../../entities/resources.entity';
+import {
+  ResourceBaseEntity,
+  ResourceBaseWithSkillEntity,
+} from '../../entities/resources.entity';
 import { CraftingRecipeBaseEntity } from 'src/skills/craftingSkill/craftingRecipes/entities/craftingRecipes.entity';
 import { GatheringSkillRequirementBaseEntity } from 'src/skills/gatheringSkill/gatheringSkillRequirement/entities/gatheringSkillRequirements.entity';
 import { VendorBaseEntity } from 'src/npcs/vendors/entities/vendors.entity';
@@ -24,7 +27,7 @@ export class ResourceVariantEntity {
   @MaxLength(256)
   name: string;
 
-  resource: ResourceBaseEntity;
+  resource: ResourceBaseWithSkillEntity;
 
   @IsNotEmpty()
   @IsNumber()

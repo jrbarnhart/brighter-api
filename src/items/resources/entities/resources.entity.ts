@@ -62,3 +62,28 @@ export class ResourceBaseEntity {
   @IsBoolean()
   passive: boolean;
 }
+
+export class ResourceBaseWithSkillEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  skillId: number;
+
+  skill: GatheringSkillBaseEntity;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  passive: boolean;
+}
