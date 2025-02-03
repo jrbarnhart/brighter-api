@@ -24,7 +24,7 @@ export class GatheringSkillRequirementsService {
   findAll(): Promise<GatheringSkillRequirement[]> {
     return this.prisma.gatheringSkillRequirement.findMany({
       include: {
-        resourceVariant: true,
+        resourceVariant: { include: { resource: true } },
         skill: true,
       },
     });
@@ -35,7 +35,7 @@ export class GatheringSkillRequirementsService {
       await this.prisma.gatheringSkillRequirement.findUnique({
         where: { id },
         include: {
-          resourceVariant: true,
+          resourceVariant: { include: { resource: true } },
           skill: true,
         },
       });

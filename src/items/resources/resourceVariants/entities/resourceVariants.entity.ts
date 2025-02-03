@@ -71,3 +71,30 @@ export class ResourceVariantBaseEntity {
   @IsPositive()
   requirementId: number | null;
 }
+
+export class ResourceVariantBaseWithResourceEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  resourceId: number;
+
+  resource: ResourceBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  requirementId: number | null;
+}

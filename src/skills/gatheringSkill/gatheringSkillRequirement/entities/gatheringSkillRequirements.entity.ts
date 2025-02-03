@@ -7,7 +7,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { GatheringSkillEntity } from '../../entities/gatheringSkills.entity';
-import { ResourceVariantBaseEntity } from 'src/items/resources/resourceVariants/entities/resourceVariants.entity';
+import { ResourceVariantBaseWithResourceEntity } from 'src/items/resources/resourceVariants/entities/resourceVariants.entity';
 
 export class GatheringSkillRequirementEntity {
   @IsNotEmpty()
@@ -28,7 +28,7 @@ export class GatheringSkillRequirementEntity {
   @IsPositive()
   skillId: number;
 
-  resourceVariant?: ResourceVariantBaseEntity;
+  resourceVariant?: ResourceVariantBaseWithResourceEntity;
 
   @IsNotEmpty()
   @IsNumber()
