@@ -50,10 +50,10 @@ export class CraftingRecipesService {
     return this.prisma.craftingRecipe.findMany({
       include: {
         inputItems: true,
-        inputResourceVariants: true,
-        outputArmorVariant: true,
-        outputConsumableVariant: true,
-        outputWeaponVariant: true,
+        inputResourceVariants: { include: { resource: true } },
+        outputArmorVariant: { include: { armor: true } },
+        outputConsumableVariant: { include: { consumable: true } },
+        outputWeaponVariant: { include: { weapon: true } },
         requirement: true,
       },
     });
@@ -64,10 +64,10 @@ export class CraftingRecipesService {
       where: { id },
       include: {
         inputItems: true,
-        inputResourceVariants: true,
-        outputArmorVariant: true,
-        outputConsumableVariant: true,
-        outputWeaponVariant: true,
+        inputResourceVariants: { include: { resource: true } },
+        outputArmorVariant: { include: { armor: true } },
+        outputConsumableVariant: { include: { consumable: true } },
+        outputWeaponVariant: { include: { weapon: true } },
         requirement: true,
       },
     });

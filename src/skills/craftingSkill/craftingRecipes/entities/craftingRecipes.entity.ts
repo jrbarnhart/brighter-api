@@ -6,12 +6,12 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { ArmorVariantBaseEntity } from 'src/items/armors/armorVariants/entities/armorVariants.entity';
+import { ArmorVariantBaseWithArmorEntity } from 'src/items/armors/armorVariants/entities/armorVariants.entity';
 import { CraftingSkillRequirementBaseEntity } from '../../craftingSkillRequirement/entities/craftingSkillRequirements.entity';
-import { ResourceVariantBaseEntity } from 'src/items/resources/resourceVariants/entities/resourceVariants.entity';
+import { ResourceVariantBaseWithResourceEntity } from 'src/items/resources/resourceVariants/entities/resourceVariants.entity';
 import { MiscItemBaseEntity } from 'src/items/miscItems/entities/miscItems.entity';
-import { ConsumableVariantBaseEntity } from 'src/items/consumables/consumableVariants/entities/consumableVariants.entity';
-import { WeaponVariantBaseEntity } from 'src/items/weapons/weaponVariants/entities/weaponVariants.entity';
+import { ConsumableVariantBaseWithConsumableEntity } from 'src/items/consumables/consumableVariants/entities/consumableVariants.entity';
+import { WeaponVariantBaseWithWeaponEntity } from 'src/items/weapons/weaponVariants/entities/weaponVariants.entity';
 
 export class CraftingRecipeEntity {
   @IsNotEmpty()
@@ -32,12 +32,12 @@ export class CraftingRecipeEntity {
   @IsPositive()
   requirementId: number | null;
 
-  inputResourceVariants: ResourceVariantBaseEntity[];
+  inputResourceVariants: ResourceVariantBaseWithResourceEntity[];
   inputItems: MiscItemBaseEntity[];
 
-  outputConsumableVariant?: ConsumableVariantBaseEntity;
-  outputWeaponVariant?: WeaponVariantBaseEntity;
-  outputArmorVariant?: ArmorVariantBaseEntity;
+  outputConsumableVariant?: ConsumableVariantBaseWithConsumableEntity;
+  outputWeaponVariant?: WeaponVariantBaseWithWeaponEntity;
+  outputArmorVariant?: ArmorVariantBaseWithArmorEntity;
 }
 
 export class CraftingRecipeBaseEntity {

@@ -68,3 +68,30 @@ export class WeaponVariantBaseEntity {
   @IsPositive()
   recipeId: number | null;
 }
+
+export class WeaponVariantBaseWithWeaponEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  weaponId: number;
+
+  weapon: WeaponBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  recipeId: number | null;
+}

@@ -68,3 +68,30 @@ export class ConsumableVariantBaseEntity {
   @IsPositive()
   recipeId: number | null;
 }
+
+export class ConsumableVariantBaseWithConsumableEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  consumableId: number;
+
+  consumable: ConsumableBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  recipeId: number | null;
+}

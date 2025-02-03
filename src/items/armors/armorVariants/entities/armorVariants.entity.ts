@@ -68,3 +68,30 @@ export class ArmorVariantBaseEntity {
   @IsPositive()
   recipeId: number | null;
 }
+
+export class ArmorVariantBaseWithArmorEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  armorId: number;
+
+  armor: ArmorBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  recipeId: number | null;
+}
