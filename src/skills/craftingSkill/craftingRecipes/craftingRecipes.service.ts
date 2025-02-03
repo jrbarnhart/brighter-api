@@ -54,7 +54,7 @@ export class CraftingRecipesService {
         outputArmorVariant: { include: { armor: true } },
         outputConsumableVariant: { include: { consumable: true } },
         outputWeaponVariant: { include: { weapon: true } },
-        requirement: true,
+        requirement: { include: { skill: true } },
       },
     });
   }
@@ -68,7 +68,7 @@ export class CraftingRecipesService {
         outputArmorVariant: { include: { armor: true } },
         outputConsumableVariant: { include: { consumable: true } },
         outputWeaponVariant: { include: { weapon: true } },
-        requirement: true,
+        requirement: { include: { skill: true } },
       },
     });
 

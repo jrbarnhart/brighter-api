@@ -7,7 +7,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { ArmorVariantBaseWithArmorEntity } from 'src/items/armors/armorVariants/entities/armorVariants.entity';
-import { CraftingSkillRequirementBaseEntity } from '../../craftingSkillRequirement/entities/craftingSkillRequirements.entity';
+import { CraftingSkillRequirementBaseWithSkillEntity } from '../../craftingSkillRequirement/entities/craftingSkillRequirements.entity';
 import { ResourceVariantBaseWithResourceEntity } from 'src/items/resources/resourceVariants/entities/resourceVariants.entity';
 import { MiscItemBaseEntity } from 'src/items/miscItems/entities/miscItems.entity';
 import { ConsumableVariantBaseWithConsumableEntity } from 'src/items/consumables/consumableVariants/entities/consumableVariants.entity';
@@ -25,7 +25,7 @@ export class CraftingRecipeEntity {
   @MaxLength(256)
   name: string;
 
-  requirement?: CraftingSkillRequirementBaseEntity;
+  requirement?: CraftingSkillRequirementBaseWithSkillEntity;
 
   @IsNumber()
   @IsInt()

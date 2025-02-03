@@ -60,3 +60,29 @@ export class CraftingSkillRequirementBaseEntity {
   @IsPositive()
   unlockLevel: number;
 }
+
+export class CraftingSkillRequirementBaseWithSkillEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsString()
+  @MaxLength(400)
+  description?: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  skillId: number;
+
+  skill: CraftingSkillBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  unlockLevel: number;
+}
