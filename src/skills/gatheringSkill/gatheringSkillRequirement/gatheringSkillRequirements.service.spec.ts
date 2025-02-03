@@ -34,12 +34,19 @@ describe('GatheringSkillRequirementsService', () => {
   describe('findAll', () => {
     it('should return all gatheringSkillRequirements array', async () => {
       const allGatheringSkillRequirements: GatheringSkillRequirement[] = [
-        { id: 1, description: 'Unlock Goblins', skillId: 10, unlockLevel: 1 },
+        {
+          id: 1,
+          description: 'Unlock Goblins',
+          skillId: 10,
+          unlockLevel: 1,
+          resourceVariantId: null,
+        },
         {
           id: 2,
           description: 'Unlock Deathcrows',
           skillId: 10,
           unlockLevel: 1,
+          resourceVariantId: null,
         },
       ];
 
@@ -72,6 +79,7 @@ describe('GatheringSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        resourceVariantId: null,
       };
 
       prismaMock.gatheringSkillRequirement.findUnique.mockResolvedValue(
@@ -109,6 +117,7 @@ describe('GatheringSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        resourceVariantId: null,
       };
 
       prismaMock.gatheringSkillRequirement.create.mockResolvedValue(
@@ -150,6 +159,7 @@ describe('GatheringSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        resourceVariantId: null,
       };
       const updateDto: UpdateGatheringSkillRequirementDto = {
         description: 'Unlock Goblins',
@@ -161,6 +171,7 @@ describe('GatheringSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        resourceVariantId: null,
       };
 
       prismaMock.gatheringSkillRequirement.findUnique.mockResolvedValue(
@@ -205,6 +216,7 @@ describe('GatheringSkillRequirementsService', () => {
         description: 'Unlock Goblins',
         skillId: 10,
         unlockLevel: 1,
+        resourceVariantId: null,
       };
 
       prismaMock.gatheringSkillRequirement.findUnique.mockResolvedValue(

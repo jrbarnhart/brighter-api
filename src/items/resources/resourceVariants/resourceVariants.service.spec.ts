@@ -36,13 +36,11 @@ describe('ResourceVariantsService', () => {
           id: 1,
           name: 'ResourceVariant One',
           resourceId: 10,
-          requirementId: null,
         },
         {
           id: 2,
           name: 'ResourceVariant Two',
           resourceId: 20,
-          requirementId: null,
         },
       ];
 
@@ -70,7 +68,6 @@ describe('ResourceVariantsService', () => {
         id: 1,
         name: 'ResourceVariant One',
         resourceId: 10,
-        requirementId: null,
       };
 
       prismaMock.resourceVariant.findUnique.mockResolvedValue(
@@ -100,7 +97,6 @@ describe('ResourceVariantsService', () => {
         id: 1,
         name: 'ResourceVariant One',
         resourceId: 10,
-        requirementId: null,
       };
 
       prismaMock.resourceVariant.create.mockResolvedValue(
@@ -136,7 +132,6 @@ describe('ResourceVariantsService', () => {
         id: 1,
         name: 'ResourceVariant One',
         resourceId: 10,
-        requirementId: null,
       };
       const updateDto: UpdateResourceVariantDto = {
         name: 'Updated ResourceVariant',
@@ -145,7 +140,6 @@ describe('ResourceVariantsService', () => {
         id: 1,
         name: 'Updated ResourceVariant',
         resourceId: 10,
-        requirementId: null,
       };
 
       prismaMock.resourceVariant.findUnique.mockResolvedValue(
@@ -181,7 +175,6 @@ describe('ResourceVariantsService', () => {
         id: 1,
         name: 'ResourceVariant One',
         resourceId: 10,
-        requirementId: null,
       };
 
       prismaMock.resourceVariant.findUnique.mockResolvedValue(
