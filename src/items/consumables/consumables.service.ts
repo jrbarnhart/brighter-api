@@ -22,7 +22,7 @@ export class ConsumablesService {
   findAll(): Promise<Consumable[]> {
     return this.prisma.consumable.findMany({
       include: {
-        // Add your includes here
+        variants: true,
       },
     });
   }
@@ -31,7 +31,7 @@ export class ConsumablesService {
     const foundConsumable = await this.prisma.consumable.findUnique({
       where: { id },
       include: {
-        // Add your includes here
+        variants: true,
       },
     });
 
