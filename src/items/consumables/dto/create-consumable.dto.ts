@@ -1,8 +1,22 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateConsumableDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(256)
   name: string;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  skillId?: number;
 }

@@ -23,6 +23,7 @@ export class ConsumablesService {
     return this.prisma.consumable.findMany({
       include: {
         variants: true,
+        skill: true,
       },
     });
   }
@@ -32,6 +33,7 @@ export class ConsumablesService {
       where: { id },
       include: {
         variants: true,
+        skill: true,
       },
     });
 

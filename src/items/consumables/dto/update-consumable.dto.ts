@@ -1,8 +1,21 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsInt,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class UpdateConsumableDto {
   @IsString()
-  @IsNotEmpty()
   @MaxLength(256)
+  @IsOptional()
   name?: string;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  skillId?: number;
 }
