@@ -32,8 +32,8 @@ describe('ConsumablesService', () => {
   describe('findAll', () => {
     it('should return all consumables array', async () => {
       const allConsumables: Consumable[] = [
-        { id: 1, name: 'Consumable One' },
-        { id: 2, name: 'Consumable Two' },
+        { id: 1, name: 'Consumable One', skillId: null },
+        { id: 2, name: 'Consumable Two', skillId: null },
       ];
 
       prismaMock.consumable.findMany.mockResolvedValue(allConsumables);
@@ -57,6 +57,7 @@ describe('ConsumablesService', () => {
       const existingConsumable: Consumable = {
         id: 1,
         name: 'Consumable One',
+        skillId: null,
       };
 
       prismaMock.consumable.findUnique.mockResolvedValue(existingConsumable);
@@ -82,6 +83,7 @@ describe('ConsumablesService', () => {
       const createdConsumable: Consumable = {
         id: 1,
         name: 'Consumable One',
+        skillId: null,
       };
 
       prismaMock.consumable.create.mockResolvedValue(createdConsumable);
@@ -113,11 +115,13 @@ describe('ConsumablesService', () => {
       const existingConsumable: Consumable = {
         id: 1,
         name: 'Consumable One',
+        skillId: null,
       };
       const updateDto: UpdateConsumableDto = { name: 'Updated Consumable' };
       const updatedConsumable: Consumable = {
         id: 1,
         name: 'Updated Consumable',
+        skillId: null,
       };
 
       prismaMock.consumable.findUnique.mockResolvedValue(existingConsumable);
@@ -148,6 +152,7 @@ describe('ConsumablesService', () => {
       const consumableToDelete: Consumable = {
         id: 1,
         name: 'Consumable One',
+        skillId: null,
       };
 
       prismaMock.consumable.findUnique.mockResolvedValue(consumableToDelete);
