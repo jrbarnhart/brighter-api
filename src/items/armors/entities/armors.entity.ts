@@ -41,7 +41,7 @@ export class ArmorEntity {
   })
   slot: GearSlot;
 
-  armorVariants: ArmorVariantBaseEntity[];
+  variants: ArmorVariantBaseEntity[];
 }
 
 export class ArmorBaseEntity {
