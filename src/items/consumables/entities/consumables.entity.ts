@@ -51,3 +51,24 @@ export class ConsumableBaseEntity {
   @IsOptional()
   skillId?: number;
 }
+
+export class ConsumableBaseWithSkillEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  skillId?: number;
+
+  skill?: CraftingSkillBaseEntity;
+}

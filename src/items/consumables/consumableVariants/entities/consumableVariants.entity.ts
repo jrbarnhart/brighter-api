@@ -6,7 +6,10 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { ConsumableBaseEntity } from '../../entities/consumables.entity';
+import {
+  ConsumableBaseEntity,
+  ConsumableBaseWithSkillEntity,
+} from '../../entities/consumables.entity';
 import { CraftingRecipeBaseEntity } from 'src/skills/craftingSkill/craftingRecipes/entities/craftingRecipes.entity';
 import { VendorBaseEntity } from 'src/npcs/vendors/entities/vendors.entity';
 import { DropTableBaseEntity } from 'src/monsters/dropTables/entities/dropTables.entity';
@@ -23,7 +26,7 @@ export class ConsumableVariantEntity {
   @MaxLength(256)
   name: string;
 
-  consumable: ConsumableBaseEntity;
+  consumable: ConsumableBaseWithSkillEntity;
 
   @IsNotEmpty()
   @IsNumber()

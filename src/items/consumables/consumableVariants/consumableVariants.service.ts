@@ -24,7 +24,7 @@ export class ConsumableVariantsService {
   findAll(): Promise<ConsumableVariant[]> {
     return this.prisma.consumableVariant.findMany({
       include: {
-        consumable: true,
+        consumable: { include: { skill: true } },
         dropTables: true,
         recipe: true,
         vendors: true,
@@ -37,7 +37,7 @@ export class ConsumableVariantsService {
       await this.prisma.consumableVariant.findUnique({
         where: { id },
         include: {
-          consumable: true,
+          consumable: { include: { skill: true } },
           dropTables: true,
           recipe: true,
           vendors: true,
