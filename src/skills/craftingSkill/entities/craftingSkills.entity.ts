@@ -9,6 +9,7 @@ import {
 import { CraftingSkillRequirementBaseEntity } from '../craftingSkillRequirement/entities/craftingSkillRequirements.entity';
 import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
 import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
+import { ConsumableBaseEntity } from 'src/items/consumables/entities/consumables.entity';
 
 export class CraftingSkillEntity {
   @IsNotEmpty()
@@ -33,6 +34,8 @@ export class CraftingSkillEntity {
   requirements: CraftingSkillRequirementBaseEntity[];
 
   rooms: RoomBaseEntity[];
+
+  consumables: ConsumableBaseEntity[];
 }
 
 export class CraftingSkillBaseEntity {

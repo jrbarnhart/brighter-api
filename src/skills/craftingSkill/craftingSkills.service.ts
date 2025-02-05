@@ -27,6 +27,7 @@ export class CraftingSkillsService {
         region: true,
         requirements: true,
         rooms: true,
+        consumables: true,
       },
     });
   }
@@ -38,6 +39,7 @@ export class CraftingSkillsService {
         region: true,
         requirements: true,
         rooms: true,
+        consumables: true,
       },
     });
 
