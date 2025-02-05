@@ -1,7 +1,7 @@
 import {
   IsBoolean,
   IsEnum,
-  IsNotEmpty,
+  IsOptional,
   IsString,
   MaxLength,
 } from 'class-validator';
@@ -9,12 +9,12 @@ import { AttackElement, Faction } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateWeaponDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @MaxLength(256)
   name?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(Faction)
   @ApiProperty({
     description: 'The faction/player class this belongs to',
@@ -23,7 +23,7 @@ export class UpdateWeaponDto {
   })
   faction?: Faction;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(AttackElement)
   @ApiProperty({
     description: 'The damage element this weapon has',
@@ -32,11 +32,11 @@ export class UpdateWeaponDto {
   })
   element?: AttackElement;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
   isRanged?: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
   isTwoHanded?: boolean;
 }
