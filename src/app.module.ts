@@ -13,6 +13,7 @@ import { NpcsModule } from './npcs/npcs.module';
 import { QuestsModule } from './quests/quests.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
+import { EnumsModule } from './enums/enums.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ResponseInterceptor } from './interceptors/response.interceptor';
     MonstersModule,
     NpcsModule,
     QuestsModule,
+    EnumsModule,
   ],
   controllers: [AppController],
   providers: [
