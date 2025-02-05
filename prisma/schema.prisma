@@ -137,6 +137,7 @@ model CraftingSkill {
   regionId     Int
   requirements CraftingSkillRequirement[]
   rooms        Room[]
+  consumables  Consumable[]
 }
 
 model CraftingSkillRequirement {
@@ -206,6 +207,8 @@ model Consumable {
   id       Int                 @id @default(autoincrement())
   name     String              @unique
   variants ConsumableVariant[]
+  skill    CraftingSkill?      @relation(fields: [skillId], references: [id])
+  skillId  Int?                @unique
 }
 
 model ConsumableVariant {
