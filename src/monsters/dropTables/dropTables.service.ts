@@ -11,8 +11,35 @@ export class DropTablesService {
 
   async create(createDropTableDto: CreateDropTableDto): Promise<DropTable> {
     try {
+      const {
+        monsterVariantId,
+        resourceVariantIds,
+        weaponVariantIds,
+        armorVariantIds,
+        consumableVariantIds,
+        miscItemIds,
+        currency,
+      } = createDropTableDto;
       return await this.prisma.dropTable.create({
-        data: createDropTableDto,
+        data: {
+          monsterVariantId,
+          resourceVariants: resourceVariantIds
+            ? { connect: resourceVariantIds.map((id) => ({ id })) }
+            : undefined,
+          miscItems: miscItemIds
+            ? { connect: miscItemIds.map((id) => ({ id })) }
+            : undefined,
+          armorVariants: armorVariantIds
+            ? { connect: armorVariantIds.map((id) => ({ id })) }
+            : undefined,
+          consumableVariants: consumableVariantIds
+            ? { connect: consumableVariantIds.map((id) => ({ id })) }
+            : undefined,
+          weaponVariants: weaponVariantIds
+            ? { connect: weaponVariantIds.map((id) => ({ id })) }
+            : undefined,
+          currency,
+        },
       });
     } catch (error) {
       throw prismaError(error);
@@ -65,9 +92,36 @@ export class DropTablesService {
     }
 
     try {
+      const {
+        monsterVariantId,
+        resourceVariantIds,
+        weaponVariantIds,
+        armorVariantIds,
+        consumableVariantIds,
+        miscItemIds,
+        currency,
+      } = updateDropTableDto;
       return await this.prisma.dropTable.update({
         where: { id },
-        data: updateDropTableDto,
+        data: {
+          monsterVariantId,
+          resourceVariants: resourceVariantIds
+            ? { connect: resourceVariantIds.map((id) => ({ id })) }
+            : undefined,
+          miscItems: miscItemIds
+            ? { connect: miscItemIds.map((id) => ({ id })) }
+            : undefined,
+          armorVariants: armorVariantIds
+            ? { connect: armorVariantIds.map((id) => ({ id })) }
+            : undefined,
+          consumableVariants: consumableVariantIds
+            ? { connect: consumableVariantIds.map((id) => ({ id })) }
+            : undefined,
+          weaponVariants: weaponVariantIds
+            ? { connect: weaponVariantIds.map((id) => ({ id })) }
+            : undefined,
+          currency,
+        },
       });
     } catch (error) {
       throw prismaError(error);
