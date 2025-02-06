@@ -24,6 +24,7 @@ export class MiscItemsService {
       include: {
         inRecipes: true,
         vendors: true,
+        dropTables: true,
       },
     });
   }
@@ -34,6 +35,7 @@ export class MiscItemsService {
       include: {
         inRecipes: true,
         vendors: true,
+        dropTables: true,
       },
     });
 
