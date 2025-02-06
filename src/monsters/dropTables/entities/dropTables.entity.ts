@@ -27,7 +27,7 @@ export class DropTableEntity {
 
   armorVariants: ArmorVariantBaseEntity[];
 
-  consumeablbeVariants: ConsumableVariantBaseEntity[];
+  consumableVariants: ConsumableVariantBaseEntity[];
 
   miscItems: MiscItemBaseEntity[];
 
