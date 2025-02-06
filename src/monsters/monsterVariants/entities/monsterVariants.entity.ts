@@ -2,6 +2,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -40,7 +41,8 @@ export class MonsterVariantEntity {
   @IsPositive()
   requirementId: number | null;
 
-  dropTable: DropTableBaseEntity;
+  @IsOptional()
+  dropTable?: DropTableBaseEntity;
 }
 
 export class MonsterVariantBaseEntity {
