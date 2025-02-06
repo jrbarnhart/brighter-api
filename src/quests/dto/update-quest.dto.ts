@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateQuestDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @MaxLength(256)
   name?: string;
