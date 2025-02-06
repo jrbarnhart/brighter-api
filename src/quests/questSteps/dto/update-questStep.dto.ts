@@ -1,37 +1,37 @@
 import {
   IsInt,
-  IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
 } from 'class-validator';
 
 export class UpdateQuestStepDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @IsInt()
   @IsPositive()
   index?: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @MaxLength(400)
   description?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @IsInt()
   @IsPositive()
   questId?: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @IsInt()
   @IsPositive()
   roomId?: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @IsInt()
   @IsPositive()
