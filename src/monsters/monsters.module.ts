@@ -9,15 +9,15 @@ import { DropTablesService } from './dropTables/dropTables.service';
 
 @Module({
   controllers: [
+    DropTablesController,
     MonsterVariantsController,
     MonstersController,
-    DropTablesController,
   ],
   providers: [
     PrismaService,
+    DropTablesService,
     MonsterVariantsService,
     MonstersService,
-    DropTablesService,
   ],
 })
 export class MonstersModule {}
