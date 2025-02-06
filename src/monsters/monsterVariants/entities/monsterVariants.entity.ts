@@ -7,7 +7,10 @@ import {
   MaxLength,
 } from 'class-validator';
 import { DropTableBaseEntity } from 'src/monsters/dropTables/entities/dropTables.entity';
-import { MonsterBaseEntity } from 'src/monsters/entities/monsters.entity';
+import {
+  MonsterBaseEntity,
+  MonsterBaseWithSkillEntity,
+} from 'src/monsters/entities/monsters.entity';
 import { CombatSkillRequirementBaseEntity } from 'src/skills/combatSkill/combatSkillRequirement/entities/combatSkillRequirements.entity';
 
 export class MonsterVariantEntity {
@@ -22,7 +25,7 @@ export class MonsterVariantEntity {
   @MaxLength(256)
   name: string;
 
-  monster: MonsterBaseEntity;
+  monster: MonsterBaseWithSkillEntity;
 
   @IsNotEmpty()
   @IsNumber()

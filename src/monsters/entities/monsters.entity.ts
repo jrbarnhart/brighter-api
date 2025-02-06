@@ -119,3 +119,55 @@ export class MonsterBaseEntity {
   })
   vulnerableElement: AttackElement;
 }
+
+export class MonsterBaseWithSkillEntity {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  skillId: number;
+
+  skill: CombatSkillBaseEntity;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  passive: boolean;
+
+  @IsNotEmpty()
+  @IsEnum(AttackElement)
+  @ApiProperty({
+    description: 'The damage element this weapon has',
+    enum: AttackElement,
+    type: String,
+  })
+  attackElement: AttackElement;
+
+  @IsNotEmpty()
+  @IsEnum(AttackElement)
+  @ApiProperty({
+    description: 'The damage element this weapon has',
+    enum: AttackElement,
+    type: String,
+  })
+  immuneElement: AttackElement;
+
+  @IsNotEmpty()
+  @IsEnum(AttackElement)
+  @ApiProperty({
+    description: 'The damage element this weapon has',
+    enum: AttackElement,
+    type: String,
+  })
+  vulnerableElement: AttackElement;
+}

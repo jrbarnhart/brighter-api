@@ -25,7 +25,7 @@ export class MonsterVariantsService {
     return this.prisma.monsterVariant.findMany({
       include: {
         dropTable: true,
-        monster: true,
+        monster: { include: { skill: true } },
         requirement: true,
       },
     });
@@ -36,7 +36,7 @@ export class MonsterVariantsService {
       where: { id },
       include: {
         dropTable: true,
-        monster: true,
+        monster: { include: { skill: true } },
         requirement: true,
       },
     });
