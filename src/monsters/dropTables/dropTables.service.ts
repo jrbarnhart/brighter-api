@@ -22,7 +22,12 @@ export class DropTablesService {
   findAll(): Promise<DropTable[]> {
     return this.prisma.dropTable.findMany({
       include: {
-        // Add your includes here
+        armorVariants: true,
+        consumableVariants: true,
+        miscItems: true,
+        monsterVariant: { include: { monster: true } },
+        resourceVariants: true,
+        weaponVariants: true,
       },
     });
   }
@@ -31,7 +36,12 @@ export class DropTablesService {
     const foundDropTable = await this.prisma.dropTable.findUnique({
       where: { id },
       include: {
-        // Add your includes here
+        armorVariants: true,
+        consumableVariants: true,
+        miscItems: true,
+        monsterVariant: { include: { monster: true } },
+        resourceVariants: true,
+        weaponVariants: true,
       },
     });
 

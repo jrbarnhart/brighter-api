@@ -4,7 +4,7 @@ import { ConsumableVariantBaseEntity } from 'src/items/consumables/consumableVar
 import { MiscItemBaseEntity } from 'src/items/miscItems/entities/miscItems.entity';
 import { ResourceVariantBaseEntity } from 'src/items/resources/resourceVariants/entities/resourceVariants.entity';
 import { WeaponVariantBaseEntity } from 'src/items/weapons/weaponVariants/entities/weaponVariants.entity';
-import { MonsterVariantBaseEntity } from 'src/monsters/monsterVariants/entities/monsterVariants.entity';
+import { MonsterVariantBaseWithMonsterEntity } from 'src/monsters/monsterVariants/entities/monsterVariants.entity';
 
 export class DropTableEntity {
   @IsNotEmpty()
@@ -13,7 +13,7 @@ export class DropTableEntity {
   @IsPositive()
   id: number;
 
-  monsterVariant: MonsterVariantBaseEntity;
+  monsterVariant: MonsterVariantBaseWithMonsterEntity;
 
   @IsNotEmpty()
   @IsNumber()
