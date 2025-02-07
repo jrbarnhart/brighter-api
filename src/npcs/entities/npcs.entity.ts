@@ -2,6 +2,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -22,6 +23,7 @@ export class NpcEntity {
   @MaxLength(256)
   name: string;
 
+  @IsOptional()
   vendor?: VendorBaseEntity;
 
   questSteps: QuestStepBaseEntity[];
