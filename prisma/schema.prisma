@@ -244,7 +244,7 @@ model Vendor {
   npcId              Int                 @unique
   resourceVariants   ResourceVariant[]
   consumableVariants ConsumableVariant[]
-  weaponVaraints     WeaponVariant[]
+  weaponVariants     WeaponVariant[]
   armorVariants      ArmorVariant[]
   miscItems          MiscItem[]
 }
