@@ -3,6 +3,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
 } from 'class-validator';
 
@@ -17,29 +18,34 @@ export class CreateVendorDto {
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
+  @IsOptional()
   resourceVariantIds?: number[];
 
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
+  @IsOptional()
   weaponVariantIds?: number[];
 
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
+  @IsOptional()
   armorVariantIds?: number[];
 
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
+  @IsOptional()
   consumableVariantIds?: number[];
 
   @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
+  @IsOptional()
   miscItemsIds?: number[];
 }
