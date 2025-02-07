@@ -47,5 +47,5 @@ export class CreateVendorDto {
   @IsInt({ each: true })
   @IsPositive({ each: true })
   @IsOptional()
-  miscItemsIds?: number[];
+  miscItemIds?: number[];
 }

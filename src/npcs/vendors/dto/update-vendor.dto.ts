@@ -46,5 +46,5 @@ export class UpdateVendorDto {
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
-  miscItemsIds?: number[];
+  miscItemIds?: number[];
 }
