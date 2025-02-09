@@ -11,8 +11,39 @@ export class RoomsService {
 
   async create(createRoomDto: CreateRoomDto): Promise<Room> {
     try {
+      const {
+        name,
+        obelisk,
+        portal,
+        regionId,
+        banks,
+        craftingSkillIds,
+        monsterIds,
+        npcIds,
+        questStepIds,
+        resourceIds,
+      } = createRoomDto;
       return await this.prisma.room.create({
-        data: createRoomDto,
+        data: {
+          name,
+          regionId,
+          obelisk,
+          portal,
+          banks,
+          craftingSkills: craftingSkillIds
+            ? { connect: craftingSkillIds.map((id) => ({ id })) }
+            : undefined,
+          monsters: monsterIds
+            ? { connect: monsterIds.map((id) => ({ id })) }
+            : undefined,
+          npcs: npcIds ? { connect: npcIds.map((id) => ({ id })) } : undefined,
+          questSteps: questStepIds
+            ? { connect: questStepIds.map((id) => ({ id })) }
+            : undefined,
+          resources: resourceIds
+            ? { connect: resourceIds.map((id) => ({ id })) }
+            : undefined,
+        },
       });
     } catch (error) {
       throw prismaError(error);
@@ -62,9 +93,40 @@ export class RoomsService {
     }
 
     try {
+      const {
+        name,
+        obelisk,
+        portal,
+        regionId,
+        banks,
+        craftingSkillIds,
+        monsterIds,
+        npcIds,
+        questStepIds,
+        resourceIds,
+      } = updateRoomDto;
       return await this.prisma.room.update({
         where: { id },
-        data: updateRoomDto,
+        data: {
+          name,
+          regionId,
+          obelisk,
+          portal,
+          banks,
+          craftingSkills: craftingSkillIds
+            ? { connect: craftingSkillIds.map((id) => ({ id })) }
+            : undefined,
+          monsters: monsterIds
+            ? { connect: monsterIds.map((id) => ({ id })) }
+            : undefined,
+          npcs: npcIds ? { connect: npcIds.map((id) => ({ id })) } : undefined,
+          questSteps: questStepIds
+            ? { connect: questStepIds.map((id) => ({ id })) }
+            : undefined,
+          resources: resourceIds
+            ? { connect: resourceIds.map((id) => ({ id })) }
+            : undefined,
+        },
       });
     } catch (error) {
       throw prismaError(error);
