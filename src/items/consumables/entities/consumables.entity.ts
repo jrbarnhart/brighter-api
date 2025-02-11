@@ -6,6 +6,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { ConsumableVariantBaseEntity } from '../consumableVariants/entities/consumableVariants.entity';
 import { CraftingSkillBaseEntity } from 'src/skills/craftingSkill/entities/craftingSkills.entity';
@@ -20,6 +21,7 @@ export class ConsumableEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   skill?: CraftingSkillBaseEntity;
@@ -43,6 +45,7 @@ export class ConsumableBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNumber()
@@ -62,6 +65,7 @@ export class ConsumableBaseWithSkillEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNumber()

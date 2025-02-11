@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { AttackElement, Faction } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
@@ -12,6 +13,7 @@ export class CreateWeaponDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

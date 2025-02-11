@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { CraftingSkillRequirementBaseEntity } from '../craftingSkillRequirement/entities/craftingSkillRequirements.entity';
 import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
@@ -21,6 +22,7 @@ export class CraftingSkillEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   region: RegionBaseEntity;
@@ -48,6 +50,7 @@ export class CraftingSkillBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

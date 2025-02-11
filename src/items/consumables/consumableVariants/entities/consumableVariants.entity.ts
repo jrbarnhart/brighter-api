@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import {
   ConsumableBaseEntity,
@@ -24,6 +25,7 @@ export class ConsumableVariantEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   consumable: ConsumableBaseWithSkillEntity;
@@ -57,6 +59,7 @@ export class ConsumableVariantBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()
@@ -82,6 +85,7 @@ export class ConsumableVariantBaseWithConsumableEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

@@ -9,6 +9,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
@@ -28,6 +29,7 @@ export class RoomEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   region: RegionBaseEntity;
@@ -77,6 +79,7 @@ export class RoomBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

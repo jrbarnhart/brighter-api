@@ -6,6 +6,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { DropTableBaseEntity } from 'src/monsters/dropTables/entities/dropTables.entity';
 import {
@@ -24,6 +25,7 @@ export class MonsterVariantEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   monster: MonsterBaseWithSkillEntity;
@@ -55,6 +57,7 @@ export class MonsterVariantBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()
@@ -79,6 +82,7 @@ export class MonsterVariantBaseWithMonsterEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

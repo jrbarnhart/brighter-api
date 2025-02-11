@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
 import { CombatSkillBaseEntity } from 'src/skills/combatSkill/entities/combatSkills.entity';
@@ -21,6 +22,7 @@ export class RegionEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   rooms: RoomBaseEntity[];
@@ -42,5 +44,6 @@ export class RegionBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 }

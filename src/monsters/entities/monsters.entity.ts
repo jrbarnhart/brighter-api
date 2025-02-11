@@ -9,6 +9,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { CombatSkillBaseEntity } from 'src/skills/combatSkill/entities/combatSkills.entity';
 import { MonsterVariantBaseEntity } from '../monsterVariants/entities/monsterVariants.entity';
@@ -24,6 +25,7 @@ export class MonsterEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   skill: CombatSkillBaseEntity;
@@ -80,6 +82,7 @@ export class MonsterBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()
@@ -130,6 +133,7 @@ export class MonsterBaseWithSkillEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

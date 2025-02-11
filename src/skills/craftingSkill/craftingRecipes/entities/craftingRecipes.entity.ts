@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { ArmorVariantBaseWithArmorEntity } from 'src/items/armors/armorVariants/entities/armorVariants.entity';
 import { CraftingSkillRequirementBaseWithSkillEntity } from '../../craftingSkillRequirement/entities/craftingSkillRequirements.entity';
@@ -23,6 +24,7 @@ export class CraftingRecipeEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   requirement?: CraftingSkillRequirementBaseWithSkillEntity;
@@ -50,6 +52,7 @@ export class CraftingRecipeBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNumber()

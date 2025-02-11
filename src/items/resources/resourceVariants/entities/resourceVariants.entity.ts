@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import {
   ResourceBaseEntity,
@@ -25,6 +26,7 @@ export class ResourceVariantEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   resource: ResourceBaseWithSkillEntity;
@@ -60,6 +62,7 @@ export class ResourceVariantBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()
@@ -85,6 +88,7 @@ export class ResourceVariantBaseWithResourceEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

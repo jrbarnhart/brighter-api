@@ -9,6 +9,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { WeaponVariantBaseEntity } from '../weaponVariants/entities/weaponVariants.entity';
 
@@ -22,6 +23,7 @@ export class WeaponEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()
@@ -63,6 +65,7 @@ export class WeaponBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

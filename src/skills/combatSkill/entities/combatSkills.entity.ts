@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { CombatSkillRequirementBaseEntity } from '../combatSkillRequirement/entities/combatSkillRequirements.entity';
 import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
@@ -20,6 +21,7 @@ export class CombatSkillEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   region: RegionBaseEntity;
@@ -45,6 +47,7 @@ export class CombatSkillBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

@@ -5,12 +5,14 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class CreateConsumableVariantDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNumber()

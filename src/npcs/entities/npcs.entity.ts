@@ -6,6 +6,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { VendorBaseEntity } from '../vendors/entities/vendors.entity';
 import { QuestStepBaseEntity } from 'src/quests/questSteps/entities/questSteps.entity';
@@ -21,6 +22,7 @@ export class NpcEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsOptional()
@@ -41,5 +43,6 @@ export class NpcBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 }

@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { GatheringSkillRequirementBaseEntity } from '../gatheringSkillRequirement/entities/gatheringSkillRequirements.entity';
 import { ResourceBaseEntity } from 'src/items/resources/entities/resources.entity';
@@ -20,6 +21,7 @@ export class GatheringSkillEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   region: RegionBaseEntity;
@@ -45,6 +47,7 @@ export class GatheringSkillBaseEntity {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name: string;
 
   @IsNotEmpty()

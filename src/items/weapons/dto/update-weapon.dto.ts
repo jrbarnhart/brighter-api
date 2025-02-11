@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 import { AttackElement, Faction } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
@@ -12,6 +13,7 @@ export class UpdateWeaponDto {
   @IsOptional()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name?: string;
 
   @IsOptional()

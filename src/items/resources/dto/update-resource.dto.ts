@@ -6,12 +6,14 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class UpdateResourceDto {
   @IsOptional()
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   name?: string;
 
   @IsOptional()

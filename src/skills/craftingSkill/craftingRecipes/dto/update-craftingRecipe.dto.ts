@@ -5,11 +5,13 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class UpdateCraftingRecipeDto {
   @IsString()
   @MaxLength(256)
+  @MinLength(1)
   @IsOptional()
   name?: string;
 
