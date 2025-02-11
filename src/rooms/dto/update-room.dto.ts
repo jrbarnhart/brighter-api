@@ -41,6 +41,17 @@ export class UpdateRoomDto {
 
   @IsOptional()
   @IsArray()
+  @IsEnum(BankType, { each: true })
+  @ApiProperty({
+    description: 'The array of types of bank in this room',
+    isArray: true,
+    enum: BankType,
+    type: String,
+  })
+  banks?: BankType[];
+
+  @IsOptional()
+  @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
@@ -76,12 +87,36 @@ export class UpdateRoomDto {
 
   @IsOptional()
   @IsArray()
-  @IsEnum(BankType, { each: true })
-  @ApiProperty({
-    description: 'The array of types of bank in this room',
-    isArray: true,
-    enum: BankType,
-    type: String,
-  })
-  banks?: BankType[];
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeCraftingSkillIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeMonsterIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeNpcIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeResourceIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeQuestStepIds?: number[];
 }

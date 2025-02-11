@@ -104,6 +104,11 @@ export class RoomsService {
         npcIds,
         questStepIds,
         resourceIds,
+        removeCraftingSkillIds,
+        removeMonsterIds,
+        removeNpcIds,
+        removeQuestStepIds,
+        removeResourceIds,
       } = updateRoomDto;
       return await this.prisma.room.update({
         where: { id },
@@ -113,19 +118,41 @@ export class RoomsService {
           obelisk,
           portal,
           banks,
-          craftingSkills: craftingSkillIds
-            ? { connect: craftingSkillIds.map((id) => ({ id })) }
-            : undefined,
-          monsters: monsterIds
-            ? { connect: monsterIds.map((id) => ({ id })) }
-            : undefined,
-          npcs: npcIds ? { connect: npcIds.map((id) => ({ id })) } : undefined,
-          questSteps: questStepIds
-            ? { connect: questStepIds.map((id) => ({ id })) }
-            : undefined,
-          resources: resourceIds
-            ? { connect: resourceIds.map((id) => ({ id })) }
-            : undefined,
+          craftingSkills:
+            craftingSkillIds || removeCraftingSkillIds
+              ? {
+                  connect: craftingSkillIds?.map((id) => ({ id })),
+                  disconnect: removeCraftingSkillIds?.map((id) => ({ id })),
+                }
+              : undefined,
+          monsters:
+            monsterIds || removeMonsterIds
+              ? {
+                  connect: monsterIds?.map((id) => ({ id })),
+                  disconnect: removeMonsterIds?.map((id) => ({ id })),
+                }
+              : undefined,
+          npcs:
+            npcIds || removeNpcIds
+              ? {
+                  connect: npcIds?.map((id) => ({ id })),
+                  disconnect: removeNpcIds?.map((id) => ({ id })),
+                }
+              : undefined,
+          questSteps:
+            questStepIds || removeQuestStepIds
+              ? {
+                  connect: questStepIds?.map((id) => ({ id })),
+                  disconnect: removeQuestStepIds?.map((id) => ({ id })),
+                }
+              : undefined,
+          resources:
+            resourceIds || removeResourceIds
+              ? {
+                  connect: resourceIds?.map((id) => ({ id })),
+                  disconnect: removeResourceIds?.map((id) => ({ id })),
+                }
+              : undefined,
         },
       });
     } catch (error) {
