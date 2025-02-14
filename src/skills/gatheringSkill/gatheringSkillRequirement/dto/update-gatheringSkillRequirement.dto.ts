@@ -29,5 +29,5 @@ export class UpdateGatheringSkillRequirementDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  resourceVariantId?: number;
+  resourceVariantId?: number | null;
 }

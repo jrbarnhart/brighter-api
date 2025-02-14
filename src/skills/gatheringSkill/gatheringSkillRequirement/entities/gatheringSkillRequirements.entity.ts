@@ -2,6 +2,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -30,6 +31,12 @@ export class GatheringSkillRequirementEntity {
 
   resourceVariant?: ResourceVariantBaseWithResourceEntity;
 
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  resourceVariantId: number | null;
+
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
@@ -53,6 +60,12 @@ export class GatheringSkillRequirementBaseEntity {
   @IsInt()
   @IsPositive()
   skillId: number;
+
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  resourceVariantId: number | null;
 
   @IsNotEmpty()
   @IsNumber()

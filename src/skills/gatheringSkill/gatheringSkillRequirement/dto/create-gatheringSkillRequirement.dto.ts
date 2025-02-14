@@ -30,5 +30,5 @@ export class CreateGatheringSkillRequirementDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  resourceVariantId?: number;
+  resourceVariantId?: number | null;
 }
