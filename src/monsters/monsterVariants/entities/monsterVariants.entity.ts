@@ -38,11 +38,6 @@ export class MonsterVariantEntity {
 
   requirement?: CombatSkillRequirementBaseEntity;
 
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  requirementId: number | null;
-
   @IsOptional()
   dropTable?: DropTableBaseEntity;
 }
@@ -65,11 +60,6 @@ export class MonsterVariantBaseEntity {
   @IsInt()
   @IsPositive()
   monsterId: number;
-
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  requirementId: number | null;
 }
 
 export class MonsterVariantBaseWithMonsterEntity {
@@ -92,9 +82,4 @@ export class MonsterVariantBaseWithMonsterEntity {
   monsterId: number;
 
   monster: MonsterBaseEntity;
-
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  requirementId: number | null;
 }
