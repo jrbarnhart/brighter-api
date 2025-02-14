@@ -29,5 +29,5 @@ export class UpdateCombatSkillRequirementDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  monsterVariantId?: number;
+  monsterVariantId?: number | null;
 }

@@ -35,7 +35,7 @@ export class CombatSkillRequirementEntity {
   @IsNumber()
   @IsInt()
   @IsPositive()
-  monsterVariantId?: number;
+  monsterVariantId?: number | null;
 
   @IsNotEmpty()
   @IsNumber()
@@ -60,6 +60,12 @@ export class CombatSkillRequirementBaseEntity {
   @IsInt()
   @IsPositive()
   skillId: number;
+
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  monsterVariantId?: number | null;
 
   @IsNotEmpty()
   @IsNumber()
