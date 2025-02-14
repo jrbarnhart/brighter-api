@@ -21,13 +21,11 @@ export class CreateCombatSkillRequirementDto {
   @IsPositive()
   unlockLevel: number;
 
-  @IsNotEmpty()
   @IsString()
   @MaxLength(400)
   @IsOptional()
   description?: string;
 
-  @IsNotEmpty()
   @IsNumber()
   @IsInt()
   @IsPositive()

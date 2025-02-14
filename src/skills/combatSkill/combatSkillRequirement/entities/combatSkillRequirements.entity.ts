@@ -2,6 +2,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -29,6 +30,12 @@ export class CombatSkillRequirementEntity {
   skillId: number;
 
   monsterVariant?: MonsterVariantBaseWithMonsterEntity;
+
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  monsterVariantId?: number;
 
   @IsNotEmpty()
   @IsNumber()
