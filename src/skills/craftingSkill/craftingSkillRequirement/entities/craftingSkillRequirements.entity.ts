@@ -2,6 +2,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -30,6 +31,12 @@ export class CraftingSkillRequirementEntity {
 
   recipe?: CraftingRecipeBaseEntity;
 
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  recipeId: number | null;
+
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
@@ -53,6 +60,12 @@ export class CraftingSkillRequirementBaseEntity {
   @IsInt()
   @IsPositive()
   skillId: number;
+
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  recipeId: number | null;
 
   @IsNotEmpty()
   @IsNumber()
@@ -79,6 +92,12 @@ export class CraftingSkillRequirementBaseWithSkillEntity {
   skillId: number;
 
   skill: CraftingSkillBaseEntity;
+
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  recipeId: number | null;
 
   @IsNotEmpty()
   @IsNumber()
