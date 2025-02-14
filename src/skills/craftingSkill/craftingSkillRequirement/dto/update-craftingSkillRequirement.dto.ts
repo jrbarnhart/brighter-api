@@ -29,5 +29,5 @@ export class UpdateCraftingSkillRequirementDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  recipeId?: number;
+  recipeId?: number | null;
 }
