@@ -29,11 +29,6 @@ export class CraftingRecipeEntity {
 
   requirement?: CraftingSkillRequirementBaseWithSkillEntity;
 
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  requirementId: number | null;
-
   inputResourceVariants: ResourceVariantBaseWithResourceEntity[];
   inputItems: MiscItemBaseEntity[];
 
@@ -54,9 +49,4 @@ export class CraftingRecipeBaseEntity {
   @MaxLength(256)
   @MinLength(1)
   name: string;
-
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  requirementId: number | null;
 }
