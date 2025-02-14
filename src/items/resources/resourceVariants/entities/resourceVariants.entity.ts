@@ -39,12 +39,6 @@ export class ResourceVariantEntity {
 
   requirement?: GatheringSkillRequirementBaseEntity;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  requirementId: number | null;
-
   inRecipes: CraftingRecipeBaseEntity[];
 
   vendors: VendorBaseEntity[];
@@ -70,12 +64,6 @@ export class ResourceVariantBaseEntity {
   @IsInt()
   @IsPositive()
   resourceId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  requirementId: number | null;
 }
 
 export class ResourceVariantBaseWithResourceEntity {
@@ -98,10 +86,4 @@ export class ResourceVariantBaseWithResourceEntity {
   resourceId: number;
 
   resource: ResourceBaseEntity;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  requirementId: number | null;
 }
