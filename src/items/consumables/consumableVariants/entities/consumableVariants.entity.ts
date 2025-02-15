@@ -38,12 +38,6 @@ export class ConsumableVariantEntity {
 
   recipe?: CraftingRecipeBaseEntity;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
-
   vendors: VendorBaseEntity[];
 
   dropTables: DropTableBaseEntity[];
@@ -67,12 +61,6 @@ export class ConsumableVariantBaseEntity {
   @IsInt()
   @IsPositive()
   consumableId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
 }
 
 export class ConsumableVariantBaseWithConsumableEntity {
@@ -95,10 +83,4 @@ export class ConsumableVariantBaseWithConsumableEntity {
   consumableId: number;
 
   consumable: ConsumableBaseEntity;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
 }

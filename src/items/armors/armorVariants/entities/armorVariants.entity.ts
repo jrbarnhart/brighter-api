@@ -35,12 +35,6 @@ export class ArmorVariantEntity {
 
   recipe?: CraftingRecipeBaseEntity;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
-
   vendors: VendorBaseEntity[];
 
   dropTables: DropTableBaseEntity[];
@@ -64,12 +58,6 @@ export class ArmorVariantBaseEntity {
   @IsInt()
   @IsPositive()
   armorId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
 }
 
 export class ArmorVariantBaseWithArmorEntity {
@@ -92,10 +80,4 @@ export class ArmorVariantBaseWithArmorEntity {
   armorId: number;
 
   armor: ArmorBaseEntity;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
 }

@@ -35,12 +35,6 @@ export class WeaponVariantEntity {
 
   recipe?: CraftingRecipeBaseEntity;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
-
   vendors: VendorBaseEntity[];
 
   dropTables: DropTableBaseEntity[];
@@ -64,12 +58,6 @@ export class WeaponVariantBaseEntity {
   @IsInt()
   @IsPositive()
   weaponId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
 }
 
 export class WeaponVariantBaseWithWeaponEntity {
@@ -92,10 +80,4 @@ export class WeaponVariantBaseWithWeaponEntity {
   weaponId: number;
 
   weapon: WeaponBaseEntity;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  @IsPositive()
-  recipeId: number | null;
 }
