@@ -158,9 +158,12 @@ model CraftingRecipe {
   inputResourceVariants ResourceVariant[]
   inputItems            MiscItem[]
 
-  outputConsumableVariant ConsumableVariant?
-  outputWeaponVariant     WeaponVariant?
-  outputArmorVariant      ArmorVariant?
+  outputConsumableVariant   ConsumableVariant? @relation(fields: [outputConsumableVariantId], references: [id])
+  outputConsumableVariantId Int?               @unique
+  outputWeaponVariant       WeaponVariant?     @relation(fields: [outputWeaponVariantId], references: [id])
+  outputWeaponVariantId     Int?               @unique
+  outputArmorVariant        ArmorVariant?      @relation(fields: [outputArmorVariantId], references: [id])
+  outputArmorVariantId      Int?               @unique
 }
 
 model Weapon {
@@ -178,8 +181,7 @@ model WeaponVariant {
   name       String          @unique
   weapon     Weapon          @relation(fields: [weaponId], references: [id])
   weaponId   Int
-  recipe     CraftingRecipe? @relation(fields: [recipeId], references: [id])
-  recipeId   Int?            @unique
+  recipe     CraftingRecipe?
   vendors    Vendor[]
   dropTables DropTable[]
 }
@@ -197,8 +199,7 @@ model ArmorVariant {
   name       String          @unique
   armor      Armor           @relation(fields: [armorId], references: [id])
   armorId    Int             @unique
-  recipe     CraftingRecipe? @relation(fields: [recipeId], references: [id])
-  recipeId   Int?            @unique
+  recipe     CraftingRecipe?
   vendors    Vendor[]
   dropTables DropTable[]
 }
@@ -216,8 +217,7 @@ model ConsumableVariant {
   name         String          @unique
   consumable   Consumable      @relation(fields: [consumableId], references: [id])
   consumableId Int             @unique
-  recipe       CraftingRecipe? @relation(fields: [recipeId], references: [id])
-  recipeId     Int?            @unique
+  recipe       CraftingRecipe?
   vendors      Vendor[]
   dropTables   DropTable[]
 }
