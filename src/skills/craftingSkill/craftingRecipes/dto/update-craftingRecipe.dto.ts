@@ -31,17 +31,17 @@ export class UpdateCraftingRecipeDto {
   @IsInt({ each: true })
   @IsPositive({ each: true })
   @IsOptional()
-  outputConsumableVariantId?: number;
+  outputConsumableVariantId?: number | null;
 
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   @IsOptional()
-  outputWeaponVariantId?: number;
+  outputWeaponVariantId?: number | null;
 
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   @IsOptional()
-  outputArmorVariantId?: number;
+  outputArmorVariantId?: number | null;
 }

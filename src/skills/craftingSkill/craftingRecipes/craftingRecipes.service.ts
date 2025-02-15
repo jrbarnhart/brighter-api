@@ -30,15 +30,9 @@ export class CraftingRecipesService {
           inputItems: inputItemIds
             ? { connect: inputItemIds.map((id) => ({ id })) }
             : undefined,
-          outputArmorVariant: outputArmorVariantId
-            ? { connect: { id: outputArmorVariantId } }
-            : undefined,
-          outputConsumableVariant: outputConsumableVariantId
-            ? { connect: { id: outputConsumableVariantId } }
-            : undefined,
-          outputWeaponVariant: outputWeaponVariantId
-            ? { connect: { id: outputArmorVariantId } }
-            : undefined,
+          outputArmorVariantId,
+          outputConsumableVariantId,
+          outputWeaponVariantId,
         },
       });
     } catch (error) {
@@ -110,15 +104,9 @@ export class CraftingRecipesService {
           inputItems: inputItemIds
             ? { connect: inputItemIds.map((id) => ({ id })) }
             : undefined,
-          outputArmorVariant: outputArmorVariantId
-            ? { connect: { id: outputArmorVariantId } }
-            : undefined,
-          outputConsumableVariant: outputConsumableVariantId
-            ? { connect: { id: outputConsumableVariantId } }
-            : undefined,
-          outputWeaponVariant: outputWeaponVariantId
-            ? { connect: { id: outputArmorVariantId } }
-            : undefined,
+          outputArmorVariantId,
+          outputConsumableVariantId,
+          outputWeaponVariantId,
         },
       });
     } catch (error) {

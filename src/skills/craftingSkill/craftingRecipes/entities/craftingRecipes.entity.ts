@@ -2,6 +2,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -33,8 +34,28 @@ export class CraftingRecipeEntity {
   inputItems: MiscItemBaseEntity[];
 
   outputConsumableVariant?: ConsumableVariantBaseWithConsumableEntity;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  outputConsumableVariantId: number | null;
+
   outputWeaponVariant?: WeaponVariantBaseWithWeaponEntity;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  outputWeaponVariantId: number | null;
+
   outputArmorVariant?: ArmorVariantBaseWithArmorEntity;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  outputArmorVariantId: number | null;
 }
 
 export class CraftingRecipeBaseEntity {
@@ -49,4 +70,22 @@ export class CraftingRecipeBaseEntity {
   @MaxLength(256)
   @MinLength(1)
   name: string;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  outputConsumableVariantId: number | null;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  outputWeaponVariantId: number | null;
+
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  outputArmorVariantId: number | null;
 }
