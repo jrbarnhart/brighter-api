@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -16,12 +17,14 @@ export class CreateCraftingRecipeDto {
   @MinLength(1)
   name: string;
 
+  @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   @IsOptional()
   inputResourceVariantIds?: number[];
 
+  @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })

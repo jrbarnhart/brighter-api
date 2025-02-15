@@ -89,7 +89,9 @@ export class CraftingRecipesService {
       const {
         name,
         inputResourceVariantIds,
+        removeInputResourceVariantIds,
         inputItemIds,
+        removeInputItemIds,
         outputArmorVariantId,
         outputConsumableVariantId,
         outputWeaponVariantId,
@@ -98,12 +100,22 @@ export class CraftingRecipesService {
         where: { id },
         data: {
           name,
-          inputResourceVariants: inputResourceVariantIds
-            ? { connect: inputResourceVariantIds.map((id) => ({ id })) }
-            : undefined,
-          inputItems: inputItemIds
-            ? { connect: inputItemIds.map((id) => ({ id })) }
-            : undefined,
+          inputResourceVariants:
+            inputResourceVariantIds || removeInputResourceVariantIds
+              ? {
+                  connect: inputResourceVariantIds?.map((id) => ({ id })),
+                  disconnect: removeInputResourceVariantIds?.map((id) => ({
+                    id,
+                  })),
+                }
+              : undefined,
+          inputItems:
+            inputItemIds || removeInputItemIds
+              ? {
+                  connect: inputItemIds?.map((id) => ({ id })),
+                  disconnect: removeInputItemIds?.map((id) => ({ id })),
+                }
+              : undefined,
           outputArmorVariantId,
           outputConsumableVariantId,
           outputWeaponVariantId,

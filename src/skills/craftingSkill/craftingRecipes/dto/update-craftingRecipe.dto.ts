@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsInt,
   IsNumber,
   IsOptional,
@@ -15,17 +16,33 @@ export class UpdateCraftingRecipeDto {
   @IsOptional()
   name?: string;
 
+  @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   @IsOptional()
   inputResourceVariantIds?: number[];
 
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  @IsOptional()
+  removeInputResourceVariantIds?: number[];
+
+  @IsArray()
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
   @IsPositive({ each: true })
   @IsOptional()
   inputItemIds?: number[];
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  @IsOptional()
+  removeInputItemIds?: number[];
 
   @IsNumber({}, { each: true })
   @IsInt({ each: true })
