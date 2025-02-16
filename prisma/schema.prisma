@@ -123,7 +123,7 @@ model ResourceVariant {
   id          Int                        @id @default(autoincrement())
   name        String                     @unique
   resource    Resource                   @relation(fields: [resourceId], references: [id])
-  resourceId  Int                        @unique
+  resourceId  Int
   requirement GatheringSkillRequirement?
   inRecipes   CraftingRecipe[]
   vendors     Vendor[]
@@ -198,7 +198,7 @@ model ArmorVariant {
   id         Int             @id @default(autoincrement())
   name       String          @unique
   armor      Armor           @relation(fields: [armorId], references: [id])
-  armorId    Int             @unique
+  armorId    Int
   recipe     CraftingRecipe?
   vendors    Vendor[]
   dropTables DropTable[]
@@ -216,7 +216,7 @@ model ConsumableVariant {
   id           Int             @id @default(autoincrement())
   name         String          @unique
   consumable   Consumable      @relation(fields: [consumableId], references: [id])
-  consumableId Int             @unique
+  consumableId Int
   recipe       CraftingRecipe?
   vendors      Vendor[]
   dropTables   DropTable[]
@@ -260,7 +260,7 @@ model QuestStep {
   index       Int
   description String
   quest       Quest  @relation(fields: [questId], references: [id])
-  questId     Int    @unique
+  questId     Int
   room        Room?  @relation(fields: [roomId], references: [id])
   roomId      Int?   @unique
   npc         NPC?   @relation(fields: [npcId], references: [id])
