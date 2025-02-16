@@ -209,7 +209,7 @@ model Consumable {
   name     String              @unique
   variants ConsumableVariant[]
   skill    CraftingSkill?      @relation(fields: [skillId], references: [id])
-  skillId  Int?                @unique
+  skillId  Int?
 }
 
 model ConsumableVariant {
