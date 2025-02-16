@@ -178,7 +178,7 @@ model Weapon {
 
 model WeaponVariant {
   id         Int             @id @default(autoincrement())
-  name       String          @unique
+  name       String
   weapon     Weapon          @relation(fields: [weaponId], references: [id])
   weaponId   Int
   recipe     CraftingRecipe?
@@ -196,7 +196,7 @@ model Armor {
 
 model ArmorVariant {
   id         Int             @id @default(autoincrement())
-  name       String          @unique
+  name       String
   armor      Armor           @relation(fields: [armorId], references: [id])
   armorId    Int
   recipe     CraftingRecipe?
@@ -214,7 +214,7 @@ model Consumable {
 
 model ConsumableVariant {
   id           Int             @id @default(autoincrement())
-  name         String          @unique
+  name         String
   consumable   Consumable      @relation(fields: [consumableId], references: [id])
   consumableId Int
   recipe       CraftingRecipe?
