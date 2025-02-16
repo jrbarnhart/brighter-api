@@ -30,7 +30,7 @@ export class ConsumableEntity {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  skillId?: number;
+  skillId: number | null;
 
   variants: ConsumableVariantBaseEntity[];
 }
@@ -52,7 +52,7 @@ export class ConsumableBaseEntity {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  skillId?: number;
+  skillId: number | null;
 }
 
 export class ConsumableBaseWithSkillEntity {
@@ -72,7 +72,7 @@ export class ConsumableBaseWithSkillEntity {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  skillId?: number;
+  skillId: number | null;
 
   skill?: CraftingSkillBaseEntity;
 }

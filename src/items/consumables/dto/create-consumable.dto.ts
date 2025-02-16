@@ -20,5 +20,5 @@ export class CreateConsumableDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  skillId?: number;
+  skillId?: number | null;
 }

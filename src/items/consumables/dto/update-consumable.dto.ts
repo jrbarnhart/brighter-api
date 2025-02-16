@@ -19,5 +19,5 @@ export class UpdateConsumableDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  skillId?: number;
+  skillId?: number | null;
 }
