@@ -14,6 +14,7 @@ import { QuestsModule } from './quests/quests.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { EnumsModule } from './enums/enums.module';
+import { StatsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { EnumsModule } from './enums/enums.module';
     MonstersModule,
     NpcsModule,
     QuestsModule,
+    StatsModule,
     EnumsModule,
   ],
   controllers: [AppController],
