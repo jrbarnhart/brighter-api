@@ -32,8 +32,20 @@ describe('CraftingRecipesService', () => {
   describe('findAll', () => {
     it('should return all craftingRecipes array', async () => {
       const allCraftingRecipes: CraftingRecipe[] = [
-        { id: 1, name: 'CraftingRecipe One' },
-        { id: 2, name: 'CraftingRecipe Two' },
+        {
+          id: 1,
+          name: 'CraftingRecipe One',
+          outputArmorVariantId: null,
+          outputConsumableVariantId: null,
+          outputWeaponVariantId: null,
+        },
+        {
+          id: 2,
+          name: 'CraftingRecipe Two',
+          outputArmorVariantId: null,
+          outputConsumableVariantId: null,
+          outputWeaponVariantId: null,
+        },
       ];
 
       prismaMock.craftingRecipe.findMany.mockResolvedValue(allCraftingRecipes);
@@ -57,6 +69,9 @@ describe('CraftingRecipesService', () => {
       const existingCraftingRecipe: CraftingRecipe = {
         id: 1,
         name: 'CraftingRecipe One',
+        outputArmorVariantId: null,
+        outputConsumableVariantId: null,
+        outputWeaponVariantId: null,
       };
 
       prismaMock.craftingRecipe.findUnique.mockResolvedValue(
@@ -84,6 +99,9 @@ describe('CraftingRecipesService', () => {
       const createdCraftingRecipe: CraftingRecipe = {
         id: 1,
         name: 'CraftingRecipe One',
+        outputArmorVariantId: null,
+        outputConsumableVariantId: null,
+        outputWeaponVariantId: null,
       };
 
       prismaMock.craftingRecipe.create.mockResolvedValue(createdCraftingRecipe);
@@ -115,6 +133,9 @@ describe('CraftingRecipesService', () => {
       const existingCraftingRecipe: CraftingRecipe = {
         id: 1,
         name: 'CraftingRecipe One',
+        outputArmorVariantId: null,
+        outputConsumableVariantId: null,
+        outputWeaponVariantId: null,
       };
       const updateDto: UpdateCraftingRecipeDto = {
         name: 'Updated CraftingRecipe',
@@ -122,6 +143,9 @@ describe('CraftingRecipesService', () => {
       const updatedCraftingRecipe: CraftingRecipe = {
         id: 1,
         name: 'Updated CraftingRecipe',
+        outputArmorVariantId: null,
+        outputConsumableVariantId: null,
+        outputWeaponVariantId: null,
       };
 
       prismaMock.craftingRecipe.findUnique.mockResolvedValue(
@@ -156,6 +180,9 @@ describe('CraftingRecipesService', () => {
       const craftingRecipeToDelete: CraftingRecipe = {
         id: 1,
         name: 'CraftingRecipe One',
+        outputArmorVariantId: null,
+        outputConsumableVariantId: null,
+        outputWeaponVariantId: null,
       };
 
       prismaMock.craftingRecipe.findUnique.mockResolvedValue(
