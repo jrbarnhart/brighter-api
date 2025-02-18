@@ -47,4 +47,39 @@ export class UpdateVendorDto {
   @IsInt({ each: true })
   @IsPositive({ each: true })
   miscItemIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeResourceVariantIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeWeaponVariantIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeArmorVariantIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeConsumableVariantIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  removeMiscItemIds?: number[];
 }

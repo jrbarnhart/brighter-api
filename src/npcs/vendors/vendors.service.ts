@@ -94,26 +94,51 @@ export class VendorsService {
         miscItemIds,
         resourceVariantIds,
         weaponVariantIds,
+        removeArmorVariantIds,
+        removeConsumableVariantIds,
+        removeMiscItemIds,
+        removeResourceVariantIds,
+        removeWeaponVariantIds,
       } = updateVendorDto;
       return await this.prisma.vendor.update({
         where: { id },
         data: {
           npcId,
-          resourceVariants: resourceVariantIds
-            ? { connect: resourceVariantIds.map((id) => ({ id })) }
-            : undefined,
-          miscItems: miscItemIds
-            ? { connect: miscItemIds.map((id) => ({ id })) }
-            : undefined,
-          armorVariants: armorVariantIds
-            ? { connect: armorVariantIds.map((id) => ({ id })) }
-            : undefined,
-          consumableVariants: consumableVariantIds
-            ? { connect: consumableVariantIds.map((id) => ({ id })) }
-            : undefined,
-          weaponVariants: weaponVariantIds
-            ? { connect: weaponVariantIds.map((id) => ({ id })) }
-            : undefined,
+          resourceVariants:
+            resourceVariantIds || removeResourceVariantIds
+              ? {
+                  connect: resourceVariantIds?.map((id) => ({ id })),
+                  disconnect: removeResourceVariantIds?.map((id) => ({ id })),
+                }
+              : undefined,
+          miscItems:
+            miscItemIds || removeMiscItemIds
+              ? {
+                  connect: miscItemIds?.map((id) => ({ id })),
+                  disconnect: removeMiscItemIds?.map((id) => ({ id })),
+                }
+              : undefined,
+          armorVariants:
+            armorVariantIds || removeArmorVariantIds
+              ? {
+                  connect: armorVariantIds?.map((id) => ({ id })),
+                  disconnect: removeArmorVariantIds?.map((id) => ({ id })),
+                }
+              : undefined,
+          consumableVariants:
+            consumableVariantIds || removeConsumableVariantIds
+              ? {
+                  connect: consumableVariantIds?.map((id) => ({ id })),
+                  disconnect: removeConsumableVariantIds?.map((id) => ({ id })),
+                }
+              : undefined,
+          weaponVariants:
+            weaponVariantIds || removeWeaponVariantIds
+              ? {
+                  connect: weaponVariantIds?.map((id) => ({ id })),
+                  disconnect: removeWeaponVariantIds?.map((id) => ({ id })),
+                }
+              : undefined,
         },
       });
     } catch (error) {
