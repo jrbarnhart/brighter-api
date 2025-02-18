@@ -2,6 +2,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MaxLength,
@@ -38,7 +39,7 @@ export class QuestStepEntity {
 
   room?: RoomBaseEntity;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @IsInt()
   @IsPositive()
@@ -46,7 +47,7 @@ export class QuestStepEntity {
 
   npc?: NpcBaseEntity;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @IsInt()
   @IsPositive()

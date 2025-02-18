@@ -29,11 +29,11 @@ export class UpdateQuestStepDto {
   @IsNumber()
   @IsInt()
   @IsPositive()
-  roomId?: number;
+  roomId?: number | null;
 
   @IsOptional()
   @IsNumber()
   @IsInt()
   @IsPositive()
-  npcId?: number;
+  npcId?: number | null;
 }
