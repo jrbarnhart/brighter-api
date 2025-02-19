@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class UpdateQuestStepDto {
@@ -17,6 +18,7 @@ export class UpdateQuestStepDto {
   @IsOptional()
   @IsString()
   @MaxLength(400)
+  @MinLength(1)
   description?: string;
 
   @IsOptional()

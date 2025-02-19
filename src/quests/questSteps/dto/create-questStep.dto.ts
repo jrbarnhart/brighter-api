@@ -6,6 +6,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class CreateQuestStepDto {
@@ -18,6 +19,7 @@ export class CreateQuestStepDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(400)
+  @MinLength(1)
   description: string;
 
   @IsNotEmpty()
