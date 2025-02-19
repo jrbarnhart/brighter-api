@@ -53,5 +53,5 @@ export class CreateDropTableDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  currency?: number;
+  currency?: number | null;
 }

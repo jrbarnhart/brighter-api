@@ -52,5 +52,40 @@ export class UpdateDropTableDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  currency?: number;
+  currency?: number | null;
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  @IsOptional()
+  removeResourceVariantIds?: number[];
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  @IsOptional()
+  removeWeaponVariantIds?: number[];
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  @IsOptional()
+  removeArmorVariantIds?: number[];
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  @IsOptional()
+  removeConsumableVariantIds?: number[];
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  @IsOptional()
+  removeMiscItemIds?: number[];
 }
