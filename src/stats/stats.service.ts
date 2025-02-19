@@ -73,7 +73,7 @@ export class StatsService {
       npcsUnsetCount,
       vendorsUnsetCount,
       questsUnsetCount,
-      questStepUnsetCount,
+      questStepsUnsetCount,
     ] = await Promise.all([
       this.prisma.combatSkillRequirement.count({
         where: {
@@ -257,7 +257,7 @@ export class StatsService {
         npcs: npcsUnsetCount,
         vendors: vendorsUnsetCount,
         quests: questsUnsetCount,
-        questStep: questStepUnsetCount,
+        questSteps: questStepsUnsetCount,
       },
     };
   }

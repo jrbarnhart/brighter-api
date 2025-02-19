@@ -52,6 +52,6 @@ export class StatsEntity {
     npcs: number; // No rooms
     vendors: number; // No item ids
     quests: number; // No steps
-    questStep: number; // Missing at least roomId or npcId
+    questSteps: number; // Missing at least roomId or npcId
   };
 }
