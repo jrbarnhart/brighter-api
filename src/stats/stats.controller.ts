@@ -14,7 +14,7 @@ export class StatsController {
     description: 'This gets counts and other info about all database records',
   })
   @ApiOkResponse({ description: 'Found stats', type: StatsEntity })
-  find() {
-    this.statsService.get();
+  async find() {
+    return await this.statsService.get();
   }
 }
