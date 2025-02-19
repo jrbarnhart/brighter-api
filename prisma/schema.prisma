@@ -262,9 +262,9 @@ model QuestStep {
   quest       Quest  @relation(fields: [questId], references: [id])
   questId     Int
   room        Room?  @relation(fields: [roomId], references: [id])
-  roomId      Int?   @unique
+  roomId      Int?
   npc         NPC?   @relation(fields: [npcId], references: [id])
-  npcId       Int?   @unique
+  npcId       Int?
 }
 
 enum AttackElement {
