@@ -14,6 +14,7 @@ import {
 import { CombatSkillBaseEntity } from 'src/skills/combatSkill/entities/combatSkills.entity';
 import { MonsterVariantBaseEntity } from '../monsterVariants/entities/monsterVariants.entity';
 import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
+import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
 
 export class MonsterEntity {
   @IsNotEmpty()
@@ -35,6 +36,14 @@ export class MonsterEntity {
   @IsInt()
   @IsPositive()
   skillId: number;
+
+  retgion: RegionBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  regionId: number;
 
   rooms: RoomBaseEntity[];
 
@@ -92,6 +101,12 @@ export class MonsterBaseEntity {
   skillId: number;
 
   @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  regionId: number;
+
+  @IsNotEmpty()
   @IsBoolean()
   passive: boolean;
 
@@ -143,6 +158,12 @@ export class MonsterBaseWithSkillEntity {
   skillId: number;
 
   skill: CombatSkillBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  regionId: number;
 
   @IsNotEmpty()
   @IsBoolean()

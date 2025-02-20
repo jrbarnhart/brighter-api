@@ -26,6 +26,12 @@ export class UpdateMonsterDto {
   skillId?: number;
 
   @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  regionId?: number;
+
+  @IsNotEmpty()
   @IsBoolean()
   passive?: boolean;
 
