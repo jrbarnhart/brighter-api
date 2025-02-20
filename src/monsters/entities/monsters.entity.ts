@@ -37,7 +37,7 @@ export class MonsterEntity {
   @IsPositive()
   skillId: number;
 
-  retgion: RegionBaseEntity;
+  region: RegionBaseEntity;
 
   @IsNotEmpty()
   @IsNumber()

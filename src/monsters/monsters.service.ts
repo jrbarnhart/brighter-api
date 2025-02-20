@@ -25,6 +25,7 @@ export class MonstersService {
         rooms: true,
         skill: true,
         variants: true,
+        region: true,
       },
     });
   }
@@ -36,6 +37,7 @@ export class MonstersService {
         rooms: true,
         skill: true,
         variants: true,
+        region: true,
       },
     });
 
