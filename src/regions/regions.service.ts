@@ -30,6 +30,7 @@ export class RegionsService {
         combatSkills: true,
         craftingSkills: true,
         gatheringSkills: true,
+        monsters: true,
       },
     });
   }
@@ -42,6 +43,7 @@ export class RegionsService {
         combatSkills: true,
         craftingSkills: true,
         gatheringSkills: true,
+        monsters: true,
       },
     });
 
