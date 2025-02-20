@@ -20,6 +20,7 @@ model Region {
   combatSkills    CombatSkill[]
   gatheringSkills GatheringSkill[]
   craftingSkills  CraftingSkill[]
+  monsters        Monster[]
 }
 
 model Room {
@@ -61,6 +62,8 @@ model Monster {
   name              String           @unique
   skill             CombatSkill      @relation(fields: [skillId], references: [id])
   skillId           Int
+  region            Region           @relation(fields: [regionId], references: [id])
+  regionId          Int
   rooms             Room[]
   passive           Boolean
   attackElement     AttackElement
