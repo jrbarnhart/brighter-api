@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import prismaError from 'src/validation/prismaError';
 import { PrismaService } from 'src/prisma.service';
 import { CreateMonsterDto } from './dto/create-monster.dto';
@@ -7,7 +7,10 @@ import { Monster } from '@prisma/client';
 
 @Injectable()
 export class MonstersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly logger: Logger,
+  ) {}
 
   async create(createMonsterDto: CreateMonsterDto): Promise<Monster> {
     try {
@@ -20,6 +23,7 @@ export class MonstersService {
   }
 
   findAll(): Promise<Monster[]> {
+    this.logger.log('Retrieved all monsters.');
     return this.prisma.monster.findMany({
       include: {
         rooms: true,

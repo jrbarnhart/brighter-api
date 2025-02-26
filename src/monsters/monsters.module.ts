@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { MonsterVariantsController } from './monsterVariants/monsterVariants.controller';
 import { MonstersController } from './monsters.controller';
 import { MonstersService } from './monsters.service';
@@ -18,6 +18,7 @@ import { DropTablesService } from './dropTables/dropTables.service';
     DropTablesService,
     MonsterVariantsService,
     MonstersService,
+    Logger,
   ],
 })
 export class MonstersModule {}
