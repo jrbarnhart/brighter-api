@@ -7,9 +7,13 @@ import {
 } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import metadata from './metadata';
+import { WinstonModule } from 'nest-winston';
+import { instance } from './logger/winston.logger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger({ instance: instance }),
+  });
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
 
