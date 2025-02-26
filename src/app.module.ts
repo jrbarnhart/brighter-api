@@ -15,6 +15,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { EnumsModule } from './enums/enums.module';
 import { StatsModule } from './stats/stats.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { StatsModule } from './stats/stats.module';
     QuestsModule,
     StatsModule,
     EnumsModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [
