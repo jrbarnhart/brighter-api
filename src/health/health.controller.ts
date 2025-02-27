@@ -1,4 +1,4 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import {
   HealthCheck,
   HealthCheckService,
@@ -8,13 +8,10 @@ import { PrismaService } from 'src/prisma.service';
 
 @Controller('health')
 export class HealthController {
-  private wasUnhealthy = false;
-
   constructor(
     private health: HealthCheckService,
     private prismaHealth: PrismaHealthIndicator,
     private prismaService: PrismaService,
-    private logger: Logger,
   ) {}
 
   @Get()
