@@ -10,9 +10,10 @@ import metadata from './metadata';
 import { WinstonModule } from 'nest-winston';
 import { instance } from './logger/winston.logger';
 import helmet from 'helmet';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: WinstonModule.createLogger({ instance: instance }),
   });
 
@@ -35,6 +36,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory, customOptions);
 
   app.enableShutdownHooks();
+  app.set('trust proxy', 'loopback');
 
   await app.listen(process.env.PORT ?? 3000);
 }
