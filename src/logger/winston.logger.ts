@@ -2,11 +2,19 @@ import { createLogger, format, LoggerOptions, transports } from 'winston';
 import 'winston-daily-rotate-file';
 
 // Log format
-const customFormat = format.printf(({ timestamp, level, stack, message }) => {
-  return `${timestamp} - [${level.toUpperCase().padEnd(7)}] - ${
-    stack ? `${message}\n${stack}` : message
-  }`;
-});
+const customFormat = format.printf(
+  ({ timestamp, level, stack, message, ...metadata }) => {
+    let logMessage = `${timestamp} - [${level.toUpperCase().padEnd(7)}] - ${
+      stack ? `${message}\n${stack}` : message
+    }`;
+
+    if (Object.keys(metadata).length) {
+      logMessage += ` - ${JSON.stringify(metadata)}`;
+    }
+
+    return logMessage;
+  },
+);
 
 // Options for console logs
 const options: {
