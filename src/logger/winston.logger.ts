@@ -8,8 +8,8 @@ const customFormat = format.printf(
       timestamp,
       level,
       message,
-      stack,
       ...rest,
+      stack,
     };
 
     return JSON.stringify(logObject);
