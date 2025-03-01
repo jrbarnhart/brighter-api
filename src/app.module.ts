@@ -11,11 +11,12 @@ import { MonstersModule } from './monsters/monsters.module';
 import { ItemsModule } from './items/items.module';
 import { NpcsModule } from './npcs/npcs.module';
 import { QuestsModule } from './quests/quests.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { EnumsModule } from './enums/enums.module';
 import { StatsModule } from './stats/stats.module';
 import { HealthModule } from './health/health.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -32,11 +33,20 @@ import { HealthModule } from './health/health.module';
     StatsModule,
     EnumsModule,
     HealthModule,
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 10000,
+          limit: 25,
+        },
+      ],
+    }),
   ],
   controllers: [AppController],
   providers: [
     AppService,
     { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
     Logger,
   ],
 })
