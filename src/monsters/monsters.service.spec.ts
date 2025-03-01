@@ -40,6 +40,7 @@ describe('MonstersService', () => {
           vulnerableElement: 'ARBORAE',
           passive: false,
           skillId: 10,
+          regionId: 1,
         },
         {
           id: 2,
@@ -49,6 +50,7 @@ describe('MonstersService', () => {
           vulnerableElement: 'ARBORAE',
           passive: false,
           skillId: 10,
+          regionId: 2,
         },
       ];
 
@@ -78,6 +80,7 @@ describe('MonstersService', () => {
         vulnerableElement: 'ARBORAE',
         passive: false,
         skillId: 10,
+        regionId: 1,
       };
 
       prismaMock.monster.findUnique.mockResolvedValue(existingMonster);
@@ -104,6 +107,7 @@ describe('MonstersService', () => {
         vulnerableElement: 'ARBORAE',
         passive: false,
         skillId: 10,
+        regionId: 1,
       };
       const createdMonster: Monster = {
         id: 1,
@@ -113,6 +117,7 @@ describe('MonstersService', () => {
         vulnerableElement: 'ARBORAE',
         passive: false,
         skillId: 10,
+        regionId: 1,
       };
 
       prismaMock.monster.create.mockResolvedValue(createdMonster);
@@ -130,6 +135,7 @@ describe('MonstersService', () => {
         vulnerableElement: 'ARBORAE',
         passive: false,
         skillId: 10,
+        regionId: 1,
       };
 
       prismaMock.monster.create.mockRejectedValue({
@@ -154,6 +160,7 @@ describe('MonstersService', () => {
         vulnerableElement: 'ARBORAE',
         passive: false,
         skillId: 10,
+        regionId: 1,
       };
       const updateDto: UpdateMonsterDto = { name: 'Updated Monster' };
       const updatedMonster: Monster = {
@@ -164,6 +171,7 @@ describe('MonstersService', () => {
         vulnerableElement: 'ARBORAE',
         passive: false,
         skillId: 10,
+        regionId: 1,
       };
 
       prismaMock.monster.findUnique.mockResolvedValue(existingMonster);
@@ -199,6 +207,7 @@ describe('MonstersService', () => {
         vulnerableElement: 'ARBORAE',
         passive: false,
         skillId: 10,
+        regionId: 1,
       };
 
       prismaMock.monster.findUnique.mockResolvedValue(monsterToDelete);

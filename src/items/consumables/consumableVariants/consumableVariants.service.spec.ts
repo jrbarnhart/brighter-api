@@ -36,13 +36,11 @@ describe('ConsumableVariantsService', () => {
           id: 1,
           name: 'ConsumableVariant One',
           consumableId: 10,
-          recipeId: null,
         },
         {
           id: 2,
           name: 'ConsumableVariant Two',
           consumableId: 20,
-          recipeId: null,
         },
       ];
 
@@ -70,7 +68,6 @@ describe('ConsumableVariantsService', () => {
         id: 1,
         name: 'ConsumableVariant One',
         consumableId: 10,
-        recipeId: null,
       };
 
       prismaMock.consumableVariant.findUnique.mockResolvedValue(
@@ -100,7 +97,6 @@ describe('ConsumableVariantsService', () => {
         id: 1,
         name: 'ConsumableVariant One',
         consumableId: 10,
-        recipeId: null,
       };
 
       prismaMock.consumableVariant.create.mockResolvedValue(
@@ -136,7 +132,6 @@ describe('ConsumableVariantsService', () => {
         id: 1,
         name: 'ConsumableVariant One',
         consumableId: 10,
-        recipeId: null,
       };
       const updateDto: UpdateConsumableVariantDto = {
         name: 'Updated ConsumableVariant',
@@ -145,7 +140,6 @@ describe('ConsumableVariantsService', () => {
         id: 1,
         name: 'Updated ConsumableVariant',
         consumableId: 10,
-        recipeId: null,
       };
 
       prismaMock.consumableVariant.findUnique.mockResolvedValue(
@@ -181,7 +175,6 @@ describe('ConsumableVariantsService', () => {
         id: 1,
         name: 'ConsumableVariant One',
         consumableId: 10,
-        recipeId: null,
       };
 
       prismaMock.consumableVariant.findUnique.mockResolvedValue(

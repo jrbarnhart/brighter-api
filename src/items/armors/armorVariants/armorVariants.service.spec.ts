@@ -32,8 +32,8 @@ describe('ArmorVariantsService', () => {
   describe('findAll', () => {
     it('should return all armorVariants array', async () => {
       const allArmorVariants: ArmorVariant[] = [
-        { id: 1, name: 'ArmorVariant One', armorId: 10, recipeId: null },
-        { id: 2, name: 'ArmorVariant Two', armorId: 20, recipeId: null },
+        { id: 1, name: 'ArmorVariant One', armorId: 10 },
+        { id: 2, name: 'ArmorVariant Two', armorId: 20 },
       ];
 
       prismaMock.armorVariant.findMany.mockResolvedValue(allArmorVariants);
@@ -58,7 +58,6 @@ describe('ArmorVariantsService', () => {
         id: 1,
         name: 'ArmorVariant One',
         armorId: 10,
-        recipeId: null,
       };
 
       prismaMock.armorVariant.findUnique.mockResolvedValue(
@@ -88,7 +87,6 @@ describe('ArmorVariantsService', () => {
         id: 1,
         name: 'ArmorVariant One',
         armorId: 10,
-        recipeId: null,
       };
 
       prismaMock.armorVariant.create.mockResolvedValue(createdArmorVariant);
@@ -122,14 +120,12 @@ describe('ArmorVariantsService', () => {
         id: 1,
         name: 'ArmorVariant One',
         armorId: 10,
-        recipeId: null,
       };
       const updateDto: UpdateArmorVariantDto = { name: 'Updated ArmorVariant' };
       const updatedArmorVariant: ArmorVariant = {
         id: 1,
         name: 'Updated ArmorVariant',
         armorId: 10,
-        recipeId: null,
       };
 
       prismaMock.armorVariant.findUnique.mockResolvedValue(
@@ -163,7 +159,6 @@ describe('ArmorVariantsService', () => {
         id: 1,
         name: 'ArmorVariant One',
         armorId: 10,
-        recipeId: null,
       };
 
       prismaMock.armorVariant.findUnique.mockResolvedValue(
