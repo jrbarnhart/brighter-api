@@ -3,16 +3,16 @@ import 'winston-daily-rotate-file';
 
 // Log format
 const customFormat = format.printf(
-  ({ timestamp, level, stack, message, ...metadata }) => {
-    let logMessage = `${timestamp} - [${level.toUpperCase().padEnd(7)}] - ${
-      stack ? `${message}\n${stack}` : message
-    }`;
+  ({ timestamp, level, message, stack, ...rest }) => {
+    const logObject = {
+      timestamp,
+      level,
+      message,
+      stack,
+      ...rest,
+    };
 
-    if (Object.keys(metadata).length) {
-      logMessage += ` - ${JSON.stringify(metadata)}`;
-    }
-
-    return logMessage;
+    return JSON.stringify(logObject);
   },
 );
 
