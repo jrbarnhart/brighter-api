@@ -3,6 +3,7 @@
   <head>
     <meta charset='utf-8' />
     <link rel="stylesheet" href="index.css" />
+    <script src="index.js" defer></script>
     <title>Brighter API</title>
   </head>
   <body>
@@ -23,7 +24,7 @@
       <main>
         <label for="demo-input">Live Demo:</label>
         {{#if prod}}
-        <form class="prod-form">
+        <form id="prod-form">
           <div class="demo-input-container">
             <p>https://brighter-api.com/</p>
             <input type="text" id="demo-input" />
@@ -31,7 +32,7 @@
           <button type="submit">Submit</button>
         </form>
         {{else}}
-        <form class="dev-form">
+        <form id="dev-form">
           <div class="demo-input-container">
             <p>http://localhost:3000/</p>
             <input type="text" id="demo-input" />
@@ -40,7 +41,7 @@
         </form>
         {{/if}}
         <p>Returned Data:</p>
-        <p class="returned-data">Data</p>
+        <p id="returned-data">Data</p>
       </main>
     </div>
   </body>
