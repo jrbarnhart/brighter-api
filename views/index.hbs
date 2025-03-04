@@ -6,17 +6,42 @@
     <title>Brighter API</title>
   </head>
   <body>
-    <nav><p>This is the nav bar.</p></nav>
-    <section>
-      <h1>Welcome to Brighter API</h1>
-      <p>Easily access data from the new MMO Brighter Shores.</p>
-    </section>
-    <main>
-      <p>This is a demo for using the API.</p>
-      <p>{{message}}</p>
-    </main>
-    <section>
-      <p>This is a section with links.</p>
-    </section>
+    <div class="layout">
+      <section class="hero">
+        <h1>Brighter API</h1>
+        <p>An open-source REST API.</p>
+        <p>Access data about the game Brighter Shores, a new MMO from the creator of Runescape.</p>
+        <nav>
+          {{#if (prod)}}
+          <a href="https://brighterapi.com/api">View the Docs</a>
+          {{else}}
+          <a href="http://localhost:3000/api">View the Docs</a>
+          {{/if}}
+          <a href="https://github.com/jrbarnhart/brighter-api">View Github</a>
+        </nav>
+      </section>
+      <main>
+        <label for="demo-input">Live Demo:</label>
+        {{#if (prod)}}
+        <form class="prod-form">
+          <div class="demo-input-container">
+            <p>https://brighter-api.com/</p>
+            <input type="text" id="demo-input" />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+        {{else}}
+        <form class="dev-form">
+          <div class="demo-input-container">
+            <p>http://localhost:3000/</p>
+            <input type="text" id="demo-input" />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+        {{/if}}
+        <p>Returned Data:</p>
+        <p class="returned-data">Data</p>
+      </main>
+    </div>
   </body>
 </html>
