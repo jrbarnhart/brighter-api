@@ -12,7 +12,7 @@
         <p>An open-source REST API.</p>
         <p>Access data about the game Brighter Shores, a new MMO from the creator of Runescape.</p>
         <nav>
-          {{#if (prod)}}
+          {{#if prod}}
           <a href="https://brighterapi.com/api">View the Docs</a>
           {{else}}
           <a href="http://localhost:3000/api">View the Docs</a>
@@ -22,7 +22,7 @@
       </section>
       <main>
         <label for="demo-input">Live Demo:</label>
-        {{#if (prod)}}
+        {{#if prod}}
         <form class="prod-form">
           <div class="demo-input-container">
             <p>https://brighter-api.com/</p>
