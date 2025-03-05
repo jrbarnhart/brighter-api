@@ -133,8 +133,9 @@ table {
   --secondary-background: rgb(3, 161, 169);
   --secondary-foreground: rgb(19, 21, 18);
   --accent: rgb(121, 175, 255);
-  --muted: rgb(0, 0, 0);
-  --muted-foreground: rgb(0, 0, 0);
+  --muted-background: rgb(54, 54, 54);
+  --muted-foreground: rgb(167, 167, 167);
+  --border: rgb(187, 187, 187);
 }
 
 body {
@@ -179,12 +180,76 @@ a:hover {
   font-weight: bold;
 }
 
-.demo-input-container {
+main {
+  background-color: var(--secondary-background);
+  color: var(--secondary-foreground);
+  padding: 1rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+main label {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+main h3 {
+  font-size: large;
+  font-weight: bold;
 }
 
 form {
   display: flex;
-  gap: 4px;
+}
+
+.demo-input-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 2px solid var(--border);
+  border-right: none;
+  border-radius: 8px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: var(--muted-background);
+  color: var(--muted-foreground);
+}
+
+.demo-input-container p {
+  padding: 8px;
+}
+
+form input {
+  flex-grow: 1;
+  padding: 8px;
+  background-color: var(--base-background);
+  color: var(--base-foreground);
+  font-size: medium;
+}
+
+form button {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: var(--accent);
+  font-size: medium;
+  cursor: pointer;
+}
+
+form button:active {
+  background-color: var(--accent);
+}
+
+#returned-data {
+  width: 100%;
+  height: 400px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: var(--base-background);
+  color: var(--base-foreground);
+  white-space: pre;
+  overflow-y: auto;
 }
