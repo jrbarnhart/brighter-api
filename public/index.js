@@ -62,12 +62,30 @@ function main() {
   };
   logElements();
 
-  const handleDevSubmit = () => {
-    console.log('dev submit');
+  const handleDevSubmit = async () => {
+    if (demoInput && returnedDataP) {
+      const url = 'http://localhost:3000/' + demoInput.value;
+      const response = await fetch(url);
+      const responseJson = await response.json();
+      returnedDataP.innerText = JSON.stringify(responseJson, null, 4);
+    } else {
+      console.error(
+        "Elements not found. This shouldn't happen. Stop doing bad things.",
+      );
+    }
   };
 
-  const handleProdSubmit = () => {
-    console.log('prod submit');
+  const handleProdSubmit = async () => {
+    if (demoInput && returnedDataP) {
+      const url = 'https://brighterapi.com/' + demoInput.value;
+      const response = await fetch(url);
+      const responseJson = await response.json();
+      returnedDataP.innerText = JSON.stringify(responseJson, null, 4);
+    } else {
+      console.error(
+        "Elements not found. This shouldn't happen. Stop doing bad things.",
+      );
+    }
   };
 
   // Override submit handlers for forms
@@ -87,7 +105,7 @@ function main() {
 
   // Set the default value and response data
   if (demoInput) {
-    demoInput.setAttribute('value', '/monsters');
+    demoInput.setAttribute('value', 'monsters');
   }
 
   if (returnedDataP) {
