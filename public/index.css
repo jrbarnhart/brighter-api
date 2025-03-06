@@ -180,21 +180,10 @@ a:hover {
   text-decoration: underline;
 }
 
-.layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0;
-}
-
 .hero {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1.5rem;
+  justify-content: center;
   padding: 6rem 2rem;
   background-color: var(--primary-background);
   background: radial-gradient(
@@ -204,6 +193,25 @@ a:hover {
   );
   color: var(--primary-foreground);
   border-bottom: 1px solid var(--border);
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
 }
 
 .hero h1 {
