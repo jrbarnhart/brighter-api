@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset='utf-8' />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <script src="index.js" defer></script>
     <title>Brighter API</title>
   </head>
@@ -28,7 +32,7 @@
         <form id="prod-form">
           <div class="demo-input-container">
             <p>https://brighter-api.com/</p>
-            <input type="text" id="demo-input" />
+            <input type="text" id="demo-input" placeholder="Enter endpoint path..." />
           </div>
           <button type="submit">Submit</button>
         </form>
@@ -36,13 +40,13 @@
         <form id="dev-form">
           <div class="demo-input-container">
             <p>http://localhost:3000/</p>
-            <input type="text" id="demo-input" />
+            <input type="text" id="demo-input" placeholder="Enter endpoint path..." />
           </div>
           <button type="submit">Submit</button>
         </form>
         {{/if}}
         <h3>Returned Data:</h3>
-        <p id="returned-data">Data</p>
+        <div id="returned-data">// Data will appear here after submission</div>
       </main>
 
       <section class="progress">
