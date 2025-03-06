@@ -1,4 +1,12 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateQuestDto {
   @IsNotEmpty()
@@ -6,4 +14,10 @@ export class CreateQuestDto {
   @MaxLength(256)
   @MinLength(1)
   name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  regionId: number;
 }
