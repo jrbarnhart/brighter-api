@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "generate": "ts-node generate/generate.ts"
+    "generate": "ts-node generate/generate.ts",
+    "local-backup": "docker exec -t brighter-api-postgres pg_dump -U postgres brighter-api-dev > ~/Desktop/db_backup.sql"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.0",
