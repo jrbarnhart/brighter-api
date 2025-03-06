@@ -138,6 +138,10 @@ table {
   --border: rgb(187, 187, 187);
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 body {
   background-color: var(--base-background);
   color: var(--base-foreground);
