@@ -8,6 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { MonsterBaseEntity } from 'src/monsters/entities/monsters.entity';
+import { QuestBaseEntity } from 'src/quests/entities/quests.entity';
 import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
 import { CombatSkillBaseEntity } from 'src/skills/combatSkill/entities/combatSkills.entity';
 import { CraftingSkillBaseEntity } from 'src/skills/craftingSkill/entities/craftingSkills.entity';
@@ -35,6 +36,8 @@ export class RegionEntity {
   craftingSkills: CraftingSkillBaseEntity[];
 
   monsters: MonsterBaseEntity[];
+
+  quests: QuestBaseEntity[];
 }
 
 export class RegionBaseEntity {
