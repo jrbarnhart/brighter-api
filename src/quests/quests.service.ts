@@ -23,6 +23,7 @@ export class QuestsService {
     return this.prisma.quest.findMany({
       include: {
         steps: true,
+        region: true,
       },
     });
   }
@@ -32,6 +33,7 @@ export class QuestsService {
       where: { id },
       include: {
         steps: true,
+        region: true,
       },
     });
 
