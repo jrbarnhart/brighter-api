@@ -21,6 +21,7 @@ model Region {
   gatheringSkills GatheringSkill[]
   craftingSkills  CraftingSkill[]
   monsters        Monster[]
+  quests          Quest[]
 }
 
 model Room {
@@ -253,9 +254,11 @@ model Vendor {
 }
 
 model Quest {
-  id    Int         @id @default(autoincrement())
-  name  String      @unique
-  steps QuestStep[]
+  id       Int         @id @default(autoincrement())
+  name     String      @unique
+  region   Region      @relation(fields: [regionId], references: [id])
+  regionId Int
+  steps    QuestStep[]
 }
 
 model QuestStep {
