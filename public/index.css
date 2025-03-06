@@ -449,7 +449,12 @@ form button:active {
 @media (max-width: 768px) {
   .progress {
     grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content min-content;
     gap: 2rem;
+  }
+
+  .progress h2 {
+    grid-area: span 1 / span 1;
   }
 
   .data {
@@ -469,6 +474,11 @@ form button:active {
   .data li,
   .features li {
     margin-bottom: 0.5rem;
+  }
+
+  .features {
+    grid-row-start: 3;
+    grid-row-end: 4;
   }
 }
 
