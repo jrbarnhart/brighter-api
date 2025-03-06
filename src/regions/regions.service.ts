@@ -31,6 +31,7 @@ export class RegionsService {
         craftingSkills: true,
         gatheringSkills: true,
         monsters: true,
+        quests: true,
       },
     });
   }
@@ -44,6 +45,7 @@ export class RegionsService {
         craftingSkills: true,
         gatheringSkills: true,
         monsters: true,
+        quests: true,
       },
     });
 
