@@ -8,6 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { QuestStepBaseEntity } from '../questSteps/entities/questSteps.entity';
+import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
 
 export class QuestEntity {
   @IsNotEmpty()
@@ -21,6 +22,14 @@ export class QuestEntity {
   @MaxLength(256)
   @MinLength(1)
   name: string;
+
+  region: RegionBaseEntity;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  regionId: number;
 
   steps: QuestStepBaseEntity[];
 }
@@ -37,4 +46,10 @@ export class QuestBaseEntity {
   @MaxLength(256)
   @MinLength(1)
   name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  regionId: number;
 }
