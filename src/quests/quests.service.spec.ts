@@ -32,8 +32,8 @@ describe('QuestsService', () => {
   describe('findAll', () => {
     it('should return all quests array', async () => {
       const allQuests: Quest[] = [
-        { id: 1, name: 'Quest One' },
-        { id: 2, name: 'Quest Two' },
+        { id: 1, name: 'Quest One', regionId: 0 },
+        { id: 2, name: 'Quest Two', regionId: 0 },
       ];
 
       prismaMock.quest.findMany.mockResolvedValue(allQuests);
@@ -57,6 +57,7 @@ describe('QuestsService', () => {
       const existingQuest: Quest = {
         id: 1,
         name: 'Quest One',
+        regionId: 0,
       };
 
       prismaMock.quest.findUnique.mockResolvedValue(existingQuest);
@@ -78,10 +79,12 @@ describe('QuestsService', () => {
     it('should create a new quest', async () => {
       const createDto: CreateQuestDto = {
         name: 'Quest One',
+        regionId: 0,
       };
       const createdQuest: Quest = {
         id: 1,
         name: 'Quest One',
+        regionId: 0,
       };
 
       prismaMock.quest.create.mockResolvedValue(createdQuest);
@@ -94,6 +97,7 @@ describe('QuestsService', () => {
     it('should throw BadRequestException on duplicate name', async () => {
       const createDto: CreateQuestDto = {
         name: 'Quest One',
+        regionId: 0,
       };
 
       prismaMock.quest.create.mockRejectedValue({
@@ -113,11 +117,13 @@ describe('QuestsService', () => {
       const existingQuest: Quest = {
         id: 1,
         name: 'Quest One',
+        regionId: 0,
       };
       const updateDto: UpdateQuestDto = { name: 'Updated Quest' };
       const updatedQuest: Quest = {
         id: 1,
         name: 'Updated Quest',
+        regionId: 0,
       };
 
       prismaMock.quest.findUnique.mockResolvedValue(existingQuest);
@@ -148,6 +154,7 @@ describe('QuestsService', () => {
       const questToDelete: Quest = {
         id: 1,
         name: 'Quest One',
+        regionId: 0,
       };
 
       prismaMock.quest.findUnique.mockResolvedValue(questToDelete);

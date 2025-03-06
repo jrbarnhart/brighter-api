@@ -41,6 +41,7 @@ describe('RegionsService', () => {
           craftingSkills: true,
           gatheringSkills: true,
           monsters: true,
+          quests: true,
         },
       };
 
@@ -60,6 +61,7 @@ describe('RegionsService', () => {
           craftingSkills: true,
           gatheringSkills: true,
           monsters: true,
+          quests: true,
         },
       };
 
@@ -83,6 +85,7 @@ describe('RegionsService', () => {
           craftingSkills: true,
           gatheringSkills: true,
           monsters: true,
+          quests: true,
         },
       };
 
@@ -106,6 +109,7 @@ describe('RegionsService', () => {
           craftingSkills: true,
           gatheringSkills: true,
           monsters: true,
+          quests: true,
         },
       };
 
