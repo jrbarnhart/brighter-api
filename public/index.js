@@ -77,7 +77,7 @@ function main() {
 
   const handleProdSubmit = async () => {
     if (demoInput && returnedDataP) {
-      const url = 'https://brighterapi.com/' + demoInput.value;
+      const url = 'https://brshapi.com/' + demoInput.value;
       const response = await fetch(url);
       const responseJson = await response.json();
       returnedDataP.innerText = JSON.stringify(responseJson, null, 4);
