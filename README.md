@@ -44,14 +44,6 @@ To set up Brighter API locally, follow these steps:
    npm run start:dev
    ```
 
----
-
-## Usage
-
-After starting the server, the API will be available at `http://localhost:3000` by default. Use tools like [Postman](https://www.postman.com/) or `curl` to test the endpoints.
-
-You can also go to the server url/api to see the Swagger UI which lists all the endpoints.
-
 ## Authentication and Protected Routes
 
 To access the login route and protected routes for editing or adding data, as well as to connect to a database, you will need to configure a `.env` file at the root of the project. This file should include the following variables:
@@ -67,6 +59,12 @@ DATABASE_URL="postgresql://<username>:<password>@<db-url>:<port>/<your-db-name>?
 The `ConfigModule` in the project is set to look for this `.env` file in the root directory, so ensure it is correctly placed and configured before attempting to use these features.
 
 ---
+
+## Usage
+
+After starting the server, the API will be available at `http://localhost:3000` by default. Use tools like [Postman](https://www.postman.com/) or `curl` to test the endpoints.
+
+You can also go to the server url/api to see the Swagger UI which lists all the endpoints.
 
 ## License
 
