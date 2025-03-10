@@ -62,22 +62,9 @@ function main() {
   };
   logElements();
 
-  const handleDevSubmit = async () => {
+  const handleSubmit = async () => {
     if (demoInput && returnedDataP) {
-      const url = 'http://localhost:3000/' + demoInput.value;
-      const response = await fetch(url);
-      const responseJson = await response.json();
-      returnedDataP.innerText = JSON.stringify(responseJson, null, 4);
-    } else {
-      console.error(
-        "Elements not found. This shouldn't happen. Stop doing bad things.",
-      );
-    }
-  };
-
-  const handleProdSubmit = async () => {
-    if (demoInput && returnedDataP) {
-      const url = 'https://brshapi.com/' + demoInput.value;
+      const url = window.location.origin + '/' + demoInput.value;
       const response = await fetch(url);
       const responseJson = await response.json();
       returnedDataP.innerText = JSON.stringify(responseJson, null, 4);
@@ -92,14 +79,14 @@ function main() {
   if (devForm) {
     devForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      handleDevSubmit();
+      handleSubmit();
     });
   }
 
   if (prodForm) {
     prodForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      handleProdSubmit();
+      handleSubmit();
     });
   }
 
