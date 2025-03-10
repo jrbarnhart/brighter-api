@@ -1,6 +1,8 @@
 # Brighter API
 
-Welcome to **Brighter API**, a simple REST API built with [Nest.js](https://nestjs.com/) for retrieving data about the MMO **Brighter Shores**.
+**Brighter API** is a REST API built with [Nest.js](https://nestjs.com/) for retrieving data about the MMO [**Brighter Shores**](https://www.brightershores.com/).
+
+Check it out at: https://brshapi.com
 
 ## Features
 
