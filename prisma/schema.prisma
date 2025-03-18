@@ -125,7 +125,7 @@ model Resource {
 
 model ResourceVariant {
   id          Int                        @id @default(autoincrement())
-  name        String                     @unique
+  name        String
   resource    Resource                   @relation(fields: [resourceId], references: [id])
   resourceId  Int
   requirement GatheringSkillRequirement?
