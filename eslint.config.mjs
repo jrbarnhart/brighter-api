@@ -39,7 +39,7 @@ export default [
 
       parserOptions: {
         project: 'tsconfig.json',
-        tsconfigRootDir: '/Users/joshuabarnhart/Repos/brighter-api',
+        tsconfigRootDir: __dirname,
       },
     },
 
