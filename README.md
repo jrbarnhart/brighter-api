@@ -50,7 +50,7 @@ To access the login route and protected routes for editing or adding data, as we
 
 ```
 ADMIN_USERNAME=<your_admin_username>
-ADMIN_PASSWORD=<your_admin_password>
+ADMIN_PASSWORD_HASH=<your_admin_password_hash> // Get with hash script in package.json
 ADMIN_ID=<your_admin_id>
 JWT_SECRET=<your_jwt_secret>
 DATABASE_URL="postgresql://<username>:<password>@<db-url>:<port>/<your-db-name>?schema=public"
