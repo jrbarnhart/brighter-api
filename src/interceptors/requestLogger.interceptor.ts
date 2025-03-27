@@ -42,7 +42,10 @@ export class RequestLoggingInterceptor implements NestInterceptor {
         'user-agent': headers['user-agent'],
         referer: headers.referer,
       },
-      body: sanitizedBody && Object.keys(body).length ? sanitizedBody : {},
+      body:
+        sanitizedBody && Object.keys(sanitizedBody).length > 0
+          ? sanitizedBody
+          : {},
     });
 
     const now = Date.now();
