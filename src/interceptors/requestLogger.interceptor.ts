@@ -30,7 +30,7 @@ export class RequestLoggingInterceptor implements NestInterceptor {
     if (sanitizedBody.password) {
       sanitizedBody.password = '[REDACTED]';
     }
-    if (body.username) {
+    if (sanitizedBody.username) {
       sanitizedBody.username = '[REDACTED]';
     }
 
