@@ -5,7 +5,7 @@ export class UsersService {
   private readonly onlyUser = {
     id: process.env.ADMIN_ID,
     username: process.env.ADMIN_USERNAME,
-    password: process.env.ADMIN_PASSWORD,
+    passwordHash: process.env.ADMIN_PASSWORD_HASH,
   };
 
   find() {
