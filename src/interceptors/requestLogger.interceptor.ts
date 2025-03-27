@@ -22,11 +22,16 @@ export class RequestLoggingInterceptor implements NestInterceptor {
 
     const { method, url, ip, headers, body } = request;
 
-    if (body.password) {
-      body.password = '[REDACTED]';
+    const sanitizedBody =
+      body && typeof body === 'object' && !Array.isArray(body)
+        ? { ...body }
+        : {};
+
+    if (sanitizedBody.password) {
+      sanitizedBody.password = '[REDACTED]';
     }
     if (body.username) {
-      body.username = '[REDACTED]';
+      sanitizedBody.username = '[REDACTED]';
     }
 
     this.logger.log('Incoming request', {
@@ -37,7 +42,7 @@ export class RequestLoggingInterceptor implements NestInterceptor {
         'user-agent': headers['user-agent'],
         referer: headers.referer,
       },
-      body: body && Object.keys(body).length ? body : {},
+      body: sanitizedBody && Object.keys(body).length ? sanitizedBody : {},
     });
 
     const now = Date.now();
