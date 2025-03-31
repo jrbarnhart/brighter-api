@@ -19,6 +19,7 @@ import { HealthModule } from './health/health.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { RequestLoggingInterceptor } from './interceptors/requestLogger.interceptor';
 import { LoggerModule } from './logger/logger.module';
+import { LogsModule } from './logs/logs.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { LoggerModule } from './logger/logger.module';
       ],
     }),
     LoggerModule,
+    LogsModule,
   ],
   controllers: [AppController],
   providers: [
