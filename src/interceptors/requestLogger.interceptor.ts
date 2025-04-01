@@ -16,7 +16,7 @@ export class RequestLoggingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request: Request = context.switchToHttp().getRequest();
 
-    if (request.url === '/health') {
+    if (request.url === '/health' || request.url === '/logs') {
       return next.handle();
     }
 
