@@ -1,50 +1,47 @@
-const placeholderResponseData = `{
-    "status": 200,
-    "success": true,
-    "data": [
-        {
-            "id": 19,
-            "name": "Sparring Guard",
-            "skillId": 4,
-            "regionId": 31,
-            "passive": false,
-            "attackElement": "IMPACT",
-            "immuneElement": "NONE",
-            "vulnerableElement": "NONE",
-            "rooms": [],
-            "skill": {
-                "id": 4,
-                "name": "Guard",
-                "regionId": 31
-            },
-            "variants": [],
-            "region": {
-                "id": 31,
-                "name": "Hopeport"
-            }
+const placeholderResponseData = `[
+    {
+        "id": 19,
+        "name": "Sparring Guard",
+        "skillId": 4,
+        "regionId": 31,
+        "passive": false,
+        "attackElement": "IMPACT",
+        "immuneElement": "NONE",
+        "vulnerableElement": "NONE",
+        "rooms": [],
+        "skill": {
+            "id": 4,
+            "name": "Guard",
+            "regionId": 31
         },
-        {
-            "id": 20,
-            "name": "Deathcrow",
-            "skillId": 4,
-            "regionId": 31,
-            "passive": false,
-            "attackElement": "NECROMAE",
-            "immuneElement": "NECROMAE",
-            "vulnerableElement": "CRYONAE",
-            "rooms": [],
-            "skill": {
-                "id": 4,
-                "name": "Guard",
-                "regionId": 31
-            },
-            "variants": [],
-            "region": {
-                "id": 31,
-                "name": "Hopeport"
-            }
+        "variants": [],
+        "region": {
+            "id": 31,
+            "name": "Hopeport"
         }
-    }`;
+    },
+    {
+        "id": 20,
+        "name": "Deathcrow",
+        "skillId": 4,
+        "regionId": 31,
+        "passive": false,
+        "attackElement": "NECROMAE",
+        "immuneElement": "NECROMAE",
+        "vulnerableElement": "CRYONAE",
+        "rooms": [],
+        "skill": {
+            "id": 4,
+            "name": "Guard",
+            "regionId": 31
+        },
+        "variants": [],
+        "region": {
+            "id": 31,
+            "name": "Hopeport"
+        }
+    }
+]`;
 
 function main() {
   // Refs to elements
