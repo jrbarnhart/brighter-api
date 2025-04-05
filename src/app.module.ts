@@ -12,7 +12,6 @@ import { ItemsModule } from './items/items.module';
 import { NpcsModule } from './npcs/npcs.module';
 import { QuestsModule } from './quests/quests.module';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
-import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { EnumsModule } from './enums/enums.module';
 import { StatsModule } from './stats/stats.module';
 import { HealthModule } from './health/health.module';
@@ -50,7 +49,6 @@ import { LogsModule } from './logs/logs.module';
   controllers: [AppController],
   providers: [
     AppService,
-    { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
     { provide: APP_INTERCEPTOR, useClass: RequestLoggingInterceptor },
     { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
