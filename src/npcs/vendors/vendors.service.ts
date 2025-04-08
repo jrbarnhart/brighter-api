@@ -13,6 +13,7 @@ export class VendorsService {
     try {
       const {
         npcId,
+        name,
         armorVariantIds,
         consumableVariantIds,
         miscItemIds,
@@ -22,6 +23,7 @@ export class VendorsService {
       return await this.prisma.vendor.create({
         data: {
           npcId,
+          name,
           resourceVariants: resourceVariantIds
             ? { connect: resourceVariantIds.map((id) => ({ id })) }
             : undefined,
@@ -89,6 +91,7 @@ export class VendorsService {
     try {
       const {
         npcId,
+        name,
         armorVariantIds,
         consumableVariantIds,
         miscItemIds,
@@ -104,6 +107,7 @@ export class VendorsService {
         where: { id },
         data: {
           npcId,
+          name,
           resourceVariants:
             resourceVariantIds || removeResourceVariantIds
               ? {

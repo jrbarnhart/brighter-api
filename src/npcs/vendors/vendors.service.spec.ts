@@ -32,8 +32,8 @@ describe('VendorsService', () => {
   describe('findAll', () => {
     it('should return all vendors array', async () => {
       const allVendors: Vendor[] = [
-        { id: 1, npcId: 10 },
-        { id: 2, npcId: 20 },
+        { id: 1, npcId: 10, name: null },
+        { id: 2, npcId: 20, name: null },
       ];
 
       prismaMock.vendor.findMany.mockResolvedValue(allVendors);
@@ -57,6 +57,7 @@ describe('VendorsService', () => {
       const existingVendor: Vendor = {
         id: 1,
         npcId: 10,
+        name: null,
       };
 
       prismaMock.vendor.findUnique.mockResolvedValue(existingVendor);
@@ -82,6 +83,7 @@ describe('VendorsService', () => {
       const createdVendor: Vendor = {
         id: 1,
         npcId: 10,
+        name: null,
       };
 
       prismaMock.vendor.create.mockResolvedValue(createdVendor);
@@ -113,11 +115,13 @@ describe('VendorsService', () => {
       const existingVendor: Vendor = {
         id: 1,
         npcId: 10,
+        name: null,
       };
       const updateDto: UpdateVendorDto = { npcId: 10 };
       const updatedVendor: Vendor = {
         id: 1,
         npcId: 10,
+        name: null,
       };
 
       prismaMock.vendor.findUnique.mockResolvedValue(existingVendor);
@@ -148,6 +152,7 @@ describe('VendorsService', () => {
       const vendorToDelete: Vendor = {
         id: 1,
         npcId: 10,
+        name: null,
       };
 
       prismaMock.vendor.findUnique.mockResolvedValue(vendorToDelete);

@@ -5,9 +5,18 @@ import {
   IsNumber,
   IsOptional,
   IsPositive,
+  IsString,
+  MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class CreateVendorDto {
+  @IsOptional()
+  @IsString()
+  @MaxLength(256)
+  @MinLength(1)
+  name?: string;
+
   @IsNotEmpty()
   @IsNumber()
   @IsInt()

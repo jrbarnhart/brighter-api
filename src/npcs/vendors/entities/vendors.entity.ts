@@ -1,4 +1,13 @@
-import { IsInt, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { ArmorVariantBaseEntity } from 'src/items/armors/armorVariants/entities/armorVariants.entity';
 import { ConsumableVariantBaseEntity } from 'src/items/consumables/consumableVariants/entities/consumableVariants.entity';
 import { MiscItemBaseEntity } from 'src/items/miscItems/entities/miscItems.entity';
@@ -12,6 +21,12 @@ export class VendorEntity {
   @IsInt()
   @IsPositive()
   id: number;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(256)
+  @MinLength(1)
+  name?: string;
 
   npc: NpcBaseEntity;
 
@@ -38,6 +53,12 @@ export class VendorBaseEntity {
   @IsInt()
   @IsPositive()
   id: number;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(256)
+  @MinLength(1)
+  name?: string | null;
 
   @IsNotEmpty()
   @IsNumber()
