@@ -244,6 +244,7 @@ model NPC {
 
 model Vendor {
   id                 Int                 @id @default(autoincrement())
+  name               String?
   npc                NPC                 @relation(fields: [npcId], references: [id])
   npcId              Int                 @unique
   resourceVariants   ResourceVariant[]
