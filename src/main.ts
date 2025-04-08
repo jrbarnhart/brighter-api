@@ -32,7 +32,7 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Brighter API')
     .setDescription('Returns data about the MMORPG Brighter Shores')
-    .setVersion('1.0')
+    .setVersion('1.1')
     .build();
 
   const swaggerCustomOptions: SwaggerCustomOptions = {
