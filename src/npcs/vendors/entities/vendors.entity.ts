@@ -26,7 +26,7 @@ export class VendorEntity {
   @IsString()
   @MaxLength(256)
   @MinLength(1)
-  name?: string;
+  name?: string | null;
 
   npc: NpcBaseEntity;
 

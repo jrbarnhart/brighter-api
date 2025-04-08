@@ -15,7 +15,7 @@ export class CreateVendorDto {
   @IsString()
   @MaxLength(256)
   @MinLength(1)
-  name?: string;
+  name?: string | null;
 
   @IsNotEmpty()
   @IsNumber()
