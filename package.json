@@ -1,10 +1,10 @@
 {
   "name": "brighter-api",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "1.1.0",
+  "description": "Returns data about the MMO Brighter Shores",
+  "author": "Joshua Barnhart",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
