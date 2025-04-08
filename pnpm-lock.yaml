@@ -34,13 +34,13 @@ importers:
         version: 11.0.2(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.3)(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)
       '@nestjs/terminus':
         specifier: ^11.0.0
-        version: 11.0.0(@nestjs/axios@4.0.0(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(axios@1.8.1)(rxjs@7.8.1))(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.3)(@prisma/client@6.2.1(prisma@6.6.0(typescript@5.7.3)))(reflect-metadata@0.2.2)(rxjs@7.8.1)
+        version: 11.0.0(@nestjs/axios@4.0.0(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(axios@1.8.1)(rxjs@7.8.1))(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.3)(@prisma/client@6.4.1(prisma@6.6.0(typescript@5.7.3))(typescript@5.7.3))(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/throttler':
         specifier: ^6.4.0
         version: 6.4.0(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.3)(reflect-metadata@0.2.2)
       '@prisma/client':
-        specifier: 6.2.1
-        version: 6.2.1(prisma@6.6.0(typescript@5.7.3))
+        specifier: 6.4.1
+        version: 6.4.1(prisma@6.6.0(typescript@5.7.3))(typescript@5.7.3)
       axios:
         specifier: ^1.8.1
         version: 1.8.1
@@ -1077,13 +1077,16 @@ packages:
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  '@prisma/client@6.2.1':
-    resolution: {integrity: sha512-msKY2iRLISN8t5X0Tj7hU0UWet1u0KuxSPHWuf3IRkB4J95mCvGpyQBfQ6ufcmvKNOMQSq90O2iUmJEN2e5fiA==}
+  '@prisma/client@6.4.1':
+    resolution: {integrity: sha512-A7Mwx44+GVZVexT5e2GF/WcKkEkNNKbgr059xpr5mn+oUm2ZW1svhe+0TRNBwCdzhfIZ+q23jEgsNPvKD9u+6g==}
     engines: {node: '>=18.18'}
     peerDependencies:
       prisma: '*'
+      typescript: '>=5.1.0'
     peerDependenciesMeta:
       prisma:
+        optional: true
+      typescript:
         optional: true
 
   '@prisma/config@6.6.0':
@@ -5025,7 +5028,7 @@ snapshots:
       class-transformer: 0.5.1
       class-validator: 0.14.1
 
-  '@nestjs/terminus@11.0.0(@nestjs/axios@4.0.0(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(axios@1.8.1)(rxjs@7.8.1))(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.3)(@prisma/client@6.2.1(prisma@6.6.0(typescript@5.7.3)))(reflect-metadata@0.2.2)(rxjs@7.8.1)':
+  '@nestjs/terminus@11.0.0(@nestjs/axios@4.0.0(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(axios@1.8.1)(rxjs@7.8.1))(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.3)(@prisma/client@6.4.1(prisma@6.6.0(typescript@5.7.3))(typescript@5.7.3))(reflect-metadata@0.2.2)(rxjs@7.8.1)':
     dependencies:
       '@nestjs/common': 11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/core': 11.0.3(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.3)(reflect-metadata@0.2.2)(rxjs@7.8.1)
@@ -5035,7 +5038,7 @@ snapshots:
       rxjs: 7.8.1
     optionalDependencies:
       '@nestjs/axios': 4.0.0(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(axios@1.8.1)(rxjs@7.8.1)
-      '@prisma/client': 6.2.1(prisma@6.6.0(typescript@5.7.3))
+      '@prisma/client': 6.4.1(prisma@6.6.0(typescript@5.7.3))(typescript@5.7.3)
 
   '@nestjs/testing@11.0.3(@nestjs/common@11.0.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.3)(@nestjs/platform-express@11.0.3)':
     dependencies:
@@ -5069,9 +5072,10 @@ snapshots:
 
   '@pkgr/core@0.1.1': {}
 
-  '@prisma/client@6.2.1(prisma@6.6.0(typescript@5.7.3))':
+  '@prisma/client@6.4.1(prisma@6.6.0(typescript@5.7.3))(typescript@5.7.3)':
     optionalDependencies:
       prisma: 6.6.0(typescript@5.7.3)
+      typescript: 5.7.3
 
   '@prisma/config@6.6.0':
     dependencies:
