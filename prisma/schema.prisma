@@ -37,6 +37,7 @@ model Room {
   banks          BankType[]
   portal         Boolean         @default(false)
   obelisk        Boolean         @default(false)
+  rift           Boolean         @default(false)
 }
 
 model CombatSkill {
