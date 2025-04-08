@@ -15,6 +15,7 @@ export class RoomsService {
         name,
         obelisk,
         portal,
+        rift,
         regionId,
         banks,
         craftingSkillIds,
@@ -29,6 +30,7 @@ export class RoomsService {
           regionId,
           obelisk,
           portal,
+          rift,
           banks,
           craftingSkills: craftingSkillIds
             ? { connect: craftingSkillIds.map((id) => ({ id })) }
@@ -97,6 +99,7 @@ export class RoomsService {
         name,
         obelisk,
         portal,
+        rift,
         regionId,
         banks,
         craftingSkillIds,
@@ -117,6 +120,7 @@ export class RoomsService {
           regionId,
           obelisk,
           portal,
+          rift,
           banks,
           craftingSkills:
             craftingSkillIds || removeCraftingSkillIds

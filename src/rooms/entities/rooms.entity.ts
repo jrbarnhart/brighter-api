@@ -48,6 +48,10 @@ export class RoomEntity {
   @IsBoolean()
   obelisk: boolean;
 
+  @IsNotEmpty()
+  @IsBoolean()
+  rift: boolean;
+
   @IsArray()
   @IsEnum(BankType, { each: true })
   @ApiProperty({
@@ -95,6 +99,10 @@ export class RoomBaseEntity {
   @IsNotEmpty()
   @IsBoolean()
   obelisk: boolean;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  rift: boolean;
 
   @IsArray()
   @IsEnum(BankType, { each: true })

@@ -40,6 +40,11 @@ export class UpdateRoomDto {
   obelisk?: boolean;
 
   @IsOptional()
+  @IsNotEmpty()
+  @IsBoolean()
+  rift?: boolean;
+
+  @IsOptional()
   @IsArray()
   @IsEnum(BankType, { each: true })
   @ApiProperty({

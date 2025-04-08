@@ -36,6 +36,7 @@ describe('RoomsService', () => {
           name: 'Room One',
           obelisk: true,
           portal: false,
+          rift: false,
           regionId: 10,
           banks: [],
         },
@@ -44,6 +45,7 @@ describe('RoomsService', () => {
           name: 'Room Two',
           obelisk: false,
           portal: true,
+          rift: false,
           regionId: 10,
           banks: [],
         },
@@ -95,6 +97,7 @@ describe('RoomsService', () => {
         name: 'Room One',
         obelisk: true,
         portal: false,
+        rift: false,
         regionId: 10,
         banks: [],
       };
@@ -149,6 +152,7 @@ describe('RoomsService', () => {
         name: 'Room One',
         obelisk: true,
         portal: false,
+        rift: false,
         regionId: 10,
       };
       const createdRoom: Room = {
@@ -156,6 +160,7 @@ describe('RoomsService', () => {
         name: 'Room One',
         obelisk: true,
         portal: false,
+        rift: false,
         regionId: 10,
         banks: [],
       };
@@ -174,6 +179,7 @@ describe('RoomsService', () => {
         name: 'Room One',
         obelisk: true,
         portal: false,
+        rift: false,
         regionId: 10,
       };
 
@@ -196,6 +202,7 @@ describe('RoomsService', () => {
         name: 'Room One',
         obelisk: true,
         portal: false,
+        rift: false,
         regionId: 10,
         banks: [],
       };
@@ -205,6 +212,7 @@ describe('RoomsService', () => {
         name: 'Updated Room',
         obelisk: true,
         portal: false,
+        rift: false,
         regionId: 10,
         banks: [],
       };
@@ -244,6 +252,7 @@ describe('RoomsService', () => {
         name: 'Room One',
         obelisk: true,
         portal: false,
+        rift: false,
         regionId: 10,
         banks: [],
       };

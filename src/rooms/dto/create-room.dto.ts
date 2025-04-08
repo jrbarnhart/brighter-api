@@ -35,6 +35,10 @@ export class CreateRoomDto {
   @IsBoolean()
   obelisk: boolean;
 
+  @IsNotEmpty()
+  @IsBoolean()
+  rift: boolean;
+
   @IsOptional()
   @IsArray()
   @IsNumber({}, { each: true })
