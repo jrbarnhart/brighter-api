@@ -15,7 +15,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { RegionBaseEntity } from 'src/regions/entities/regions.entity';
 import { CraftingSkillBaseEntity } from 'src/skills/craftingSkill/entities/craftingSkills.entity';
 import { MonsterBaseEntity } from 'src/monsters/entities/monsters.entity';
-import { NpcBaseEntity } from 'src/npcs/entities/npcs.entity';
+import { NpcBaseEntityWithVendor } from 'src/npcs/entities/npcs.entity';
 import { ResourceBaseEntity } from 'src/items/resources/entities/resources.entity';
 import { QuestStepBaseEntity } from 'src/quests/questSteps/entities/questSteps.entity';
 
@@ -66,7 +66,7 @@ export class RoomEntity {
 
   monsters: MonsterBaseEntity[];
 
-  npcs: NpcBaseEntity[];
+  npcs: NpcBaseEntityWithVendor[];
 
   resources: ResourceBaseEntity[];
 
