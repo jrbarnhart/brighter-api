@@ -57,7 +57,7 @@ export class RoomsService {
       include: {
         craftingSkills: true,
         monsters: true,
-        npcs: true,
+        npcs: { include: { vendor: true } },
         questSteps: true,
         region: true,
         resources: true,
@@ -71,7 +71,7 @@ export class RoomsService {
       include: {
         craftingSkills: true,
         monsters: true,
-        npcs: true,
+        npcs: { include: { vendor: true } },
         questSteps: true,
         region: true,
         resources: true,
