@@ -46,3 +46,20 @@ export class NpcBaseEntity {
   @MinLength(1)
   name: string;
 }
+
+export class NpcBaseEntityWithVendor {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  @IsPositive()
+  id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(256)
+  @MinLength(1)
+  name: string;
+
+  @IsOptional()
+  vendor?: VendorBaseEntity;
+}
