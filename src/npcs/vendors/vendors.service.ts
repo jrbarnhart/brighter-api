@@ -49,12 +49,12 @@ export class VendorsService {
   findAll(): Promise<Vendor[]> {
     return this.prisma.vendor.findMany({
       include: {
-        armorVariants: true,
-        consumableVariants: true,
+        armorVariants: { include: { armor: true } },
+        consumableVariants: { include: { consumable: true } },
         miscItems: true,
         npc: true,
-        resourceVariants: true,
-        weaponVariants: true,
+        resourceVariants: { include: { resource: true } },
+        weaponVariants: { include: { weapon: true } },
       },
     });
   }
@@ -63,12 +63,12 @@ export class VendorsService {
     const foundVendor = await this.prisma.vendor.findUnique({
       where: { id },
       include: {
-        armorVariants: true,
-        consumableVariants: true,
+        armorVariants: { include: { armor: true } },
+        consumableVariants: { include: { consumable: true } },
         miscItems: true,
         npc: true,
-        resourceVariants: true,
-        weaponVariants: true,
+        resourceVariants: { include: { resource: true } },
+        weaponVariants: { include: { weapon: true } },
       },
     });
 

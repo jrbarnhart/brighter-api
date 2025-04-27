@@ -8,11 +8,11 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { ArmorVariantBaseEntity } from 'src/items/armors/armorVariants/entities/armorVariants.entity';
-import { ConsumableVariantBaseEntity } from 'src/items/consumables/consumableVariants/entities/consumableVariants.entity';
+import { ArmorVariantBaseWithArmorEntity } from 'src/items/armors/armorVariants/entities/armorVariants.entity';
+import { ConsumableVariantBaseWithConsumableEntity } from 'src/items/consumables/consumableVariants/entities/consumableVariants.entity';
 import { MiscItemBaseEntity } from 'src/items/miscItems/entities/miscItems.entity';
-import { ResourceVariantBaseEntity } from 'src/items/resources/resourceVariants/entities/resourceVariants.entity';
-import { WeaponVariantBaseEntity } from 'src/items/weapons/weaponVariants/entities/weaponVariants.entity';
+import { ResourceVariantBaseWithResourceEntity } from 'src/items/resources/resourceVariants/entities/resourceVariants.entity';
+import { WeaponVariantBaseWithWeaponEntity } from 'src/items/weapons/weaponVariants/entities/weaponVariants.entity';
 import { NpcBaseEntity } from 'src/npcs/entities/npcs.entity';
 
 export class VendorEntity {
@@ -36,13 +36,13 @@ export class VendorEntity {
   @IsPositive()
   npcId: number;
 
-  resourceVariants: ResourceVariantBaseEntity[];
+  resourceVariants: ResourceVariantBaseWithResourceEntity[];
 
-  consumableVariants: ConsumableVariantBaseEntity[];
+  consumableVariants: ConsumableVariantBaseWithConsumableEntity[];
 
-  weaponVariants: WeaponVariantBaseEntity[];
+  weaponVariants: WeaponVariantBaseWithWeaponEntity[];
 
-  armorVariants: ArmorVariantBaseEntity[];
+  armorVariants: ArmorVariantBaseWithArmorEntity[];
 
   miscItems: MiscItemBaseEntity[];
 }
