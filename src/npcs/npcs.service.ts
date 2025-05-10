@@ -22,7 +22,7 @@ export class NpcsService {
   findAll(): Promise<NPC[]> {
     return this.prisma.nPC.findMany({
       include: {
-        questSteps: true,
+        questSteps: { include: { quest: true } },
         rooms: true,
         vendor: true,
       },
@@ -33,7 +33,7 @@ export class NpcsService {
     const foundNpc = await this.prisma.nPC.findUnique({
       where: { id },
       include: {
-        questSteps: true,
+        questSteps: { include: { quest: true } },
         rooms: true,
         vendor: true,
       },

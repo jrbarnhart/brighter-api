@@ -9,7 +9,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { VendorBaseEntity } from '../vendors/entities/vendors.entity';
-import { QuestStepBaseEntity } from 'src/quests/questSteps/entities/questSteps.entity';
+import { QuestStepBaseEntityWithQuest } from 'src/quests/questSteps/entities/questSteps.entity';
 import { RoomBaseEntity } from 'src/rooms/entities/rooms.entity';
 
 export class NpcEntity {
@@ -28,7 +28,7 @@ export class NpcEntity {
   @IsOptional()
   vendor?: VendorBaseEntity;
 
-  questSteps: QuestStepBaseEntity[];
+  questSteps: QuestStepBaseEntityWithQuest[];
 
   rooms: RoomBaseEntity[];
 }
