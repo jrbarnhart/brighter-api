@@ -17,7 +17,7 @@ import { CraftingSkillBaseEntity } from 'src/skills/craftingSkill/entities/craft
 import { MonsterBaseEntity } from 'src/monsters/entities/monsters.entity';
 import { NpcBaseEntityWithVendor } from 'src/npcs/entities/npcs.entity';
 import { ResourceBaseEntity } from 'src/items/resources/entities/resources.entity';
-import { QuestStepBaseEntity } from 'src/quests/questSteps/entities/questSteps.entity';
+import { QuestStepBaseEntityWithQuest } from 'src/quests/questSteps/entities/questSteps.entity';
 
 export class RoomEntity {
   @IsNotEmpty()
@@ -70,7 +70,7 @@ export class RoomEntity {
 
   resources: ResourceBaseEntity[];
 
-  questSteps: QuestStepBaseEntity[];
+  questSteps: QuestStepBaseEntityWithQuest[];
 }
 
 export class RoomBaseEntity {
